@@ -8,6 +8,7 @@ export const Recipes = () => {
   const recipes: Recipe[] = [
     {
       title: "Tomatsuppe m. Suppehorn",
+      tags: ["Danish", "Soup", "Hot", "Pasta"],
       sections: [
         {
           title: "Tomatsuppe",
