@@ -13,9 +13,14 @@ export const Home = () => {
           title: "Tomatsuppe",
           ingredients: [
             {
-              amount: 2,
-              unit: "tableSpoon",
               name: "olivenolie",
+              unit: "tableSpoon",
+              amount: 2,
+            },
+            {
+              name: "Hakkede tomater",
+              amount: 2,
+              unit: "can",
             },
           ],
           steps: [
@@ -34,12 +39,12 @@ export const Home = () => {
       <div>
         {recipes.map((recipe) => (
           <div>
-            <h2>{recipe.title}</h2>
+            <h2 className="text-lg font-bold">{recipe.title}</h2>
             {recipe.sections.map((section) => (
               <div>
                 <h3>{recipe.sections.length > 1 && section.title}</h3>
                 <div>
-                  <h4>Ingredients</h4>
+                  <h4 className="text-base font-semibold">Ingredients</h4>
                   {section.ingredients.map((ingredient) => (
                     <p>
                       {ingredient.name} {ingredient.amount}{" "}

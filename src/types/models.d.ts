@@ -4,7 +4,8 @@ export type Unit =
 	| "gram"
 	| "kiloGram"
 	| "milliLiter"
-	| "liter";
+	| "liter"
+	| "can";
 
 export interface Ingredient {
 	name: string;

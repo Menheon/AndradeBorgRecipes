@@ -1,7 +1,7 @@
 import { Unit } from '../types/models';
 
 export const mapUnitToStringFormat = (unit: Unit) => {
-  let formattedUnit = "";
+  let formattedUnit = unit.toString();
   switch (unit) {
     case 'gram':
       formattedUnit = "g";
@@ -21,7 +21,9 @@ export const mapUnitToStringFormat = (unit: Unit) => {
     case 'teaSpoon':
       formattedUnit = "tsk";
       break;
-
+    case 'can':
+      formattedUnit = "dåse";
+      break;
     default:
       break;
   }
