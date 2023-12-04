@@ -16,13 +16,13 @@ export const mapUnitToStringFormat = (unit: Unit) => {
       formattedUnit = "mL";
       break;
     case "tableSpoon":
-      formattedUnit = "spsk";
+      formattedUnit = "tbsp";
       break;
     case "teaSpoon":
-      formattedUnit = "tsk";
+      formattedUnit = "tsp";
       break;
-    case "can":
-      formattedUnit = "dåse";
+    case "none":
+      formattedUnit = "";
       break;
     default:
       break;
