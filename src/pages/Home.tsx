@@ -33,9 +33,7 @@ export const Home = () => {
 
   return (
     <div className="container mx-auto  bg-white p-4">
-      <h1 className="text-lime-500 font-bold text-xl">
-        Andrade & Borg Recipes
-      </h1>
+      <h1 className="text-lime-500 font-bold text-xl">Recipes</h1>
       <div>
         {recipes.map((recipe) => (
           <div>
