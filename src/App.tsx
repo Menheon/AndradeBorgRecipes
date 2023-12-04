@@ -1,15 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { AppBar } from "./shared/AppBar";
-import { Home } from "./pages/Home";
+import { AppRoutes } from "./shared/AppRoutes";
 
 function App() {
   return (
     <BrowserRouter>
       <AppBar />
-      <Routes>
-        <Route index element={<p>Velkommen!</p>} />
-        <Route path="/recipes" element={<Home />} />
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
   );
 }

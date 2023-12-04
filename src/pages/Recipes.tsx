@@ -1,7 +1,7 @@
 import { Recipe } from "../types/models";
 import { mapUnitToStringFormat } from "../util/util";
 
-export const Home = () => {
+export const Recipes = () => {
   // const darkGreen = "#98ae2e";
   // const pastelGreen = "#f4f6eb";
 
