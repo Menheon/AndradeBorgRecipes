@@ -1,31 +1,31 @@
-import { Unit } from '../types/models';
+import { Unit } from "../types/models";
 
 export const mapUnitToStringFormat = (unit: Unit) => {
   let formattedUnit = unit.toString();
   switch (unit) {
-    case 'gram':
+    case "gram":
       formattedUnit = "g";
       break;
-    case 'kiloGram':
+    case "kiloGram":
       formattedUnit = "Kg";
       break;
-    case 'liter':
+    case "liter":
       formattedUnit = "L";
       break;
-    case 'milliLiter':
+    case "milliLiter":
       formattedUnit = "mL";
       break;
-    case 'tableSpoon':
+    case "tableSpoon":
       formattedUnit = "spsk";
       break;
-    case 'teaSpoon':
+    case "teaSpoon":
       formattedUnit = "tsk";
       break;
-    case 'can':
+    case "can":
       formattedUnit = "dåse";
       break;
     default:
       break;
   }
   return formattedUnit;
-}
+};
