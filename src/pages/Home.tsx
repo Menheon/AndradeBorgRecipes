@@ -1,23 +1,9 @@
-interface Ingredient {
-  name: string;
-  amount: number;
-  unit: string;
-}
-
-interface Section {
-  title: string;
-  ingredients: Ingredient[];
-  steps: string[];
-}
-
-interface Recipe {
-  title: string;
-  sections: Section[];
-}
+import { Recipe } from "../types/models";
+import { mapUnitToStringFormat } from "../util/util";
 
 export const Home = () => {
-  const darkGreen = "#98ae2e";
-  const pastelGreen = "#f4f6eb";
+  // const darkGreen = "#98ae2e";
+  // const pastelGreen = "#f4f6eb";
 
   const recipes: Recipe[] = [
     {
@@ -28,7 +14,7 @@ export const Home = () => {
           ingredients: [
             {
               amount: 2,
-              unit: "spsk",
+              unit: "tableSpoon",
               name: "olivenolie",
             },
           ],
@@ -52,6 +38,15 @@ export const Home = () => {
             {recipe.sections.map((section) => (
               <div>
                 <h3>{recipe.sections.length > 1 && section.title}</h3>
+                <div>
+                  <h4>Ingredients</h4>
+                  {section.ingredients.map((ingredient) => (
+                    <p>
+                      {ingredient.name} {ingredient.amount}{" "}
+                      {mapUnitToStringFormat(ingredient.unit)}
+                    </p>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
