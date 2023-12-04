@@ -5,7 +5,7 @@ import {
   useNavigate,
   useRoutes,
 } from "react-router-dom";
-import { Recipes } from "../pages/Recipes";
+import { Recipes } from "../pages/recipes/Recipes";
 
 export const ROOT_PATH = "/";
 export const RECIPES_PATH = "/recipes";
