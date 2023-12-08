@@ -6,6 +6,7 @@ export type Unit =
   | "milliLiter"
   | "liter"
   | "can"
+  | "handful"
   | "none";
 
 export interface Ingredient {
