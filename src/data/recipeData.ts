@@ -87,4 +87,60 @@ export const recipes: Recipe[] = [
       },
     ],
   },
+  {
+    title: "Mom's Sausage Dish",
+    tags: ["Danish", "Pasta"],
+    sections: [
+      {
+        title: "Pasta",
+        ingredients: [
+          {
+            name: "Grated mozzarella",
+            amount: 1,
+            unit: "handful",
+          },
+          {
+            name: "Bouillon cubes",
+            amount: 2,
+            unit: "none",
+          },
+          {
+            name: "Macaroni",
+            amount: 500,
+            unit: "gram",
+          },
+          {
+            name: "Eggs",
+            amount: 2,
+            unit: "none",
+          },
+          {
+            name: "Butter",
+            amount: 1,
+            unit: "tableSpoon",
+          },
+          {
+            name: "All-round grill spice",
+            amount: 1,
+            unit: "tableSpoon",
+          },
+          {
+            name: "Vienna Sausages",
+            amount: 250,
+            unit: "gram",
+          },
+        ],
+        steps: [
+          "Skær pølserne i skiver.",
+          "Steg pølserne til de er brunet.",
+          "Hæld vand og bouillonterninger i en stor gryde og bring det i kog.",
+          "Kog makaronien i tiden på pakken.",
+          "Pisk de to æg sammen.",
+          "Når pastaen er klar, hældes vandet fra og gryden sættes tilbage på varmen.",
+          "Her tilsættes ost, pølser, æg og grillkrydderi.",
+          "Rør godt rundt i retten for at få smeltet osten og varmet æggemassen.",
+        ],
+      },
+    ],
+  },
 ];
