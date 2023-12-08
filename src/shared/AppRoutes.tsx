@@ -20,7 +20,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: INSPIRATION_PATH,
-    element: <p>Inpsiration</p>,
+    element: <p>Inspiration</p>,
   },
   {
     path: EMPTY_MY_FRIDGE_PATH,

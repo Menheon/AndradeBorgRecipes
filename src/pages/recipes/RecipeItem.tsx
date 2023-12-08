@@ -8,7 +8,7 @@ interface Props {
 
 export const RecipeItem = ({ recipe }: Props) => {
   return (
-    <div>
+    <div className="mb-6">
       <h2 className="text-4xl font-bold text-center p-4 text-darkGreen font-caveat">
         {recipe.title}
       </h2>
@@ -20,12 +20,12 @@ export const RecipeItem = ({ recipe }: Props) => {
               <h3 className="item">{section.title}</h3>
             )}
             <div>
-              <h4 className="text-lg font-semibold uppercase text-darkGreen">
+              <h4 className="text-md font-semibold uppercase text-darkGreen">
                 Ingredients
               </h4>
               <ul className="list-disc list-inside">
                 {section.ingredients.map((ingredient, i) => (
-                  <li className="list-item" key={i}>
+                  <li className="list-item pb-2" key={i}>
                     {`${ingredient.amount} ${mapUnitToStringFormat(
                       ingredient.unit,
                     )} ${ingredient.name}`}
@@ -39,7 +39,7 @@ export const RecipeItem = ({ recipe }: Props) => {
             {recipe.sections.length > 1 && (
               <h3 className="item">{section.title}</h3>
             )}
-            <h4 className="text-lg font-semibold uppercase text-darkGreen">
+            <h4 className="text-md font-semibold uppercase text-darkGreen">
               Steps
             </h4>
             <div>
