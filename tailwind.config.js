@@ -11,7 +11,8 @@ module.exports = {
         pastelGreen: "#f4f6eb",
       },
       fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+        caveat: ["Caveat", ...defaultTheme.fontFamily.sans],
+        nunito: ["Nunito Sans", ...defaultTheme.fontFamily.sans],
       },
     },
   },
