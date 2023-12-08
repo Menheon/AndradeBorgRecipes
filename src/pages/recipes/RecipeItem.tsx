@@ -1,5 +1,6 @@
-import { Recipe } from "types/models";
+import { StrikeableStep } from "pages/recipes/StrikeableStep";
 import { mapUnitToStringFormat } from "util/util";
+import { Recipe } from "types/models";
 
 interface Props {
   recipe: Recipe;
@@ -8,12 +9,12 @@ interface Props {
 export const RecipeItem = ({ recipe }: Props) => {
   return (
     <div>
-      <h2 className="text-2xl font-bold text-center p-4 text-darkGreen">
+      <h2 className="text-4xl font-bold text-center p-4 text-darkGreen font-caveat">
         {recipe.title}
       </h2>
       <hr className="mb-4 border-t-2 border-darkGreen" />
-      {recipe.sections.map((section) => (
-        <div className="grid grid-cols-2 gap-4" key={section.title}>
+      {recipe.sections.map((section, i) => (
+        <div className="grid grid-cols-2 gap-4" key={i}>
           <div className="bg-pastelGreen rounded-lg px-5 py-2">
             {recipe.sections.length > 1 && (
               <h3 className="item">{section.title}</h3>
@@ -23,8 +24,8 @@ export const RecipeItem = ({ recipe }: Props) => {
                 Ingredients
               </h4>
               <ul className="list-disc list-inside">
-                {section.ingredients.map((ingredient) => (
-                  <li className="list-item" key={ingredient.name}>
+                {section.ingredients.map((ingredient, i) => (
+                  <li className="list-item" key={i}>
                     {`${ingredient.amount} ${mapUnitToStringFormat(
                       ingredient.unit,
                     )} ${ingredient.name}`}
@@ -41,11 +42,11 @@ export const RecipeItem = ({ recipe }: Props) => {
             <h4 className="text-lg font-semibold uppercase text-darkGreen">
               Steps
             </h4>
-            <ul className="list-disc list-inside">
-              {section.steps.map((step) => (
-                <li key={step}>{step}</li>
+            <div>
+              {section.steps.map((step, i) => (
+                <StrikeableStep key={i} step={step} />
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       ))}
