@@ -9,7 +9,7 @@ interface Props {
 export const RecipeItem = ({ recipe }: Props) => {
   return (
     <div className="mb-6">
-      <h2 className="text-4xl font-bold text-center p-4 text-darkGreen font-caveat">
+      <h2 className="text-4xl font-bold text-center p-4 text-darkGreen font-caveat tracking-wider">
         {recipe.title}
       </h2>
       <hr className="mb-4 border-t-2 border-darkGreen" />
@@ -20,7 +20,7 @@ export const RecipeItem = ({ recipe }: Props) => {
               <h3 className="item">{section.title}</h3>
             )}
             <div>
-              <h4 className="text-md font-semibold uppercase text-darkGreen">
+              <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider">
                 Ingredients
               </h4>
               <ul className="list-disc list-inside">
@@ -39,7 +39,7 @@ export const RecipeItem = ({ recipe }: Props) => {
             {recipe.sections.length > 1 && (
               <h3 className="item">{section.title}</h3>
             )}
-            <h4 className="text-md font-semibold uppercase text-darkGreen">
+            <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider">
               Steps
             </h4>
             <div>
