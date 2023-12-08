@@ -29,9 +29,9 @@ export const recipes: Recipe[] = [
             unit: "none",
           },
           {
-            name: "Garlic",
+            name: "Garlic cloves",
             amount: 4,
-            unit: "cloves",
+            unit: "none",
           },
           {
             name: "Bacon",
