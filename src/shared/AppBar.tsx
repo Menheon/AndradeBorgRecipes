@@ -2,7 +2,7 @@ import Logo from "../assets/logo.svg?react";
 
 export const AppBar = () => {
   return (
-    <div className="w-full flex items-center gap-5 py-3 px-5 bg-darkerGreen sticky top-0">
+    <div className="w-full flex items-center gap-5 py-3 px-5 bg-polyGreen sticky top-0">
       <Logo />
       <a href="/recipes" className="text-white font-semibold tracking-wider">
         Recipes

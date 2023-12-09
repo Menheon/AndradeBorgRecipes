@@ -9,7 +9,6 @@ module.exports = {
         cerulean: "#37718E",
         blackBeen: "#3C1518",
         polyGreen: "#274029",
-        darkerGreen: "#5a6b07",
         darkGreen: "#98ae2e",
         pastelGreen: "#f4f6eb",
       },

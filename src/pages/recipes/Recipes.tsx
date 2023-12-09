@@ -31,7 +31,7 @@ export const Recipes = () => {
             className="self-center hover:bg-darkGreen hover:bg-opacity-30 w-10 h-10 flex justify-center items-center rounded-md"
             onClick={createNewRecipe}
           >
-            <AddIcon className="fill-black" />
+            <AddIcon className="fill-polyGreen" />
           </button>
         </div>
 
@@ -41,7 +41,7 @@ export const Recipes = () => {
           </label>
           <input
             id="search"
-            className="px-2 border-solid border-darkGreen border-2 rounded-md hover:border-darkerGreen focus:outline-darkerGreen"
+            className="px-2 border-solid border-darkGreen border-2 rounded-md hover:border-polyGreen focus:outline-polyGreen"
             onChange={(event) => onSearchInputValueChanged(event.target.value)}
           />
           <p>
