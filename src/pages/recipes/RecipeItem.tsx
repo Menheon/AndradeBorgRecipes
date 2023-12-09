@@ -25,10 +25,12 @@ export const RecipeItem = ({ recipe }: Props) => {
               </h4>
               <ul className="list-disc list-inside">
                 {section.ingredients.map((ingredient, i) => (
-                  <li className="list-item pb-2" key={i}>
-                    {`${ingredient.amount} ${mapUnitToStringFormat(
-                      ingredient.unit,
-                    )} ${ingredient.name}`}
+                  <li className="list-item pb-2 text-darkGreen" key={i}>
+                    <span className="text-black">
+                      {`${ingredient.amount} ${mapUnitToStringFormat(
+                        ingredient.unit,
+                      )} ${ingredient.name}`}
+                    </span>
                   </li>
                 ))}
               </ul>
