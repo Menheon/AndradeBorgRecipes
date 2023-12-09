@@ -20,7 +20,7 @@ export const RecipeItem = ({ recipe }: Props) => {
               <h3 className="item">{section.title}</h3>
             )}
             <div>
-              <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider">
+              <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
                 Ingredients
               </h4>
               <ul className="list-disc list-inside">
@@ -41,7 +41,7 @@ export const RecipeItem = ({ recipe }: Props) => {
             {recipe.sections.length > 1 && (
               <h3 className="item">{section.title}</h3>
             )}
-            <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider">
+            <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
               Steps
             </h4>
             <div>
