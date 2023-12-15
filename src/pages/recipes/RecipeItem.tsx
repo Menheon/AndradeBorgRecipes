@@ -10,7 +10,7 @@ export const RecipeItem = ({ recipe }: Props) => {
   return (
     <div className="mb-6">
       <h2 className="text-4xl font-bold text-center p-4 text-darkGreen font-caveat tracking-wider">
-        {recipe.title}
+        {recipe.name}
       </h2>
       <hr className="mb-4 border-t-2 border-darkGreen" />
       {recipe.sections.map((section, i) => (
@@ -24,12 +24,12 @@ export const RecipeItem = ({ recipe }: Props) => {
                 Ingredients
               </h4>
               <ul className="list-disc list-inside">
-                {section.ingredients.map((ingredient, i) => (
+                {section.ingredients.map((ingredientLine, i) => (
                   <li className="list-item pb-2 text-darkGreen" key={i}>
                     <span className="text-black">
-                      {`${ingredient.amount} ${mapUnitToStringFormat(
-                        ingredient.unit,
-                      )} ${ingredient.name}`}
+                      {`${ingredientLine.amount} ${mapUnitToStringFormat(
+                        ingredientLine.unit,
+                      )} ${ingredientLine.ingredient.name}`}
                     </span>
                   </li>
                 ))}

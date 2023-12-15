@@ -1,19 +1,26 @@
 import AddIcon from "assets/add.svg?react";
-import { recipes } from "data/recipeData";
 import { RecipeItem } from "./RecipeItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { InputField } from "shared/InputField";
+import { getAllRecipes } from "data/recipesService";
+import { Recipe } from "types/models";
 
 export const Recipes = () => {
-  const [filteredRecipes, setFilteredRecipes] = useState(recipes);
+  const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
+
+  useEffect(() => {
+    getAllRecipes().then(setAllRecipes);
+  }, []);
 
   const onSearchInputValueChanged = (newValue: string) => {
     if (newValue === "") {
-      return setFilteredRecipes(recipes);
+      return setFilteredRecipes(allRecipes);
     }
     const searchValue = newValue.toLowerCase();
 
-    const newFilteredRecipes = recipes.filter((recipe) =>
-      recipe.title.toLowerCase().includes(searchValue),
+    const newFilteredRecipes = allRecipes.filter((recipe) =>
+      recipe.name.toLowerCase().includes(searchValue),
     );
     setFilteredRecipes(newFilteredRecipes);
   };
@@ -39,10 +46,10 @@ export const Recipes = () => {
           <label htmlFor="search" className="text-darkGreen font-semibold">
             Search
           </label>
-          <input
+          <InputField
             id="search"
-            className="px-2 border-solid border-darkGreen border-2 rounded-md hover:border-polyGreen focus:outline-polyGreen"
-            onChange={(event) => onSearchInputValueChanged(event.target.value)}
+            onChange={onSearchInputValueChanged}
+            size="large"
           />
           <p>
             {filteredRecipes.length} recipe
@@ -53,7 +60,7 @@ export const Recipes = () => {
 
       <div>
         {filteredRecipes.map((recipe) => (
-          <RecipeItem recipe={recipe} key={recipe.title} />
+          <RecipeItem recipe={recipe} key={recipe.name} />
         ))}
       </div>
     </div>
