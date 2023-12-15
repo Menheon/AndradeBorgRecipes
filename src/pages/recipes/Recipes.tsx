@@ -1,6 +1,6 @@
 import AddIcon from "assets/add.svg?react";
 import { RecipeItem } from "./RecipeItem";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { InputField } from "shared/InputField";
 import { getAllRecipes } from "data/recipesService";
 import { Recipe } from "types/models";
@@ -9,9 +9,15 @@ export const Recipes = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
 
-  useEffect(() => {
-    getAllRecipes().then(setAllRecipes);
+  const initializeRecipes = useCallback(async () => {
+    const recipes = await getAllRecipes();
+    setAllRecipes(recipes);
+    setFilteredRecipes(recipes);
   }, []);
+
+  useEffect(() => {
+    initializeRecipes();
+  }, [initializeRecipes]);
 
   const onSearchInputValueChanged = (newValue: string) => {
     if (newValue === "") {
