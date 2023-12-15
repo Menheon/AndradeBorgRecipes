@@ -2,74 +2,79 @@ import { Recipe } from "types/models";
 
 export const recipes: Recipe[] = [
   {
-    title: "Tomato Soup with Macaroni",
-    tags: ["Danish", "Soup", "Hot", "Pasta"],
+    name: "Tomato Soup with Macaroni",
+    tags: [
+      { name: "Danish" },
+      { name: "Soup" },
+      { name: "Hot" },
+      { name: "Pasta" },
+    ],
     sections: [
       {
         title: "Tomato Soup",
         ingredients: [
           {
-            name: "Olive oil",
+            ingredient: { name: "Olive oil" },
             unit: "tableSpoon",
             amount: 2,
           },
           {
-            name: "Tomato puree",
+            ingredient: { name: "Tomato puree" },
             amount: 2,
             unit: "tableSpoon",
           },
           {
-            name: "Chopped tomatoes",
+            ingredient: { name: "Chopped tomatoes" },
             amount: 2,
             unit: "can",
           },
           {
-            name: "Onion",
+            ingredient: { name: "Onion" },
             amount: 1,
             unit: "none",
           },
           {
-            name: "Garlic cloves",
+            ingredient: { name: "Garlic cloves" },
             amount: 4,
             unit: "none",
           },
           {
-            name: "Bacon",
+            ingredient: { name: "Bacon" },
             amount: 6,
             unit: "none",
           },
           {
-            name: "Carrot",
+            ingredient: { name: "Carrot" },
             amount: 2,
             unit: "none",
           },
           {
-            name: "Bouillon Cube",
+            ingredient: { name: "Bouillon Cube" },
             amount: 1,
             unit: "none",
           },
           {
-            name: "Sugar",
+            ingredient: { name: "Sugar" },
             amount: 2,
             unit: "teaSpoon",
           },
           {
-            name: "Water",
+            ingredient: { name: "Water" },
             amount: 500,
             unit: "milliLiter",
           },
           {
-            name: "Basil",
+            ingredient: { name: "Basil" },
             amount: 1,
             unit: "teaSpoon",
           },
           {
-            name: "Oregano",
+            ingredient: { name: "Oregano" },
             amount: 1,
             unit: "teaSpoon",
           },
           {
-            name: "Cream",
+            ingredient: { name: "Cream" },
             amount: 250,
             unit: "milliLiter",
           },
@@ -88,44 +93,44 @@ export const recipes: Recipe[] = [
     ],
   },
   {
-    title: "Mom's Sausage Dish",
-    tags: ["Danish", "Pasta"],
+    name: "Mom's Sausage Dish",
+    tags: [{ name: "Danish" }, { name: "Pasta" }],
     sections: [
       {
         title: "Pasta",
         ingredients: [
           {
-            name: "Grated mozzarella",
+            ingredient: { name: "Grated mozzarella" },
             amount: 1,
             unit: "handful",
           },
           {
-            name: "Bouillon cubes",
+            ingredient: { name: "Bouillon cubes" },
             amount: 2,
             unit: "none",
           },
           {
-            name: "Macaroni",
+            ingredient: { name: "Macaroni" },
             amount: 500,
             unit: "gram",
           },
           {
-            name: "Eggs",
+            ingredient: { name: "Eggs" },
             amount: 2,
             unit: "none",
           },
           {
-            name: "Butter",
+            ingredient: { name: "Butter" },
             amount: 1,
             unit: "tableSpoon",
           },
           {
-            name: "All-round grill spice",
+            ingredient: { name: "All-round grill spice" },
             amount: 1,
             unit: "tableSpoon",
           },
           {
-            name: "Vienna Sausages",
+            ingredient: { name: "Vienna Sausages" },
             amount: 250,
             unit: "gram",
           },
