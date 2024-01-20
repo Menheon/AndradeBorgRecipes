@@ -41,6 +41,9 @@ export const Recipes = () => {
           src="https://static.vecteezy.com/system/resources/previews/024/396/481/large_2x/table-scene-with-a-selection-of-delicious-foods-top-view-over-a-dark-wood-banner-background-generate-ai-free-photo.jpg"
         />
         <RecipeSearchField onChange={onSearchInputValueChanged} />
+        <h1 className="text-2xl font-bold my-4 font-[system-ui]">
+          ALL RECIPES
+        </h1>
       </div>
       {/* <div className="flex gap-4">
         <div className="rounded-md bg-pastelGreen p-4 flex gap-1 flex-col w-36 h-28 justify-start">
@@ -59,9 +62,15 @@ export const Recipes = () => {
       </div> */}
 
       <div>
-        {filteredRecipes.map((recipe) => (
-          <RecipeItem recipe={recipe} key={recipe.name} />
-        ))}
+        {filteredRecipes.length > 0 ? (
+          filteredRecipes.map((recipe) => (
+            <RecipeItem recipe={recipe} key={recipe.name} />
+          ))
+        ) : (
+          <p className="text-center">
+            Whoops! No recipes matching your search...
+          </p>
+        )}
       </div>
     </div>
   );
