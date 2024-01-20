@@ -6,11 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cerulean: "#37718E",
-        blackBeen: "#3C1518",
-        polyGreen: "#274029",
-        darkGreen: "#98ae2e",
-        pastelGreen: "#f4f6eb",
+        whiteSmoke: "#f2f2f2",
+        lightGrey: "#d1ccc8",
+        darkGrey: "#a29c98",
+        darkSlateGrey: "#36312d",
       },
       fontFamily: {
         caveat: ["Caveat", ...defaultTheme.fontFamily.sans],
@@ -18,5 +17,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwindcss/plugin")(({ addVariant }) => {
+      addVariant("search-cancel", "&::-webkit-search-cancel-button");
+    }),
+  ],
 };
