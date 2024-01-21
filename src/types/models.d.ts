@@ -31,6 +31,8 @@ export interface Section {
 
 export interface Recipe {
   name: string;
+  description: string;
+  imageUrl: string;
   tags: Tag[];
   sections: Section[];
 }

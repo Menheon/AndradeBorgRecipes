@@ -70,6 +70,8 @@ export const getAllRecipes = async () => {
 
       const recipe: Recipe = {
         name: recipeData.name,
+        description: recipeData.description,
+        imageUrl: recipeData.imageUrl,
         tags,
         sections,
       };
