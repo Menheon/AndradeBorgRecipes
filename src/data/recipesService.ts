@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { recipesDB } from "firebase";
+import { recipesDB } from "@/firebase";
 import {
   DocumentReference,
   collection,
   getDoc,
   getDocs,
 } from "firebase/firestore";
-import { Ingredient, IngredientLine, Recipe, Section, Tag } from "types/models";
+import { Ingredient, IngredientLine, Recipe, Section, Tag } from "@/types/models";
 
 export const getAllRecipes = async () => {
   const recipesRef = collection(recipesDB, "Recipes");

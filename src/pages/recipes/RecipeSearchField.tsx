@@ -1,4 +1,4 @@
-import SearchIcon from "assets/search.svg?react";
+import SearchIcon from "@/assets/search.svg?react";
 
 interface Props {
   onChange: (newValue: string) => void;
@@ -27,7 +27,7 @@ export const RecipeSearchField = ({ onChange }: Props) => {
         onChange={(event) => onChange(event.target.value)}
       />
       <div className="bg-darkSlateGrey h-9 w-9 flex justify-center items-center">
-        <SearchIcon className="fill-whiteSmoke w-10" />
+        <SearchIcon className="fill-whiteSmoke w-7 h-7" />
       </div>
     </div>
   );

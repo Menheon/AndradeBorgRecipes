@@ -1,5 +1,5 @@
-import CheckBoxUnchecked from "assets/check_box_unchecked.svg?react";
-import CheckBoxChecked from "assets/check_box_checked.svg?react";
+import CheckBoxUnchecked from "@/assets/check_box_unchecked.svg?react";
+import CheckBoxChecked from "@/assets/check_box_checked.svg?react";
 import { useState } from "react";
 
 interface Props {
@@ -16,13 +16,13 @@ export const StrikeableStep = ({ step }: Props) => {
     >
       <div>
         {isStricken ? (
-          <CheckBoxChecked className="w-5 h-5 fill-current hover:text-black text-gray-600" />
+          <CheckBoxChecked className="w-5 h-5 fill-current hover:text-black text-darkGrey" />
         ) : (
-          <CheckBoxUnchecked className="w-5 h-5 fill-current hover:text-black text-gray-600" />
+          <CheckBoxUnchecked className="w-5 h-5 fill-current hover:text-black text-darkGrey" />
         )}
       </div>
 
-      <span className={isStricken ? "line-through text-gray-600" : ""}>
+      <span className={isStricken ? "line-through text-darkGrey" : ""}>
         {step}
       </span>
     </div>
