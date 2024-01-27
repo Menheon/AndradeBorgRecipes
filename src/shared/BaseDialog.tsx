@@ -1,23 +1,35 @@
-import { Fragment, PropsWithChildren } from "react";
-import { FilledButton } from "@/shared/FilledButton";
+import { PropsWithChildren, ReactElement } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 interface Props extends PropsWithChildren {
-  isOpen: boolean;
   onClose: () => void;
   primaryActionLabel: "create" | "delete" | "update";
   primaryAction: () => void;
   isPrimaryActionDisabled: boolean;
   title: string;
+  description?: string;
+  triggerElement: ReactElement;
 }
 
 export const BaseDialog = ({
-  isOpen,
   onClose,
   children,
   primaryAction,
   primaryActionLabel,
   isPrimaryActionDisabled,
   title,
+  description,
+  triggerElement,
 }: Props) => {
   const getPrimaryButtonLabel = () => {
     switch (primaryActionLabel) {
@@ -32,33 +44,31 @@ export const BaseDialog = ({
     }
   };
 
-  return isOpen ? (
-    <div
-      className="z-20 fixed top-0 left-0 w-full h-screen bg-black bg-opacity-50 flex justify-center pt-4"
-      onClick={onClose}
-    >
-      <div
-        className=" bg-gray-50 rounded-md w-2/3 h-fit px-10 py-8 mb-10"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <h1 className="font-bold text-xl">{title}</h1>
-        <div className="h-96 overflow-y-auto">{children}</div>
-        <div
-          className="flex gap-3 justify-end mt-4
-        "
-        >
-          <FilledButton label="Cancel" onClick={onClose} type="secondary" />
-
-          <FilledButton
-            label={getPrimaryButtonLabel()}
+  return (
+    <Dialog>
+      <DialogTrigger>{triggerElement}</DialogTrigger>
+      <DialogContent className="min-w-fit max-w-full w-2/3">
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
+        <div>{children}</div>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button onClick={onClose} variant="secondary">
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button
+            type="submit"
             onClick={primaryAction}
-            type="primary"
+            variant="default"
             disabled={isPrimaryActionDisabled}
-          />
-        </div>
-      </div>
-    </div>
-  ) : (
-    <Fragment />
+          >
+            {getPrimaryButtonLabel()}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
