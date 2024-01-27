@@ -1,6 +1,6 @@
 // import { StrikeableStep } from "pages/recipes/StrikeableStep";
 // import { mapUnitToStringFormat } from "util/util";
-import { Recipe } from "types/models";
+import { Recipe } from "@/types/models";
 
 interface Props {
   recipe: Recipe;
@@ -21,8 +21,11 @@ export const RecipeItem = ({ recipe }: Props) => {
 
         <p className="text-lg">{recipe.description}</p>
         <div className="flex pt-8">
-          {recipe.tags.map((tag) => (
-            <div className="text-whiteSmoke bg-darkGrey px-2 py-1 ml-2 rounded-md">
+          {recipe.tags.map((tag, i) => (
+            <div
+              className="text-whiteSmoke bg-darkGrey px-2 py-1 ml-2 rounded-md"
+              key={i}
+            >
               {tag.name}
             </div>
           ))}
