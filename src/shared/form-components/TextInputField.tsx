@@ -6,7 +6,7 @@ interface Props {
   value: string;
 }
 
-export const InputField = ({ id, onChange, placeholder, value }: Props) => {
+export const TextInputField = ({ id, onChange, placeholder, value }: Props) => {
   return (
     <input
       value={value}
