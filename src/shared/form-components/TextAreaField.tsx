@@ -1,5 +1,3 @@
-import { Textarea } from "@/components/ui/textarea";
-
 interface Props {
   id?: string;
   onChange: (newValue: string) => void;
@@ -18,7 +16,7 @@ export const TextAreaField = ({
   value,
 }: Props) => {
   return (
-    <Textarea
+    <textarea
       value={value}
       placeholder={placeholder}
       id={id}
