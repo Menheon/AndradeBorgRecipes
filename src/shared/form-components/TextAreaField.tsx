@@ -22,7 +22,9 @@ export const TextAreaField = ({
       id={id}
       rows={rows}
       cols={columns}
-      className="resize-none outline-none px-2 py-1 bg-whiteSmoke border-2 rounded-md border-darkSlateGrey placeholder-lightSlateGrey"
+      className="resize-none outline-none px-2 py-1 bg-whiteSmoke border-2 rounded-md border-darkSlateGrey placeholder-lightSlateGrey
+      focus-visible:ring
+        focus-visible:ring-lightGrey"
       onChange={(event) => onChange(event.target.value)}
     />
   );

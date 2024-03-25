@@ -13,7 +13,10 @@ export const InputField = ({ id, onChange, placeholder, value }: Props) => {
       placeholder={placeholder}
       id={id}
       onChange={(event) => onChange(event.target.value)}
-      className="outline-none px-2 py-1 bg-whiteSmoke border-2 rounded-md border-darkSlateGrey placeholder-lightSlateGrey w-full"
+      className="outline-none px-2 py-1 bg-whiteSmoke border-2 rounded-md border-darkSlateGrey placeholder-lightSlateGrey w-full
+      focus-visible:ring
+        focus-visible:ring-lightGrey
+      "
     />
   );
 };
