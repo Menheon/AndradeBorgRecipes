@@ -12,6 +12,7 @@ export const RecipeSearchField = ({ onChange }: Props) => {
         placeholder="Search..."
         className="
           w-72
+          h-9
           outline-none
           px-2
           py-1
