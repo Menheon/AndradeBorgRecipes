@@ -1,7 +1,6 @@
 interface Props {
   id?: string;
   onChange: (newValue: string) => void;
-  size: "small" | "medium" | "large";
   placeholder: string;
   value: string;
 }
