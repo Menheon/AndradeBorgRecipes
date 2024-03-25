@@ -8,6 +8,7 @@ interface Props {
 export const FilledButton = ({ onClick, disabled, type, children }: Props) => {
   return (
     <button
+      type="button"
       className={`${
         type === "primary"
           ? "bg-darkSlateGrey hover:bg-lightSlateGrey"

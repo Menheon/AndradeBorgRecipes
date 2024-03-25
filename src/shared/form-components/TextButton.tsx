@@ -9,6 +9,7 @@ interface Props {
 export const TextButton = ({ onClicked, children }: Props) => {
   return (
     <button
+      type="button"
       className="
         flex
         gap-1
