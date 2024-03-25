@@ -59,7 +59,7 @@ export const BaseDialog = ({
       onClick={onDialogClicked}
     >
       <form method="dialog">
-        <div>
+        <div className="mb-1">
           {/* TODO implement Typography component*/}
           <h1 className="text-2xl font-bold  font-[system-ui]">{title}</h1>
           <p>{description}</p>
