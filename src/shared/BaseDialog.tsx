@@ -67,7 +67,7 @@ export const BaseDialog = ({
         <div className="overflow-y-auto max-h-96">{children}</div>
         <div className="flex justify-end gap-5">
           <FilledButton onClick={() => onClose?.()} type="secondary">
-            Close
+            Cancel
           </FilledButton>
           <FilledButton
             onClick={primaryAction}
