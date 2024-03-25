@@ -1,35 +1,25 @@
-import { PropsWithChildren, ReactElement } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
+import { PropsWithChildren, useEffect, useRef } from "react";
+import { FilledButton } from "./FilledButton";
 
 interface Props extends PropsWithChildren {
-  onClose: () => void;
+  onClose?: () => void;
+  isOpen: boolean;
   primaryActionLabel: "create" | "delete" | "update";
   primaryAction: () => void;
   isPrimaryActionDisabled: boolean;
   title: string;
   description?: string;
-  triggerElement: ReactElement;
 }
 
 export const BaseDialog = ({
   onClose,
+  isOpen,
   children,
   primaryAction,
   primaryActionLabel,
   isPrimaryActionDisabled,
   title,
   description,
-  triggerElement,
 }: Props) => {
   const getPrimaryButtonLabel = () => {
     switch (primaryActionLabel) {
@@ -44,31 +34,50 @@ export const BaseDialog = ({
     }
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      dialogRef.current?.showModal();
+    } else {
+      dialogRef.current?.close();
+    }
+  }, [isOpen]);
+
+  const onDialogClicked = (
+    event: React.MouseEvent<HTMLDialogElement, MouseEvent>,
+  ) => {
+    if (event.target === dialogRef.current && onClose) {
+      onClose();
+    }
+  };
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
   return (
-    <Dialog>
-      <DialogTrigger>{triggerElement}</DialogTrigger>
-      <DialogContent className="min-w-fit max-w-full w-2/3">
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
-        </DialogHeader>
-        <div>{children}</div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button onClick={onClose} variant="secondary">
-              Cancel
-            </Button>
-          </DialogClose>
-          <Button
-            type="submit"
+    <dialog
+      className="min-w-fit max-w-full w-2/3 mt-8 rounded-xl bg-white p-6 shadow-3xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+      ref={dialogRef}
+      onClose={onClose}
+      onClick={onDialogClicked}
+    >
+      <form method="dialog">
+        <div>
+          {/* TODO implement Typography component*/}
+          <h1 className="text-2xl font-bold  font-[system-ui]">{title}</h1>
+          <p>{description}</p>
+        </div>
+        <div className="overflow-y-auto max-h-96">{children}</div>
+        <div className="flex justify-end gap-5">
+          <FilledButton onClick={() => onClose?.()} type="secondary">
+            Close
+          </FilledButton>
+          <FilledButton
             onClick={primaryAction}
-            variant="default"
+            type="primary"
             disabled={isPrimaryActionDisabled}
           >
             {getPrimaryButtonLabel()}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </FilledButton>
+        </div>
+      </form>
+    </dialog>
   );
 };
