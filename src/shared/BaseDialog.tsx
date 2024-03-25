@@ -65,7 +65,7 @@ export const BaseDialog = ({
           <p>{description}</p>
         </div>
         <div className="overflow-y-auto max-h-96">{children}</div>
-        <div className="flex justify-end gap-5">
+        <div className="flex justify-end gap-5 pt-3">
           <FilledButton onClick={() => onClose?.()} type="secondary">
             Cancel
           </FilledButton>
