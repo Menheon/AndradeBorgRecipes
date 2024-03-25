@@ -1,15 +1,15 @@
-// import AddIcon from "assets/add.svg?react";
+import AddIcon from "@/assets/add.svg?react";
 import { RecipeItem } from "./RecipeItem";
 import { useCallback, useEffect, useState } from "react";
-import { getAllRecipes } from "data/recipesService";
-import { Recipe } from "types/models";
-// import { CreateRecipeDialog } from "./CreateRecipeDialog";
+import { getAllRecipes } from "@/data/recipesService";
+import { Recipe } from "@/types/models";
+import { CreateRecipeDialog } from "./CreateRecipeDialog";
 import { RecipeSearchField } from "./RecipeSearchField";
 
 export const Recipes = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
-  // const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
+  const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
 
   const initializeRecipes = useCallback(async () => {
     const recipes = await getAllRecipes();
@@ -18,7 +18,8 @@ export const Recipes = () => {
   }, []);
 
   useEffect(() => {
-    initializeRecipes();
+    // TODO uncomment when needing recipes.
+    // initializeRecipes();
   }, [initializeRecipes]);
 
   const onSearchInputValueChanged = (newValue: string) => {
@@ -45,21 +46,17 @@ export const Recipes = () => {
           ALL RECIPES
         </h1>
       </div>
-      {/* <div className="flex gap-4">
-        <div className="rounded-md bg-pastelGreen p-4 flex gap-1 flex-col w-36 h-28 justify-start">
-          <label className="font-semibold text-center">Create Recipe</label>
-          <button
-            className="self-center hover:bg-darkGreen hover:bg-opacity-30 w-10 h-10 flex justify-center items-center rounded-md"
-            onClick={() => setIsCreatingRecipe(true)}
-          >
-            <AddIcon className="fill-polyGreen" />
-          </button>
-          <CreateRecipeDialog
-            isOpen={isCreatingRecipe}
-            onClose={() => setIsCreatingRecipe(false)}
-          />
-        </div>
-      </div> */}
+
+      <button
+        className="cursor-pointer transition-colors fixed bottom-10 right-10 bg-darkSlateGrey hover:bg-lightSlateGrey w-12 h-12 flex justify-center items-center rounded-full focus:outline focus:outline-darkSlateGrey focus:outline-[3px] focus:outline-offset-[2.5px] focus:outline-solid"
+        onClick={() => setIsCreatingRecipe(true)}
+      >
+        <AddIcon className="fill-whiteSmoke w-8 h-8" />
+      </button>
+      <CreateRecipeDialog
+        isOpen={isCreatingRecipe}
+        onClose={() => setIsCreatingRecipe(false)}
+      />
 
       <div>
         {filteredRecipes.length > 0 ? (
