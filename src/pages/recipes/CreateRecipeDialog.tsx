@@ -12,6 +12,7 @@ import { NewRecipeSections } from "./NewRecipeSections";
 import TagInputField from "@/shared/form-components/TagInputField";
 import { getAllRecipeTags } from "@/data/recipesService";
 import { useCallback, useEffect, useState } from "react";
+import { RemovableTag } from "./RemovableTag";
 
 export interface CreateRecipeFormData extends Recipe {}
 
@@ -71,14 +72,17 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
 
   const onNewTagAdded = (newTag: Tag) => {
     const currentTags = watch("tags");
-    if (
-      currentTags.some(
-        (tag) => tag.id === newTag.id || tag.name === newTag.name,
-      )
-    )
-      return;
+    if (currentTags.some((tag) => tag.name === newTag.name)) return;
     currentTags.push(newTag);
     setValue("tags", currentTags);
+  };
+
+  const handleTagRemoved = (tagToRemove: Tag) => {
+    const currentTags = watch("tags");
+    const filteredTags = currentTags.filter(
+      (tag) => tag.name !== tagToRemove.name,
+    );
+    setValue("tags", filteredTags);
   };
 
   return (
@@ -133,11 +137,16 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
                   onTagAdd={onNewTagAdded}
                   addedTags={field.value}
                 />
-                <ul>
-                  {field.value.map((tag) => (
-                    <ul key={tag.id} className="text-black">
-                      {tag.name}
-                    </ul>
+                <ul className="flex gap-1 p-1 min-h-10 flex-wrap">
+                  {field.value.map((tag, tagIndex) => (
+                    <li key={`${tag.name}-${tagIndex}`}>
+                      <RemovableTag
+                        isRemovable
+                        onRemoved={() => handleTagRemoved(tag)}
+                      >
+                        {tag.name}
+                      </RemovableTag>
+                    </li>
                   ))}
                 </ul>
               </>
