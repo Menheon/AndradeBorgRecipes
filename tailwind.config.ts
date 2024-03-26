@@ -8,6 +8,10 @@ export default {
   prefix: "",
   theme: {
     extend: {
+      screens: {
+        'xs': '540px',
+        '2xs': '300px',
+      },
       colors: {
         whiteSmoke: "#f2f2f2",
         lightGrey: "#d1ccc8",
