@@ -7,12 +7,14 @@ import { TextButton } from "./TextButton";
 import { CreateRecipeFormData } from "@/pages/recipes/CreateRecipeDialog";
 import { useFormContext } from "react-hook-form";
 import { IntegerInputField } from "./IntegerInputField";
+import { useMediaQuery } from "@/util/useMediaQuery";
 
 interface Props {
   section: number;
 }
 
 export const IngredientsTable = ({ section }: Props) => {
+  const isScreenMinExtraSmall = useMediaQuery("xs");
   const methods = useFormContext<CreateRecipeFormData>();
   const { watch, setValue } = methods;
   const sections = watch("sections");
@@ -69,90 +71,163 @@ export const IngredientsTable = ({ section }: Props) => {
   };
 
   return (
-    <div>
-      <table>
-        <thead>
-          {sections[section].ingredients.length > 0 && (
-            <tr>
-              <td className="pl-3" />
-              <td className="pl-3">{ingredientTableTexts.name}</td>
-              <td className="pl-3">{ingredientTableTexts.amount}</td>
-              <td className="pl-3">{ingredientTableTexts.unit}</td>
-            </tr>
-          )}
-        </thead>
+    <>
+      {isScreenMinExtraSmall ? (
+        <table
+          className="
+          w-full"
+        >
+          <thead>
+            {sections[section].ingredients.length > 0 && (
+              <tr>
+                <td className="pl-3 w-12" />
+                <td className="pl-3">{ingredientTableTexts.name}</td>
+                <td className="pl-3">{ingredientTableTexts.amount}</td>
+                <td className="pl-3">{ingredientTableTexts.unit}</td>
+              </tr>
+            )}
+          </thead>
 
-        <tbody>
-          {sections[section].ingredients.map((value, index) => (
-            <tr key={index}>
-              <td className="p-0 pr-1">
-                <button
-                  type="button"
-                  className="
-                    bg-darkGrey 
-                    cursor-pointer 
-                    rounded-l 
-                    p-2 
-                    h-12 
-                    flex 
-                    items-center 
-                    mb-1
-                    focus-visible:outline-none
-                    focus-visible:ring
-                    focus-visible:ring-lightGrey
-                    focus-visible:ring-inset"
-                  onClick={() => removeIngredientLine(index)}
-                >
-                  <CloseIcon className="h-7 w-7 fill-darkSlateGrey hover:fill-lightSlateGrey" />
-                </button>
-              </td>
+          <tbody>
+            {sections[section].ingredients.map((value, index) => (
+              <tr key={index}>
+                <td className="p-0 pr-1">
+                  <button
+                    type="button"
+                    className="
+                      bg-darkGrey 
+                      cursor-pointer 
+                      rounded-l 
+                      p-2 
+                      h-12 
+                      flex 
+                      items-center 
+                      mb-1
+                      focus-visible:outline-none
+                      focus-visible:ring
+                      focus-visible:ring-lightGrey
+                      focus-visible:ring-inset"
+                    onClick={() => removeIngredientLine(index)}
+                  >
+                    <CloseIcon className="h-7 w-7 fill-darkSlateGrey hover:fill-lightSlateGrey" />
+                  </button>
+                </td>
 
-              <td className="p-0">
-                <div className="bg-darkGrey h-12 flex items-center px-1.5 mb-1">
-                  <TextInputField
-                    value={value.ingredient.name}
-                    onChange={(value) =>
-                      updateIngredientLine("ingredient", value, index)
-                    }
-                    placeholder={ingredientTableTexts.writeIngredient}
-                  />
-                </div>
-              </td>
+                <td className="p-0">
+                  <div className="bg-darkGrey h-12 flex items-center px-1.5 mb-1">
+                    <TextInputField
+                      value={value.ingredient.name}
+                      onChange={(value) =>
+                        updateIngredientLine("ingredient", value, index)
+                      }
+                      placeholder={ingredientTableTexts.writeIngredient}
+                    />
+                  </div>
+                </td>
 
-              <td className="p-0">
-                <div className="bg-darkGrey h-12 flex items-center px-1.5 mb-1">
-                  <IntegerInputField
-                    value={value.amount?.toString() ?? ""}
-                    onChange={(value) =>
-                      updateIngredientLine("amount", value, index)
-                    }
-                    placeholder={ingredientTableTexts.writeAmount}
-                  />
-                </div>
-              </td>
+                <td className="p-0">
+                  <div className="bg-darkGrey h-12 flex items-center px-1.5 mb-1">
+                    <IntegerInputField
+                      value={value.amount?.toString() ?? ""}
+                      onChange={(value) =>
+                        updateIngredientLine("amount", value, index)
+                      }
+                      placeholder={ingredientTableTexts.writeAmount}
+                    />
+                  </div>
+                </td>
 
-              <td className="p-0">
-                <div className="bg-darkGrey rounded-r h-12 flex items-center px-1.5 mb-1">
-                  <SelectField
-                    placeholder={ingredientTableTexts.selectUnit}
-                    options={getAllUnits()}
-                    getDisplayValue={mapUnitToStringFormat}
-                    getValue={(unit) => unit}
-                    onValueSelected={(value) =>
-                      updateIngredientLine("unit", value, index)
-                    }
-                    selectedOption={sections[section].ingredients[index].unit}
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <td className="p-0">
+                  <div className="bg-darkGrey rounded-r h-12 flex items-center px-1.5 mb-1">
+                    <SelectField
+                      placeholder={ingredientTableTexts.selectUnit}
+                      options={getAllUnits()}
+                      getDisplayValue={mapUnitToStringFormat}
+                      getValue={(unit) => unit}
+                      onValueSelected={(value) =>
+                        updateIngredientLine("unit", value, index)
+                      }
+                      selectedOption={sections[section].ingredients[index].unit}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        sections[section].ingredients.map((value, index) => (
+          <div
+            key={index}
+            className="
+              relative
+              mt-1
+              mb-2
+              w-full
+              flex
+              flex-col
+              gap-1
+              p-2
+              rounded-md
+              bg-darkGrey"
+          >
+            <button
+              type="button"
+              onClick={() => removeIngredientLine(index)}
+              className="
+                absolute
+                top-1
+                right-1
+                focus-visible: outline-none
+                focus-visible:ring-2 
+                focus-visible:ring-darkSlateGrey 
+                rounded-full"
+            >
+              <CloseIcon className="h-6 w-6 fill-darkSlateGrey hover:fill-lightSlateGrey" />
+            </button>
+
+            <div>
+              <label>{ingredientTableTexts.name}</label>
+              <TextInputField
+                value={value.ingredient.name}
+                onChange={(value) =>
+                  updateIngredientLine("ingredient", value, index)
+                }
+                placeholder={ingredientTableTexts.writeIngredient}
+              />
+            </div>
+
+            <div>
+              <label>{ingredientTableTexts.amount}</label>
+              <IntegerInputField
+                value={value.amount?.toString() ?? ""}
+                onChange={(value) =>
+                  updateIngredientLine("amount", value, index)
+                }
+                placeholder={ingredientTableTexts.writeAmount}
+              />
+            </div>
+
+            <div>
+              <label>{ingredientTableTexts.unit}</label>
+              <SelectField
+                placeholder={ingredientTableTexts.selectUnit}
+                options={getAllUnits()}
+                getDisplayValue={mapUnitToStringFormat}
+                getValue={(unit) => unit}
+                onValueSelected={(value) =>
+                  updateIngredientLine("unit", value, index)
+                }
+                selectedOption={sections[section].ingredients[index].unit}
+              />
+            </div>
+          </div>
+        ))
+      )}
       <TextButton onClicked={addIngredientLine}>
         {ingredientTableTexts.addNewIngredient}
       </TextButton>
-    </div>
+    </>
   );
 };
 
