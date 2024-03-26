@@ -97,8 +97,8 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
       isOpen={isOpen}
       onClose={closeDialog}
     >
-      <div className="grid grid-cols-9 p-2">
-        <div className="col-start-1 col-end-5">
+      <div className="grid grid-cols-1 sm:grid-cols-9 p-2">
+        <div className="col-start-1 sm:col-end-5">
           <h3 className="text-polyGreen text-md font-semibold pt-2 pb-0.5">
             Title
           </h3>
@@ -157,7 +157,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
           />
         </div>
 
-        <div className="col-start-6 col-end-10">
+        <div className="col-start-1 sm:col-start-6 sm:col-end-10">
           <h3 className="text-polyGreen text-md font-semibold pt-2 pb-0.5">
             Description
           </h3>
