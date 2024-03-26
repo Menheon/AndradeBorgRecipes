@@ -1,6 +1,7 @@
 // import { StrikeableStep } from "pages/recipes/StrikeableStep";
 // import { mapUnitToStringFormat } from "util/util";
 import { Recipe } from "@/types/models";
+import { RemovableTag } from "./RemovableTag";
 
 interface Props {
   recipe: Recipe;
@@ -20,14 +21,11 @@ export const RecipeItem = ({ recipe }: Props) => {
         <hr className="mb-4 border-t-2 border-darkSlateGrey" />
 
         <p className="text-lg">{recipe.description}</p>
-        <div className="flex pt-8">
-          {recipe.tags.map((tag, i) => (
-            <div
-              className="text-whiteSmoke bg-darkGrey px-2 py-1 ml-2 rounded-md"
-              key={i}
-            >
+        <div className="flex pt-8 gap-1">
+          {recipe.tags.map((tag) => (
+            <RemovableTag key={tag.id} isRemovable={false}>
               {tag.name}
-            </div>
+            </RemovableTag>
           ))}
         </div>
         {/* {recipe.sections.map((section, i) => (
