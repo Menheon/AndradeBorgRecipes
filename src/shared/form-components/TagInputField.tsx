@@ -86,6 +86,7 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
       {showDropdown && (
         <ul
           className="
+            z-10
             absolute
             w-full 
             rounded-md 

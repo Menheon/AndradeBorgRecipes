@@ -86,12 +86,25 @@ export const IngredientsTable = ({ section }: Props) => {
           {sections[section].ingredients.map((value, index) => (
             <tr key={index}>
               <td className="p-0 pr-1">
-                <div
-                  className="bg-darkGrey cursor-pointer rounded-l p-2 h-12 flex items-center  mb-1"
+                <button
+                  type="button"
+                  className="
+                    bg-darkGrey 
+                    cursor-pointer 
+                    rounded-l 
+                    p-2 
+                    h-12 
+                    flex 
+                    items-center 
+                    mb-1
+                    focus-visible:outline-none
+                    focus-visible:ring
+                    focus-visible:ring-lightGrey
+                    focus-visible:ring-inset"
                   onClick={() => removeIngredientLine(index)}
                 >
                   <CloseIcon className="h-7 w-7 fill-darkSlateGrey hover:fill-lightSlateGrey" />
-                </div>
+                </button>
               </td>
 
               <td className="p-0">

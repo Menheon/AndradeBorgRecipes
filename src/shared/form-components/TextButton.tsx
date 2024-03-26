@@ -20,8 +20,9 @@ export const TextButton = ({ onClicked, children }: Props) => {
         rounded-md
         outline-none
         m-1
-        focus-visible:ring
         focus-visible:ring-darkSlateGrey
+        focus-visible:ring-inset
+        focus-visible:ring-2
       "
       onClick={onClicked}
     >

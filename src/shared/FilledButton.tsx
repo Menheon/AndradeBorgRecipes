@@ -13,7 +13,20 @@ export const FilledButton = ({ onClick, disabled, type, children }: Props) => {
         type === "primary"
           ? "bg-darkSlateGrey hover:bg-lightSlateGrey"
           : "bg-gray-500 hover:bg-gray-600"
-      } text-whiteSmoke py-2 px-4 rounded-md tracking-wide disabled:hover:bg-slate-400 disabled:bg-slate-400 disabled:cursor-not-allowed`}
+      } 
+        text-whiteSmoke 
+        py-2 
+        px-4 
+        rounded-md 
+        tracking-wide 
+        disabled:hover:bg-slate-400 
+        disabled:bg-slate-400 
+        disabled:cursor-not-allowed
+        focus-visible:outline-none
+        focus-visible:ring-2
+        focus-visible:ring-lightGrey
+        focus-visible:ring-inset
+      `}
       disabled={disabled}
       onClick={onClick}
     >
