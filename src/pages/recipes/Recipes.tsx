@@ -35,7 +35,7 @@ export const Recipes = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 justify-center">
+    <div className="mx-auto px-4 justify-center">
       <div className="flex items-center flex-col">
         <img
           className="w-[calc(100%-100px)] h-52 object-cover filter brightness-75 contrast-75"
