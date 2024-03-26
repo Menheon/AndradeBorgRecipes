@@ -54,6 +54,9 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
       watch("name") === "" ||
       watch("description") === "" ||
       watch("sections").length === 0 ||
+      watch("sections")[0]?.ingredients.length === 0 ||
+      watch("sections")[0]?.title === "" ||
+      watch("sections")[0]?.steps.length === 0 ||
       watch("tags").length === 0
     );
   };
