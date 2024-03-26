@@ -1,7 +1,8 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+import type { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
+import plugin from 'tailwindcss/plugin';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ["class"],
   content: ["./src/**/*.{ts,tsx}"],
   prefix: "",
@@ -28,8 +29,8 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss/plugin")(({ addVariant }) => {
+    plugin(({ addVariant }) => {
       addVariant("search-cancel", "&::-webkit-search-cancel-button");
     }),
   ],
-};
+} satisfies Config;
