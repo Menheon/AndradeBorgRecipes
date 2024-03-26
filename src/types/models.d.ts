@@ -7,10 +7,11 @@ export type Unit =
   | "liter"
   | "can"
   | "handful"
-  | "none";
+  | "piece";
 
 export interface Tag {
   name: string;
+  id: string;
 }
 
 export interface Ingredient {
@@ -19,8 +20,8 @@ export interface Ingredient {
 
 export interface IngredientLine {
   ingredient: Ingredient;
-  amount: number;
-  unit: Unit;
+  amount: number | undefined;
+  unit: Unit | undefined;
 }
 
 export interface Section {
