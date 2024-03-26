@@ -3,6 +3,7 @@ import { recipesDB } from "@/firebase";
 import {
   DocumentReference,
   collection,
+  addDoc,
   getDoc,
   getDocs,
 } from "firebase/firestore";
@@ -25,6 +26,7 @@ export const getAllRecipes = async () => {
 
           const tag: Tag = {
             name: tagData.name,
+            id: tagDoc.id
           };
           return tag;
         }),
@@ -81,3 +83,26 @@ export const getAllRecipes = async () => {
 
   return recipes;
 };
+
+export const getAllRecipeTags = async () => {
+  const tagsRef = collection(recipesDB, "RecipeTags");
+  const { docs: tagDocs } = await getDocs(tagsRef);
+
+  const tags: Tag[] = await Promise.all(
+    tagDocs.map(async (tagSnapshot) => {
+      const tagData = tagSnapshot.data();
+      const tag: Tag = {
+        name: tagData.name,
+        id: tagSnapshot.id,
+      }
+      return tag;
+    }
+    ));
+  return tags;
+};
+
+// TODO implement
+// export const createNewRecipe = async (newRecipeData: Recipe) => {
+
+// };
+
