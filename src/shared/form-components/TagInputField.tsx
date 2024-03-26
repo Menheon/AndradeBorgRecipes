@@ -4,22 +4,32 @@ import { TextInputField } from "./TextInputField";
 
 interface Props {
   existingTags: Tag[];
+  addedTags: Tag[];
   onTagAdd: (tag: Tag) => void;
 }
 
 const tagInputOptionIdPrefix = "tag-input-option-";
 
-const TagInputField = ({ existingTags, onTagAdd }: Props) => {
+const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleInputChange = (value: string) => {
-    setInputValue(value);
-    if (value) {
+    const trimmedValue = value.trim();
+    const capitalizedValue = trimmedValue[0]
+      ? trimmedValue[0].toUpperCase() + trimmedValue.substring(1)
+      : "";
+
+    setInputValue(capitalizedValue);
+    if (capitalizedValue !== "") {
       // Filter existing tags based on input value
-      const filtered = existingTags.filter((tag) =>
-        tag.name.toLowerCase().includes(value.toLowerCase()),
+      const filtered = existingTags.filter(
+        (tag) =>
+          tag.name.toLowerCase().includes(capitalizedValue.toLowerCase()) &&
+          !addedTags.some(
+            (t) => t.name.toLowerCase() === tag.name.toLowerCase(),
+          ),
       );
       setFilteredTags(filtered);
       setShowDropdown(true);
@@ -60,6 +70,12 @@ const TagInputField = ({ existingTags, onTagAdd }: Props) => {
     setShowDropdown(false);
   };
 
+  const isCreateButtonDisabled = () => {
+    return filteredTags.some(
+      (tag) => tag.name.toLowerCase() === inputValue.toLowerCase(),
+    );
+  };
+
   return (
     <div className="relative">
       <TextInputField
@@ -73,7 +89,8 @@ const TagInputField = ({ existingTags, onTagAdd }: Props) => {
             absolute
             w-full 
             rounded-md 
-            shadow-md 
+            shadow-md
+            bg-darkGrey
             shadow-black/50"
         >
           {filteredTags.map((tag) => (
@@ -81,16 +98,23 @@ const TagInputField = ({ existingTags, onTagAdd }: Props) => {
               key={tag.id}
               className="
                 first:rounded-t-md
+                last:rounded-b-md
                 overflow-clip"
             >
               <button
                 id={tagInputOptionIdPrefix + tag.name}
                 onClick={() => handleTagSelect(tag)}
                 className="
+                  text-left
                   cursor-pointer
                   text-white
                   p-2
                   w-full
+                  focus-visible:outline
+                  focus-visible:outline-2
+                  focus-visible:-outline-offset-2
+                  focus-visible:outline-lightGrey
+                  rounded-md
                   bg-darkGrey
                   hover:text-darkSlateGrey
                   hover:bg-lightGrey"
@@ -99,27 +123,36 @@ const TagInputField = ({ existingTags, onTagAdd }: Props) => {
               </button>
             </li>
           ))}
-          <li
-            className="
-              first:rounded-t-md
-              rounded-b-md
-              overflow-clip"
-          >
-            <button
-              id={`${tagInputOptionIdPrefix}create`}
-              onClick={handleTagAdd}
+
+          {!isCreateButtonDisabled() && (
+            <li
               className="
-                cursor-pointer
-                p-2
-                w-full
-                text-white
-                bg-darkGrey
-                hover:text-darkSlateGrey
-                hover:bg-lightGrey"
+                first:rounded-t-md
+                rounded-b-md
+                overflow-clip"
             >
-              {componentTexts.create}
-            </button>
-          </li>
+              <button
+                id={`${tagInputOptionIdPrefix}create`}
+                onClick={handleTagAdd}
+                className="
+                  text-left
+                  cursor-pointer
+                  p-2
+                  w-full
+                  text-white
+                  bg-darkGrey
+                  focus-visible:outline
+                  focus-visible:outline-2
+                  focus-visible:-outline-offset-2
+                  focus-visible:outline-lightGrey
+                  rounded-md
+                  hover:text-darkSlateGrey
+                  hover:bg-lightGrey"
+              >
+                {componentTexts.create} "{inputValue}"
+              </button>
+            </li>
+          )}
         </ul>
       )}
     </div>
