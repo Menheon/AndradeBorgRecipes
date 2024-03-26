@@ -7,8 +7,6 @@ type Breakpoints = "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
 export const useMediaQuery = (query: Breakpoints) => {
   const targetWidth = fullConfig.theme.screens[query];
-  console.log(targetWidth);
-
   const media = useMemo(
     () => window.matchMedia(`(min-width: ${targetWidth})`),
     [targetWidth],
