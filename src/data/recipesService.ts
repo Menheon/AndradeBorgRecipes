@@ -199,7 +199,6 @@ export const createNewRecipeDocument = async (newRecipeData: Recipe) => {
     });
     sectionRefs.push(sectionRef);
   }
-  console.log("tagRefs", tagRefs);
 
   // Create a reference to the new recipe in the Firestore database
   await addDoc(recipesCollectionRef, {
