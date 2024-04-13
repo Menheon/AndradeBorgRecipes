@@ -6,9 +6,11 @@ import {
   useRoutes,
 } from "react-router-dom";
 import { Recipes } from "@/pages/recipes/Recipes";
+import RecipeInfo from "@/pages/recipe/RecipeInfo";
 
 export const ROOT_PATH = "/";
 export const RECIPES_PATH = "/recipes";
+export const RECIPE_ITEM_PATH = "/recipes/:recipeId";
 export const INSPIRATION_PATH = "/inspiration";
 export const EMPTY_MY_FRIDGE_PATH = "/empty-my-fridge";
 
@@ -17,6 +19,10 @@ export const routes: RouteObject[] = [
   {
     path: RECIPES_PATH,
     element: <Recipes />,
+  },
+  {
+    path: RECIPE_ITEM_PATH,
+    element: <RecipeInfo />,
   },
   {
     path: INSPIRATION_PATH,
