@@ -53,12 +53,12 @@ export const BaseDialog = ({
   const dialogRef = useRef<HTMLDialogElement>(null);
   return (
     <dialog
-      className="min-w-fit max-w-full w-2/3 mt-8 rounded-xl bg-white p-6 shadow-3xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+      className="min-w-fit max-w-full w-2/3 mt-8 rounded-xl bg-white shadow-3xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
       ref={dialogRef}
       onClose={onClose}
       onClick={onDialogClicked}
     >
-      <form method="dialog">
+      <form method="dialog" className="p-6">
         <div className="mb-1">
           {/* TODO implement Typography component*/}
           <h1 className="text-2xl font-bold  font-[system-ui]">{title}</h1>
