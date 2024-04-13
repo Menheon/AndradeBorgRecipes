@@ -172,7 +172,7 @@ export const createNewRecipeDocument = async (newRecipeData: Recipe) => {
           where("name", "==", ingredientLine.ingredient.name),
         ),
       );
-      let ingredientRef = ingredientSnapshot.docs[0].ref;
+      let ingredientRef = ingredientSnapshot.docs[0]?.ref;
 
       // If the ingredient doesn't already exist in the database, add it
       if (ingredientSnapshot.empty) {
