@@ -143,6 +143,18 @@ export const createNewRecipeDocument = async (newRecipeData: Recipe) => {
       // Add the new tag to the database
       const tagRef = await addDoc(tagCollectionRef, { name: tag.name });
       tagRefs.push(tagRef);
+    } else {
+      // get the tag reference from the database
+      const tagSnapshot = await getDocs(
+        query(
+          collection(recipesDB, RecipeTagsCollectionName),
+          where("name", "==", tag.name),
+        ),
+      );
+      const tagRef = tagSnapshot.docs[0].ref;
+      if (tagRef) {
+        tagRefs.push(tagSnapshot.docs[0]?.ref);
+      }
     }
   }
 
@@ -187,6 +199,7 @@ export const createNewRecipeDocument = async (newRecipeData: Recipe) => {
     });
     sectionRefs.push(sectionRef);
   }
+  console.log("tagRefs", tagRefs);
 
   // Create a reference to the new recipe in the Firestore database
   await addDoc(recipesCollectionRef, {
