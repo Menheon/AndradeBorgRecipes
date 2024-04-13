@@ -5,6 +5,7 @@ import { Section } from "@/types/models";
 import { useFormContext } from "react-hook-form";
 import { CreateRecipeFormData } from "./CreateRecipeDialog";
 import { IngredientsTable } from "@/shared/form-components/IngredientsTable";
+import StepTable from "./StepTable";
 
 export const NewRecipeSections = () => {
   const methods = useFormContext<CreateRecipeFormData>();
@@ -78,11 +79,7 @@ export const NewRecipeSections = () => {
           </div>
           <div>
             <h4>Steps</h4>
-            <TextInputField
-              value={section.title}
-              onChange={(title) => updateSection("title", title, index)}
-              placeholder="Write section title"
-            />
+            <StepTable sectionIndex={index} />
           </div>
           <div>
             <h4>Ingredients</h4>
