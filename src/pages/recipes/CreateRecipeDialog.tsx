@@ -14,6 +14,8 @@ import { getAllRecipeTags } from "@/data/recipesService";
 import { useCallback, useEffect, useState } from "react";
 import { RemovableTag } from "./RemovableTag";
 
+// TODO Implement the functionality to add existing ingredients or add a new one in the recipe.
+
 export interface CreateRecipeFormData extends Recipe {}
 
 interface Props {
