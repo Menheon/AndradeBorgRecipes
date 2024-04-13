@@ -1,6 +1,7 @@
 import { Tag } from "@/types/models";
 import { useEffect, useState } from "react";
 import { TextInputField } from "./TextInputField";
+import { NEW_TAG_ID } from "@/data/recipesService";
 
 interface Props {
   existingTags: Tag[];
@@ -49,7 +50,7 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
     const trimmedValue = inputValue.trim();
     if (trimmedValue === "") return;
     const newTag: Tag = {
-      id: "-1",
+      id: NEW_TAG_ID,
       name: trimmedValue,
     };
     onTagAdd(newTag);
