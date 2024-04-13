@@ -48,8 +48,10 @@ export const IngredientsTable = ({ section }: Props) => {
 
     switch (ingredientLineProp) {
       case "ingredient":
+        const upperCasedValue =
+          newValue.charAt(0).toUpperCase() + newValue.slice(1);
         sections[section].ingredients[ingredientLineIndex].ingredient.name =
-          newValue;
+          upperCasedValue;
         break;
       case "amount":
         if (newValue === "") break;
