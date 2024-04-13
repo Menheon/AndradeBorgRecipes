@@ -16,13 +16,13 @@ export const StrikeableStep = ({ step }: Props) => {
     >
       <div>
         {isStricken ? (
-          <CheckBoxChecked className="w-5 h-5 fill-current hover:text-black text-darkGrey" />
+          <CheckBoxChecked className="w-5 h-5 fill-current hover:text-black text-brown-300" />
         ) : (
-          <CheckBoxUnchecked className="w-5 h-5 fill-current hover:text-black text-darkGrey" />
+          <CheckBoxUnchecked className="w-5 h-5 fill-current hover:text-black text-brown-300" />
         )}
       </div>
 
-      <span className={isStricken ? "line-through text-darkGrey" : ""}>
+      <span className={isStricken ? "line-through text-brown-300" : ""}>
         {step}
       </span>
     </div>

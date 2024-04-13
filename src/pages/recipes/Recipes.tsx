@@ -52,7 +52,7 @@ export const Recipes = () => {
       </div>
 
       <button
-        className="cursor-pointer transition-colors fixed bottom-10 right-10 bg-darkSlateGrey hover:bg-lightSlateGrey w-12 h-12 flex justify-center items-center rounded-full focus-visible:outline focus-visible:outline-darkSlateGrey focus-visible:outline-[3px] focus-visible:outline-offset-[2.5px] focus-visible:outline-solid"
+        className="cursor-pointer transition-colors fixed bottom-10 right-10 bg-brown-600 hover:bg-brown-500 w-12 h-12 flex justify-center items-center rounded-full focus-visible:outline focus-visible:outline-brown-600 focus-visible:outline-[3px] focus-visible:outline-offset-[2.5px] focus-visible:outline-solid"
         onClick={() => setIsCreatingRecipe(true)}
       >
         <AddIcon className="fill-whiteSmoke w-8 h-8" />

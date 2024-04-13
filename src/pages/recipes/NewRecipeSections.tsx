@@ -64,10 +64,11 @@ export const NewRecipeSections = () => {
               m-1
               focus-visible: outline-none
               focus-visible:ring-2 
-              focus-visible:ring-darkSlateGrey 
+              focus-visible:ring-brown-600
+              transition
               rounded-full"
           >
-            <CloseIcon className="h-6 w-6 fill-darkSlateGrey cursor-pointer hover:fill-lightSlateGrey" />
+            <CloseIcon className="h-6 w-6 fill-brown-600 cursor-pointer hover:fill-brown-500" />
           </button>
           <div>
             <h4>Section title</h4>

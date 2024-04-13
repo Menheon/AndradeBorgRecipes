@@ -16,9 +16,9 @@ export const RecipeSearchField = ({ onChange }: Props) => {
           outline-none
           px-2
           py-1
-          bg-lightGrey border-2 
-          border-darkSlateGrey 
-          placeholder-darkSlateGrey 
+          bg-brown-100 border-2 
+          border-brown-600 
+          placeholder-brown-600 
           search-cancel:cursor-pointer 
           search-cancel:filter
           search-cancel:hue-rotate-[165deg]
@@ -27,7 +27,7 @@ export const RecipeSearchField = ({ onChange }: Props) => {
           "
         onChange={(event) => onChange(event.target.value)}
       />
-      <div className="bg-darkSlateGrey h-9 w-9 flex justify-center items-center">
+      <div className="bg-brown-600 h-9 w-9 flex justify-center items-center">
         <SearchIcon className="fill-whiteSmoke w-7 h-7" />
       </div>
     </div>

@@ -92,7 +92,7 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
             w-full 
             rounded-md 
             shadow-md
-            bg-darkGrey
+            bg-brown-300
             shadow-black/50"
         >
           {filteredTags.map((tag) => (
@@ -115,11 +115,11 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
                   focus-visible:outline
                   focus-visible:outline-2
                   focus-visible:-outline-offset-2
-                  focus-visible:outline-lightGrey
+                  focus-visible:outline-brown-100
                   rounded-md
-                  bg-darkGrey
-                  hover:text-darkSlateGrey
-                  hover:bg-lightGrey"
+                  bg-brown-300
+                  hover:text-brown-600
+                  hover:bg-brown-100"
               >
                 {tag.name}
               </button>
@@ -142,14 +142,14 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
                   p-2
                   w-full
                   text-white
-                  bg-darkGrey
+                  bg-brown-300
                   focus-visible:outline
                   focus-visible:outline-2
                   focus-visible:-outline-offset-2
-                  focus-visible:outline-lightGrey
+                  focus-visible:outline-brown-100
                   rounded-md
-                  hover:text-darkSlateGrey
-                  hover:bg-lightGrey"
+                  hover:text-brown-600
+                  hover:bg-brown-100"
               >
                 {componentTexts.create} "{inputValue}"
               </button>

@@ -31,10 +31,10 @@ export const TextAreaField = ({
         bg-whiteSmoke 
         border-2 
         rounded-md 
-        border-darkSlateGrey 
-        placeholder-lightSlateGrey
+        border-brown-600 
+        placeholder-brown-500
         focus-visible:ring
-        focus-visible:ring-lightGrey"
+        focus-visible:ring-brown-100"
       onChange={(event) => onChange(event.target.value)}
     />
   );

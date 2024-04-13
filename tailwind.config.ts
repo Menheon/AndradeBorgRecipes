@@ -1,6 +1,6 @@
-import type { Config } from 'tailwindcss';
-import defaultTheme from 'tailwindcss/defaultTheme';
-import plugin from 'tailwindcss/plugin';
+import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 export default {
   darkMode: ["class"],
@@ -9,15 +9,16 @@ export default {
   theme: {
     extend: {
       screens: {
-        'xs': '540px',
-        '2xs': '300px',
+        xs: "540px",
+        "2xs": "300px",
       },
       colors: {
         whiteSmoke: "#f2f2f2",
-        lightGrey: "#d1ccc8",
-        darkGrey: "#a29c98",
-        lightSlateGrey: "#49433e",
-        darkSlateGrey: "#36312d",
+        "brown-100": "#d1ccc8",
+        "brown-200": "#bfbab6",
+        "brown-300": "#a29c98",
+        "brown-500": "#49433e",
+        "brown-600": "#36312d",
       },
       fontFamily: {
         caveat: ["Caveat", ...defaultTheme.fontFamily.sans],

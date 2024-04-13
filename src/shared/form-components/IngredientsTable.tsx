@@ -97,7 +97,7 @@ export const IngredientsTable = ({ section }: Props) => {
                   <button
                     type="button"
                     className="
-                      bg-darkGrey 
+                      bg-brown-300 
                       cursor-pointer 
                       rounded-l 
                       p-2 
@@ -107,16 +107,16 @@ export const IngredientsTable = ({ section }: Props) => {
                       mb-1
                       focus-visible:outline-none
                       focus-visible:ring
-                      focus-visible:ring-lightGrey
+                      focus-visible:ring-brown-100
                       focus-visible:ring-inset"
                     onClick={() => removeIngredientLine(index)}
                   >
-                    <CloseIcon className="h-7 w-7 fill-darkSlateGrey hover:fill-lightSlateGrey" />
+                    <CloseIcon className="h-7 w-7 fill-brown-600 hover:fill-brown-500 transition-colors" />
                   </button>
                 </td>
 
                 <td className="p-0">
-                  <div className="bg-darkGrey h-12 flex items-center px-1.5 mb-1">
+                  <div className="bg-brown-300 h-12 flex items-center px-1.5 mb-1">
                     <TextInputField
                       value={value.ingredient.name}
                       onChange={(value) =>
@@ -128,7 +128,7 @@ export const IngredientsTable = ({ section }: Props) => {
                 </td>
 
                 <td className="p-0">
-                  <div className="bg-darkGrey h-12 flex items-center px-1.5 mb-1">
+                  <div className="bg-brown-300 h-12 flex items-center px-1.5 mb-1">
                     <IntegerInputField
                       value={value.amount?.toString() ?? ""}
                       onChange={(value) =>
@@ -140,7 +140,7 @@ export const IngredientsTable = ({ section }: Props) => {
                 </td>
 
                 <td className="p-0">
-                  <div className="bg-darkGrey rounded-r h-12 flex items-center px-1.5 mb-1">
+                  <div className="bg-brown-300 rounded-r h-12 flex items-center px-1.5 mb-1">
                     <SelectField
                       placeholder={ingredientTableTexts.selectUnit}
                       options={getAllUnits()}
@@ -171,7 +171,7 @@ export const IngredientsTable = ({ section }: Props) => {
               gap-1
               p-2
               rounded-md
-              bg-darkGrey"
+              bg-brown-300"
           >
             <button
               type="button"
@@ -180,12 +180,13 @@ export const IngredientsTable = ({ section }: Props) => {
                 absolute
                 top-1
                 right-1
+                transition-colors
                 focus-visible: outline-none
                 focus-visible:ring-2 
-                focus-visible:ring-darkSlateGrey 
+                focus-visible:ring-brown-600 
                 rounded-full"
             >
-              <CloseIcon className="h-6 w-6 fill-darkSlateGrey hover:fill-lightSlateGrey" />
+              <CloseIcon className="h-6 w-6 fill-brown-600 hover:fill-brown-500" />
             </button>
 
             <div>

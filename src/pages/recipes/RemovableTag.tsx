@@ -14,7 +14,7 @@ export const RemovableTag = ({ children, onRemoved, isRemovable }: Props) => {
         flex
         gap-2 
         text-whiteSmoke 
-        bg-darkGrey 
+        bg-brown-300 
         px-2 
         py-1 
         rounded-md 
@@ -29,11 +29,11 @@ export const RemovableTag = ({ children, onRemoved, isRemovable }: Props) => {
             p-0.5 
             h-5 
             w-5 
-            bg-darkSlateGrey 
+            bg-brown-600 
             flex 
             items-center
             focus-visible:outline-none
-            focus-visible:ring-lightGrey
+            focus-visible:ring-brown-100
             focus-visible:ring-2"
           onClick={() => onRemoved()}
         >
@@ -41,9 +41,10 @@ export const RemovableTag = ({ children, onRemoved, isRemovable }: Props) => {
             className="
               h-4
               w-4 
-              fill-lightGrey 
+              fill-brown-100 
+              transition-colors
               cursor-pointer 
-              hover:fill-darkGrey"
+              hover:fill-brown-300"
           />
         </button>
       )}

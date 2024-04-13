@@ -11,7 +11,7 @@ export const FilledButton = ({ onClick, disabled, type, children }: Props) => {
       type="button"
       className={`${
         type === "primary"
-          ? "bg-darkSlateGrey hover:bg-lightSlateGrey"
+          ? "bg-brown-600 hover:bg-brown-500"
           : "bg-gray-500 hover:bg-gray-600"
       } 
         text-whiteSmoke 
@@ -24,8 +24,9 @@ export const FilledButton = ({ onClick, disabled, type, children }: Props) => {
         disabled:cursor-not-allowed
         focus-visible:outline-none
         focus-visible:ring-2
-        focus-visible:ring-lightGrey
+        focus-visible:ring-brown-100
         focus-visible:ring-inset
+        transition-colors
       `}
       disabled={disabled}
       onClick={onClick}

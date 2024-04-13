@@ -32,9 +32,9 @@ export const SelectField = <T,>({
         bg-whiteSmoke 
         border-2 
         rounded-md 
-        border-darkSlateGrey
+        border-brown-600
         focus-visible:ring
-        focus-visible:ring-lightGrey
+        focus-visible:ring-brown-100
       "
     >
       <option value="" disabled>

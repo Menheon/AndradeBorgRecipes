@@ -49,7 +49,7 @@ const StepTable = ({ sectionIndex }: Props) => {
                 <button
                   type="button"
                   className="
-                      bg-darkGrey 
+                      bg-brown-300 
                       cursor-pointer 
                       rounded-l 
                       p-2 
@@ -57,17 +57,18 @@ const StepTable = ({ sectionIndex }: Props) => {
                       flex 
                       items-center 
                       mb-1
+                      transition-colors
                       focus-visible:outline-none
                       focus-visible:ring
-                      focus-visible:ring-lightGrey
+                      focus-visible:ring-brown-100
                       focus-visible:ring-inset"
                   onClick={() => removeStep(stepIndex)}
                 >
-                  <CloseIcon className="h-7 w-7 fill-darkSlateGrey hover:fill-lightSlateGrey" />
+                  <CloseIcon className="h-7 w-7 fill-brown-600 hover:fill-brown-500" />
                 </button>
               </td>
               <td className="p-0">
-                <div className="bg-darkGrey h-12 flex items-center px-1.5 mb-1 rounded-r">
+                <div className="bg-brown-300 h-12 flex items-center px-1.5 mb-1 rounded-r">
                   <TextInputField
                     value={step}
                     onChange={(value) => updateStep(value, stepIndex)}
