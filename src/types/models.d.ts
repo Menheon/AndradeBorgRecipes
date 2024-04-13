@@ -16,18 +16,21 @@ export interface Tag {
 
 export interface Ingredient {
   name: string;
+  id?: string;
 }
 
 export interface IngredientLine {
   ingredient: Ingredient;
   amount: number | undefined;
   unit: Unit | undefined;
+  id?: string;
 }
 
 export interface Section {
   title: string;
   ingredients: IngredientLine[];
   steps: string[];
+  id?: string;
 }
 
 export interface Recipe {
@@ -36,4 +39,5 @@ export interface Recipe {
   imageUrl: string;
   tags: Tag[];
   sections: Section[];
+  id?: string;
 }
