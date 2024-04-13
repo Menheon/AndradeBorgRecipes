@@ -10,7 +10,10 @@ import {
 import { Recipe, Tag } from "@/types/models";
 import { NewRecipeSections } from "./NewRecipeSections";
 import TagInputField from "@/shared/form-components/TagInputField";
-import { getAllRecipeTags } from "@/data/recipesService";
+import {
+  createNewRecipeDocument,
+  getAllRecipeTags,
+} from "@/data/recipesService";
 import { useCallback, useEffect, useState } from "react";
 import { RemovableTag } from "./RemovableTag";
 
@@ -36,8 +39,8 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
   });
   const { watch, control, handleSubmit, setValue } = methods;
 
-  const createNewRecipe: SubmitHandler<CreateRecipeFormData> = (data) => {
-    console.log(data);
+  const handleCreateNewRecipe: SubmitHandler<CreateRecipeFormData> = (data) => {
+    createNewRecipeDocument(data);
     closeDialog();
   };
 
@@ -93,7 +96,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
   return (
     <BaseDialog
       isPrimaryActionDisabled={isCreateFormStateInvalid()}
-      primaryAction={handleSubmit(createNewRecipe)}
+      primaryAction={handleSubmit(handleCreateNewRecipe)}
       primaryActionLabel="create"
       title="Create a new recipe"
       isOpen={isOpen}
