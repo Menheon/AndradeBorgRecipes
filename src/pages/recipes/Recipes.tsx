@@ -29,8 +29,11 @@ export const Recipes = () => {
     }
     const searchValue = newValue.toLowerCase();
 
-    const newFilteredRecipes = allRecipes.filter((recipe) =>
-      recipe.name.toLowerCase().includes(searchValue),
+    const newFilteredRecipes = allRecipes.filter(
+      (recipe) =>
+        recipe.name.toLowerCase().includes(searchValue) ||
+        recipe.description.toLowerCase().includes(searchValue) ||
+        recipe.tags.some((tag) => tag.name.toLowerCase().includes(searchValue)),
     );
     setFilteredRecipes(newFilteredRecipes);
   };
