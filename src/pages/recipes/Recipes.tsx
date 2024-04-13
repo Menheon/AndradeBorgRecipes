@@ -19,7 +19,8 @@ export const Recipes = () => {
 
   useEffect(() => {
     // TODO uncomment when needing recipes.
-    // initializeRecipes();
+    // TODO Use Tanstack's React Query to fetch recipes.
+    initializeRecipes();
   }, [initializeRecipes]);
 
   const onSearchInputValueChanged = (newValue: string) => {
