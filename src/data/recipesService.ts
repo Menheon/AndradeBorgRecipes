@@ -67,7 +67,9 @@ export const getAllRecipes = async () => {
                 const ingredientData = ingredientDoc.data() as Ingredient;
 
                 const ingredientLine: IngredientLine = {
+                  id: ingredientLineDoc.id,
                   ingredient: {
+                    id: ingredientDoc.id,
                     name: ingredientData.name,
                   },
                   amount: ingredientLineData.amount,
@@ -79,6 +81,7 @@ export const getAllRecipes = async () => {
           );
 
           const section: Section = {
+            id: sectionDoc.id,
             title: sectionData.title,
             steps: sectionData.steps,
             ingredients,
@@ -88,6 +91,7 @@ export const getAllRecipes = async () => {
       );
 
       const recipe: Recipe = {
+        id: recipeSnapshot.id,
         name: recipeData.name,
         description: recipeData.description,
         imageUrl: recipeData.imageUrl,
