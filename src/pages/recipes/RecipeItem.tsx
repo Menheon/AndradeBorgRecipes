@@ -1,5 +1,3 @@
-// import { StrikeableStep } from "pages/recipes/StrikeableStep";
-// import { mapUnitToStringFormat } from "util/util";
 import { Recipe } from "@/types/models";
 import { RemovableTag } from "./RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
@@ -14,50 +12,12 @@ export const RecipeItem = ({ recipe }: Props) => {
   const isMinLargeScreen = useMediaQuery("lg");
   const navigate = useNavigate();
 
-  /* {recipe.sections.map((section, i) => (
-          <div className="grid grid-cols-2 gap-4" key={i}>
-            <div className="bg-pastelGreen rounded-lg px-5 py-2">
-              {recipe.sections.length > 1 && (
-                <h3 className="item">{section.title}</h3>
-              )}
-              <div>
-                <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
-                  Ingredients
-                </h4>
-                <ul className="list-disc list-inside">
-                  {section.ingredients.map((ingredientLine, i) => (
-                    <li className="list-item pb-2 text-darkGreen" key={i}>
-                      <span className="text-black">
-                        {`${ingredientLine.amount} ${mapUnitToStringFormat(
-                          ingredientLine.unit,
-                        )} ${ingredientLine.ingredient.name}`}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="bg-pastelGreen rounded-lg px-5 py-2">
-              {recipe.sections.length > 1 && (
-                <h3 className="item">{section.title}</h3>
-              )}
-              <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
-                Steps
-              </h4>
-              <div>
-                {section.steps.map((step, i) => (
-                  <StrikeableStep key={i} step={step} />
-                ))}
-              </div>
-            </div>
-          </div>
-        ))} */
-
   const onRecipeItemClicked = () => {
     if (!recipe.id) return;
     const path = generatePath(RECIPE_ITEM_PATH, { recipeId: recipe.id });
     navigate(path);
+    // TODO: Use View Transitions API to make fancy animation.
+    // document.startViewTransition(() => flushSync(() => navigate(path)));
   };
 
   return (
