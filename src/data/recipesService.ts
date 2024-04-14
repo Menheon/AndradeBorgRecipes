@@ -9,6 +9,7 @@ import {
   where,
   addDoc,
   DocumentData,
+  doc,
 } from "firebase/firestore";
 import {
   Ingredient,
@@ -25,6 +26,74 @@ const IngredientsCollectionName = "Ingredients";
 const RecipeSectionsCollectionName = "RecipeSections";
 const RecipeTagsCollectionName = "RecipeTags";
 const RecipesCollectionName = "Recipes";
+
+export const getRecipeDocumentById = async (recipeId: string) => {
+  const recipeRef = doc(recipesDB, RecipesCollectionName, recipeId);
+  const recipeSnapshot = await getDoc(recipeRef);
+  const recipeData = recipeSnapshot.data();
+  if (!recipeData) return;
+
+  const tags = await Promise.all(
+    (recipeData.tags as DocumentReference[]).map(async (tagRef) => {
+      const tagDoc = await getDoc(tagRef);
+      const tagData = tagDoc.data() as any;
+
+      const tag: Tag = {
+        name: tagData.name,
+        id: tagDoc.id,
+      };
+      return tag;
+    }),
+  );
+
+  const sections = await Promise.all(
+    (recipeData.sections as DocumentReference[]).map(async (sectionRef) => {
+      const sectionDoc = await getDoc(sectionRef);
+      const sectionData = sectionDoc.data() as any;
+
+      const ingredients = await Promise.all(
+        (sectionData.ingredients as DocumentReference[]).map(
+          async (ingredientLineRef) => {
+            const ingredientLineDoc = await getDoc(ingredientLineRef);
+            const ingredientLineData = ingredientLineDoc.data() as any;
+
+            const ingredientDoc = await getDoc(ingredientLineData.ingredient);
+            const ingredientData = ingredientDoc.data() as Ingredient;
+
+            const ingredientLine: IngredientLine = {
+              id: ingredientLineDoc.id,
+              ingredient: {
+                id: ingredientDoc.id,
+                name: ingredientData.name,
+              },
+              amount: ingredientLineData.amount,
+              unit: ingredientLineData.unit,
+            };
+            return ingredientLine;
+          },
+        ),
+      );
+
+      const section: Section = {
+        id: sectionDoc.id,
+        title: sectionData.title,
+        steps: sectionData.steps,
+        ingredients,
+      };
+      return section;
+    }),
+  );
+
+  const recipe: Recipe = {
+    id: recipeSnapshot.id,
+    name: recipeData.name,
+    description: recipeData.description,
+    imageUrl: recipeData.imageUrl,
+    tags,
+    sections,
+  };
+  return recipe;
+};
 
 export const getAllRecipes = async () => {
   const recipesRef = collection(recipesDB, RecipesCollectionName);
