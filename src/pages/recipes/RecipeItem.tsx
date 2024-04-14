@@ -23,7 +23,7 @@ export const RecipeItem = ({ recipe }: Props) => {
   return (
     <div onClick={() => onRecipeItemClicked()}>
       {isMinLargeScreen ? (
-        <div className="mb-6 mx-12 border-brown-600 border-2 grid grid-cols-8 h-80 rounded-xl shadow-lg overflow-auto cursor-pointer hover:bg-brown-200 transition">
+        <div className="mb-6 mx-12 border-brown-600 border-2 grid grid-cols-8 h-96  rounded-xl shadow-lg overflow-auto cursor-pointer hover:bg-brown-200 transition">
           <img
             className="w-full h-full min-h-[100px] object-cover col-span-3 border-brown-600 border-r-2"
             src={recipe.imageUrl}

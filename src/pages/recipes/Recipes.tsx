@@ -42,7 +42,7 @@ export const Recipes = () => {
     <div className="mx-auto px-4 justify-center">
       <div className="flex items-center flex-col">
         <img
-          className="w-[calc(100%-100px)] h-52 object-cover filter brightness-75 contrast-75"
+          className="xs:w-[calc(100%-50px)] sm:w-[calc(100%-100px)] h-52 object-cover filter brightness-75 contrast-75"
           src="https://static.vecteezy.com/system/resources/previews/024/396/481/large_2x/table-scene-with-a-selection-of-delicious-foods-top-view-over-a-dark-wood-banner-background-generate-ai-free-photo.jpg"
         />
         <RecipeSearchField onChange={onSearchInputValueChanged} />
