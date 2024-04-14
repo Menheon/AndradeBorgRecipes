@@ -5,11 +5,22 @@ import { useParams } from "react-router-dom";
 import { StrikeableStep } from "../recipes/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../recipes/RemovableTag";
+import { useMediaQuery } from "@/util/useMediaQuery";
 
 const RecipeInfo = () => {
   let { recipeId } = useParams();
   const [recipe, setRecipe] = useState<Recipe>();
   const [isLoading, setIsLoading] = useState(false);
+
+  const isMinExtraSmallScreen = useMediaQuery("xs");
+  const isMinSmallScreen = useMediaQuery("sm");
+  const isMinMediumScreen = useMediaQuery("md");
+  const isMinLargeScreen = useMediaQuery("lg");
+
+  console.log("\nisMinExtraSmallScreen", isMinExtraSmallScreen);
+  console.log("isMinSmallScreen", isMinSmallScreen);
+  console.log("isMinMediumScreen", isMinMediumScreen);
+  console.log("isMinLargeScreen", isMinLargeScreen);
 
   // TODO: Display the recipe data in the component
   // TODO: Add a button to navigate back to the recipes page
@@ -36,7 +47,7 @@ const RecipeInfo = () => {
   }, [initializeRecipe]);
 
   return (
-    <div className="p-8">
+    <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
       {isLoading && <p>Loading...</p>}
       {recipe && !isLoading ? (
         <>
@@ -45,12 +56,20 @@ const RecipeInfo = () => {
               {recipe.name}
             </h1>
             <hr className="mb-4 mx-40 border-t-2 border-brown-600" />
-            <div className="flex">
+            {!isMinMediumScreen && (
               <img
-                className="w-1/2 h-full object-cover border-brown-600 border-y-2 border-r-2 rounded-r-xl"
+                className="w-full max-h-80 object-cover border-brown-600 border-y-2"
                 src={recipe.imageUrl}
               />
-              <div className="px-12 py-8 col-span-5 flex-col flex">
+            )}
+            <div className="flex">
+              {isMinMediumScreen && (
+                <img
+                  className="w-1/2 h-full object-cover border-brown-600 border-y-2 border-r-2 rounded-r-xl"
+                  src={recipe.imageUrl}
+                />
+              )}
+              <div className="px-8 pt-2 col-span-5 flex-col flex">
                 <p className="text-lg">{recipe.description}</p>
                 <div className="flex gap-1 mb-0 mt-auto">
                   {recipe.tags.map((tag) => (
@@ -64,7 +83,7 @@ const RecipeInfo = () => {
 
             <div className="bg-whiteSmoke h-full mt-6 py-2 rounded-xl flex-1">
               {recipe.sections.map((section, i) => (
-                <div className="grid grid-cols-2 gap-4" key={i}>
+                <div className="grid grid-cols-1 xs:grid-cols-2 gap-4" key={i}>
                   <div className="bg-pastelGreen rounded-lg px-5 py-2">
                     {recipe.sections.length > 1 && (
                       <h3 className="item">{section.title}</h3>

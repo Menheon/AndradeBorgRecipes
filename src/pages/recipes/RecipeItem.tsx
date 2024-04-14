@@ -45,7 +45,7 @@ export const RecipeItem = ({ recipe }: Props) => {
           </div>
         </div>
       ) : (
-        <div className="mb-6 mx-12 border-brown-600 border-2 grid grid-cols-8 rounded-xl shadow-lg cursor-pointer hover:bg-brown-200 transition">
+        <div className="mb-6 mx-2 xs:mx-6 sm:mx-12 border-brown-600 border-2 grid grid-cols-8 rounded-xl shadow-lg cursor-pointer hover:bg-brown-200 transition">
           <h2 className="p-4 col-span-8 text-5xl font-bold text-center text-darkGreen font-caveat tracking-wider">
             {recipe.name}
           </h2>
