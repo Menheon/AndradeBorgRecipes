@@ -83,34 +83,28 @@ const RecipeInfo = () => {
 
             <div className="bg-whiteSmoke h-full mt-6 py-2 rounded-xl flex-1">
               {recipe.sections.map((section, i) => (
-                <div className="grid grid-cols-1 xs:grid-cols-2 gap-4" key={i}>
-                  <div className="bg-pastelGreen rounded-lg px-5 py-2">
-                    {recipe.sections.length > 1 && (
-                      <h3 className="item">{section.title}</h3>
-                    )}
-                    <div>
-                      <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
-                        Ingredients
-                      </h4>
-                      <ul className="list-disc list-inside">
-                        {section.ingredients.map((ingredientLine, i) => (
-                          <li className="list-item pb-2 text-darkGreen" key={i}>
-                            <span className="text-black">
-                              {ingredientLine.unit &&
-                                `${ingredientLine.amount} ${mapUnitToStringFormat(
-                                  ingredientLine.unit,
-                                )} ${ingredientLine.ingredient.name}`}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                <div className="grid grid-cols-1 xs:grid-cols-2 gap-2" key={i}>
+                  <h3 className="col-span-2 px-5 text-center text-2xl font-caveat font-semibold">
+                    {section.title}
+                  </h3>
+                  <div className="bg-pastelGreen rounded-lg px-5 pb-2 xs:col-span-1 col-span-2">
+                    <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
+                      Ingredients
+                    </h4>
+                    <ul className="list-disc list-inside">
+                      {section.ingredients.map((ingredientLine, i) => (
+                        <li className="list-item pb-2 text-darkGreen" key={i}>
+                          <span className="text-black">
+                            {ingredientLine.unit &&
+                              `${ingredientLine.amount} ${mapUnitToStringFormat(
+                                ingredientLine.unit,
+                              )} ${ingredientLine.ingredient.name}`}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-
-                  <div className="bg-pastelGreen rounded-lg px-5 py-2">
-                    {recipe.sections.length > 1 && (
-                      <h3 className="item">{section.title}</h3>
-                    )}
+                  <div className="bg-pastelGreen rounded-lg px-5 pb-2 xs:col-span-1 col-span-2">
                     <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
                       Steps
                     </h4>
