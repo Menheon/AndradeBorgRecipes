@@ -15,7 +15,7 @@ export const AppBar = () => {
   };
 
   return (
-    <div>
+    <div className="fixed bg-brown-100 z-20 w-full shadow-md">
       <div
         className={`p-6 sm:hidden fixed z-50 top-0 left-0 w-full h-full bg-brown-200 transition-all transform ${isUsingMobileMenu ? "translate-x-0" : "-translate-x-full"}`}
       >
@@ -60,7 +60,7 @@ export const AppBar = () => {
         </div>
       </div>
 
-      <div className="w-full flex items-center gap-5 py-3 px-5 sticky top-0">
+      <div className="flex items-center gap-5 py-3 px-5 ">
         {isMinSmallScreen ? (
           <>
             <a

@@ -6,7 +6,9 @@ function App() {
   return (
     <BrowserRouter>
       <AppBar />
-      <AppRoutes />
+      <div className="pt-[60px]">
+        <AppRoutes />
+      </div>
     </BrowserRouter>
   );
 }
