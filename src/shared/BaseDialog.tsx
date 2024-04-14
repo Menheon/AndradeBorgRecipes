@@ -53,7 +53,7 @@ export const BaseDialog = ({
   const dialogRef = useRef<HTMLDialogElement>(null);
   return (
     <dialog
-      className="min-w-fit max-w-full w-2/3 mt-8 rounded-xl bg-white shadow-3xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+      className="min-w-fit max-w-full w-2/3 my-8 rounded-xl bg-white shadow-3xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
       ref={dialogRef}
       onClose={onClose}
       onClick={onDialogClicked}
@@ -64,7 +64,9 @@ export const BaseDialog = ({
           <h1 className="text-2xl font-bold  font-[system-ui]">{title}</h1>
           <p>{description}</p>
         </div>
-        <div className="overflow-y-auto max-h-96">{children}</div>
+        <div className="overflow-y-auto max-h-[calc(100dvh-200px)]">
+          {children}
+        </div>
         <div className="flex justify-end gap-5 pt-3">
           <FilledButton onClick={() => onClose?.()} type="secondary">
             Cancel
