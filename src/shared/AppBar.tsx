@@ -3,10 +3,17 @@ import MenuIcon from "@/assets/menu.svg?react";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useState } from "react";
 import CloseIcon from "@/assets/close.svg?react";
+import { useNavigate } from "react-router-dom";
+import {
+  EMPTY_MY_FRIDGE_PATH,
+  INSPIRATION_PATH,
+  RECIPES_PATH,
+} from "./AppRoutes";
 
 export const AppBar = () => {
   const isMin900WidthScreen = useMediaQuery(900);
   const isMinSmallScreen = useMediaQuery("sm");
+  const navigate = useNavigate();
 
   const [isUsingMobileMenu, setIsUsingMobileMenu] = useState(false);
 
@@ -36,51 +43,66 @@ export const AppBar = () => {
           <CloseIcon className="h-8 w-8 fill-brown-600 cursor-pointer hover:fill-brown-500" />
         </button>
         <div className="flex flex-col gap-2">
-          <a
-            onClick={() => setIsUsingMobileMenu(false)}
-            href="/recipes"
+          <button
+            onClick={() => {
+              setIsUsingMobileMenu(false);
+              navigate(RECIPES_PATH);
+            }}
             className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
           >
             Recipes
-          </a>
-          <a
-            onClick={() => setIsUsingMobileMenu(false)}
-            href="/inspiration"
+          </button>
+          <button
+            onClick={() => {
+              setIsUsingMobileMenu(false);
+              navigate(INSPIRATION_PATH);
+            }}
             className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
           >
             Inspiration
-          </a>
-          <a
-            onClick={() => setIsUsingMobileMenu(false)}
-            href="/empty-my-fridge"
+          </button>
+          <button
+            onClick={() => {
+              setIsUsingMobileMenu(false);
+              navigate(EMPTY_MY_FRIDGE_PATH);
+            }}
             className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
           >
             Empty My Fridge
-          </a>
+          </button>
         </div>
       </div>
 
       <div className="flex items-center gap-5 py-3 px-5 ">
         {isMinSmallScreen ? (
           <>
-            <a
-              href="/recipes"
+            <button
+              onClick={() => {
+                setIsUsingMobileMenu(false);
+                navigate(RECIPES_PATH);
+              }}
               className="text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
             >
               Recipes
-            </a>
-            <a
-              href="/inspiration"
+            </button>
+            <button
+              onClick={() => {
+                setIsUsingMobileMenu(false);
+                navigate(INSPIRATION_PATH);
+              }}
               className="text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
             >
               Inspiration
-            </a>
-            <a
-              href="/empty-my-fridge"
+            </button>
+            <button
+              onClick={() => {
+                setIsUsingMobileMenu(false);
+                navigate(EMPTY_MY_FRIDGE_PATH);
+              }}
               className="text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
             >
               Empty My Fridge
-            </a>
+            </button>
           </>
         ) : (
           <button type="button" onClick={onHamburgerMenuClicked}>
