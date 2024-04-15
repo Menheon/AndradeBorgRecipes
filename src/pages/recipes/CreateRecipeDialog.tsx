@@ -24,9 +24,14 @@ export interface CreateRecipeFormData extends Recipe {}
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onRecipeCreated: () => void;
 }
 
-export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
+export const CreateRecipeDialog = ({
+  isOpen,
+  onClose,
+  onRecipeCreated,
+}: Props) => {
   const methods = useForm<CreateRecipeFormData>({
     mode: "all",
     defaultValues: {
@@ -41,6 +46,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
 
   const handleCreateNewRecipe: SubmitHandler<CreateRecipeFormData> = (data) => {
     createNewRecipeDocument(data);
+    onRecipeCreated();
     closeDialog();
   };
 
