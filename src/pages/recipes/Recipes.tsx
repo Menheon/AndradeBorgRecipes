@@ -5,21 +5,31 @@ import { getAllRecipes } from "@/data/recipesService";
 import { Recipe } from "@/types/models";
 import { CreateRecipeDialog } from "./CreateRecipeDialog";
 import { RecipeSearchField } from "./RecipeSearchField";
+import { useQuery } from "@tanstack/react-query";
 
 export const Recipes = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
 
+  const {
+    data: recipes,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useQuery({
+    queryKey: ["recipes"],
+    queryFn: getAllRecipes,
+  });
+
   const initializeRecipes = useCallback(async () => {
-    const recipes = await getAllRecipes();
-    setAllRecipes(recipes);
-    setFilteredRecipes(recipes);
-  }, []);
+    if (isSuccess) {
+      setAllRecipes(recipes);
+      setFilteredRecipes(recipes);
+    }
+  }, [recipes]);
 
   useEffect(() => {
-    // TODO uncomment when needing recipes.
-    // TODO Use Tanstack's React Query to fetch recipes.
     initializeRecipes();
   }, [initializeRecipes]);
 
@@ -63,15 +73,18 @@ export const Recipes = () => {
       />
 
       <div>
-        {filteredRecipes.length > 0 ? (
-          filteredRecipes.map((recipe) => (
-            <RecipeItem recipe={recipe} key={recipe.name} />
-          ))
-        ) : (
-          <p className="text-center">
+        {isLoading && <p className="text-center text-xl">Loading...</p>}
+        {isError && (
+          <p className="text-center text-xl">Failed to load recipes</p>
+        )}
+        {isSuccess && filteredRecipes.length === 0 && (
+          <p className="text-center text-xl">
             Whoops! No recipes matching your search...
           </p>
         )}
+        {filteredRecipes.map((recipe) => (
+          <RecipeItem recipe={recipe} key={recipe.name} />
+        ))}
       </div>
     </div>
   );
