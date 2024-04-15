@@ -1,26 +1,29 @@
-import { getRecipeDocumentById } from "@/data/recipesService";
-import { Recipe } from "@/types/models";
-import { useCallback, useEffect, useState } from "react";
+import { RECIPE_QUERY_TAG, getRecipeDocumentById } from "@/data/recipesService";
 import { useParams } from "react-router-dom";
 import { StrikeableStep } from "../recipes/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../recipes/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
+import { useQuery } from "@tanstack/react-query";
 
 const RecipeInfo = () => {
-  let { recipeId } = useParams();
-  const [recipe, setRecipe] = useState<Recipe>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const isMinExtraSmallScreen = useMediaQuery("xs");
-  const isMinSmallScreen = useMediaQuery("sm");
+  const { recipeId } = useParams();
   const isMinMediumScreen = useMediaQuery("md");
-  const isMinLargeScreen = useMediaQuery("lg");
 
-  console.log("\nisMinExtraSmallScreen", isMinExtraSmallScreen);
-  console.log("isMinSmallScreen", isMinSmallScreen);
-  console.log("isMinMediumScreen", isMinMediumScreen);
-  console.log("isMinLargeScreen", isMinLargeScreen);
+  const getRecipeDocument = async () => {
+    const recipeDocument = await getRecipeDocumentById(recipeId ?? "");
+    return recipeDocument;
+  };
+
+  const {
+    data: recipe,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useQuery({
+    queryKey: [`${RECIPE_QUERY_TAG}-${recipeId}`],
+    queryFn: getRecipeDocument,
+  });
 
   // TODO: Display the recipe data in the component
   // TODO: Add a button to navigate back to the recipes page
@@ -30,26 +33,13 @@ const RecipeInfo = () => {
   // TODO: Add a button to edit the recipe data
   // TODO: Add a button to share the link to the recipe.
 
-  const initializeRecipe = useCallback(async () => {
-    // TODO check if recipe is already loaded from recipes collection, and then retrieve data from there to avoid unnecessary fetch and utilize View Transitions API to make fancy animation.
-    if (!recipeId || recipe) return;
-    setIsLoading(true);
-    // Fetch recipe data from Firestore using the recipeId
-    const recipeDocument = await getRecipeDocumentById(recipeId);
-    if (recipeDocument) {
-      setRecipe(recipeDocument);
-    }
-    setIsLoading(false);
-  }, [recipeId, recipe]);
-
-  useEffect(() => {
-    initializeRecipe();
-  }, [initializeRecipe]);
-
   return (
     <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
-      {isLoading && <p>Loading...</p>}
-      {recipe && !isLoading ? (
+      {isLoading && <p className="text-center text-xl">Loading...</p>}
+      {isError && (
+        <p className="text-center text-xl">Error fetching recipe data</p>
+      )}
+      {isSuccess && recipe && (
         <>
           <div className="border-brown-600 border-2 min-h-[750px] rounded-xl shadow-lg overflow-auto flex flex-col">
             <h1 className="text-5xl font-bold text-center p-4 text-darkGreen font-caveat tracking-wider">
@@ -119,8 +109,6 @@ const RecipeInfo = () => {
             </div>
           </div>
         </>
-      ) : (
-        <p>Recipe not found</p>
       )}
     </div>
   );

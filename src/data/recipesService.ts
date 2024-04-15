@@ -20,6 +20,8 @@ import {
 } from "@/types/models";
 
 export const RECIPES_QUERY_TAG = "recipes";
+export const TAGS_QUERY_TAG = "tags";
+export const RECIPE_QUERY_TAG = "recipe";
 
 export const NEW_TAG_ID = "-1";
 
