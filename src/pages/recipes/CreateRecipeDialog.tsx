@@ -12,12 +12,12 @@ import { NewRecipeSections } from "./NewRecipeSections";
 import TagInputField from "@/shared/form-components/TagInputField";
 import {
   RECIPES_QUERY_TAG,
+  TAGS_QUERY_TAG,
   createNewRecipeDocument,
   getAllRecipeTags,
 } from "@/data/recipesService";
-import { useCallback, useEffect, useState } from "react";
 import { RemovableTag } from "./RemovableTag";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export interface CreateRecipeFormData extends Recipe {}
 
@@ -46,6 +46,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [RECIPES_QUERY_TAG] });
+      queryClient.invalidateQueries({ queryKey: [TAGS_QUERY_TAG] });
     },
   });
 
@@ -76,17 +77,10 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
     );
   };
 
-  const [existingTags, setExistingTags] = useState<Tag[]>([]);
-
-  const getAllTags = useCallback(async () => {
-    // TODO use tanstack query
-    const tags = await getAllRecipeTags();
-    setExistingTags(tags);
-  }, []);
-
-  useEffect(() => {
-    getAllTags();
-  }, [getAllTags]);
+  const { data: existingTags, isLoading: isTagsLoading } = useQuery({
+    queryKey: [TAGS_QUERY_TAG],
+    queryFn: getAllRecipeTags,
+  });
 
   const onNewTagAdded = (newTag: Tag) => {
     const currentTags = watch("tags");
@@ -143,33 +137,37 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
           />
 
           <h3 className="text-md font-semibold pt-2 pb-0.5">Tags</h3>
-          <Controller
-            control={control}
-            name="tags"
-            render={({ field }) => (
-              <>
-                <TagInputField
-                  // Apply date time key, to ensure clearing input state.
-                  key={new Date().getTime()}
-                  existingTags={existingTags}
-                  onTagAdd={onNewTagAdded}
-                  addedTags={field.value}
-                />
-                <ul className="flex gap-1 p-1 min-h-10 flex-wrap">
-                  {field.value.map((tag, tagIndex) => (
-                    <li key={`${tag.name}-${tagIndex}`}>
-                      <RemovableTag
-                        isRemovable
-                        onRemoved={() => handleTagRemoved(tag)}
-                      >
-                        {tag.name}
-                      </RemovableTag>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-          />
+          {isTagsLoading ? (
+            <p>Loading tags...</p>
+          ) : (
+            <Controller
+              control={control}
+              name="tags"
+              render={({ field }) => (
+                <>
+                  <TagInputField
+                    // Apply date time key, to ensure clearing input state.
+                    key={new Date().getTime()}
+                    existingTags={existingTags ?? []}
+                    onTagAdd={onNewTagAdded}
+                    addedTags={field.value}
+                  />
+                  <ul className="flex gap-1 p-1 min-h-10 flex-wrap">
+                    {field.value.map((tag, tagIndex) => (
+                      <li key={`${tag.name}-${tagIndex}`}>
+                        <RemovableTag
+                          isRemovable
+                          onRemoved={() => handleTagRemoved(tag)}
+                        >
+                          {tag.name}
+                        </RemovableTag>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            />
+          )}
         </div>
 
         <div className="col-start-1 sm:col-start-2 sm:col-end-3">
