@@ -1,7 +1,7 @@
 import AddIcon from "@/assets/add.svg?react";
 import { RecipeItem } from "./RecipeItem";
 import { useCallback, useEffect, useState } from "react";
-import { getAllRecipes } from "@/data/recipesService";
+import { RECIPES_QUERY_TAG, getAllRecipes } from "@/data/recipesService";
 import { Recipe } from "@/types/models";
 import { CreateRecipeDialog } from "./CreateRecipeDialog";
 import { RecipeSearchField } from "./RecipeSearchField";
@@ -18,7 +18,7 @@ export const Recipes = () => {
     isSuccess,
     isError,
   } = useQuery({
-    queryKey: ["recipes"],
+    queryKey: [RECIPES_QUERY_TAG],
     queryFn: getAllRecipes,
   });
 

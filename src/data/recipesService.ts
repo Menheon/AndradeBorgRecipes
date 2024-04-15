@@ -19,6 +19,8 @@ import {
   Tag,
 } from "@/types/models";
 
+export const RECIPES_QUERY_TAG = "recipes";
+
 export const NEW_TAG_ID = "-1";
 
 const IngredientLineCollectionName = "IngredientLines";

@@ -11,25 +11,22 @@ import { Recipe, Tag } from "@/types/models";
 import { NewRecipeSections } from "./NewRecipeSections";
 import TagInputField from "@/shared/form-components/TagInputField";
 import {
+  RECIPES_QUERY_TAG,
   createNewRecipeDocument,
   getAllRecipeTags,
 } from "@/data/recipesService";
 import { useCallback, useEffect, useState } from "react";
 import { RemovableTag } from "./RemovableTag";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export interface CreateRecipeFormData extends Recipe {}
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onRecipeCreated: () => void;
 }
 
-export const CreateRecipeDialog = ({
-  isOpen,
-  onClose,
-  onRecipeCreated,
-}: Props) => {
+export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
   const methods = useForm<CreateRecipeFormData>({
     mode: "all",
     defaultValues: {
@@ -42,9 +39,18 @@ export const CreateRecipeDialog = ({
   });
   const { watch, control, handleSubmit, setValue } = methods;
 
+  const queryClient = useQueryClient();
+
+  const postNewRecipeMutation = useMutation({
+    mutationFn: createNewRecipeDocument,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: [RECIPES_QUERY_TAG] });
+    },
+  });
+
   const handleCreateNewRecipe: SubmitHandler<CreateRecipeFormData> = (data) => {
-    createNewRecipeDocument(data);
-    onRecipeCreated();
+    postNewRecipeMutation.mutate(data);
     closeDialog();
   };
 
