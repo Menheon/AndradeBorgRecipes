@@ -5,10 +5,17 @@ import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../recipes/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const RecipeInfo = () => {
   const { recipeId } = useParams();
   const isMinMediumScreen = useMediaQuery("md");
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "instant",
+    });
+  }, []);
 
   const getRecipeDocument = async () => {
     const recipeDocument = await getRecipeDocumentById(recipeId ?? "");
