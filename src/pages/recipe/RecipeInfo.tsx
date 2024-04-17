@@ -32,6 +32,7 @@ const RecipeInfo = () => {
   // TODO: Add styling to the component
   // TODO: Add a button to edit the recipe data
   // TODO: Add a button to share the link to the recipe.
+  // TODO: Scroll to top of page when navigating to a recipe.
 
   return (
     <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
@@ -41,15 +42,33 @@ const RecipeInfo = () => {
       )}
       {isSuccess && recipe && (
         <>
-          <div className="border-brown-600 border-2 min-h-[750px] rounded-xl shadow-lg overflow-auto flex flex-col">
-            <h1 className="text-5xl font-bold text-center p-4 text-darkGreen font-caveat tracking-wider">
+          <div
+            className="border-brown-600 border-2 min-h-[750px] rounded-xl shadow-lg overflow-auto flex flex-col"
+            style={{
+              viewTransitionName: `recipe-container-${recipe.id}`,
+            }}
+          >
+            <h1
+              className="text-5xl font-bold text-center p-4 text-darkGreen font-caveat tracking-wider"
+              style={{
+                viewTransitionName: `recipe-title-${recipe.id}`,
+              }}
+            >
               {recipe.name}
             </h1>
-            <hr className="mb-4 mx-40 border-t-2 border-brown-600" />
+            <hr
+              className="mb-4 mx-40 border-t-2 border-brown-600"
+              style={{
+                viewTransitionName: `recipe-title-bar-${recipe.id}`,
+              }}
+            />
             {!isMinMediumScreen && (
               <img
                 className="w-full max-h-80 object-cover border-brown-600 border-y-2"
                 src={recipe.imageUrl}
+                style={{
+                  viewTransitionName: `recipe-img-${recipe.id}`,
+                }}
               />
             )}
             <div className="flex">
@@ -57,11 +76,26 @@ const RecipeInfo = () => {
                 <img
                   className="w-1/2 h-full object-cover border-brown-600 border-y-2 border-r-2 rounded-r-xl"
                   src={recipe.imageUrl}
+                  style={{
+                    viewTransitionName: `recipe-img-${recipe.id}`,
+                  }}
                 />
               )}
               <div className="px-8 pt-2 col-span-5 flex-col flex">
-                <p className="text-lg">{recipe.description}</p>
-                <div className="flex gap-1 mb-0 mt-auto">
+                <p
+                  className="text-lg"
+                  style={{
+                    viewTransitionName: `recipe-description-${recipe.id}`,
+                  }}
+                >
+                  {recipe.description}
+                </p>
+                <div
+                  className="flex gap-1 mb-0 mt-auto"
+                  style={{
+                    viewTransitionName: `recipe-tags-${recipe.id}`,
+                  }}
+                >
                   {recipe.tags.map((tag) => (
                     <RemovableTag key={tag.id} isRemovable={false}>
                       {tag.name}
