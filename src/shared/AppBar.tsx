@@ -8,6 +8,7 @@ import {
   EMPTY_MY_FRIDGE_PATH,
   INSPIRATION_PATH,
   RECIPES_PATH,
+  XR_SIZER,
 } from "./AppRoutes";
 
 export const AppBar = () => {
@@ -19,6 +20,15 @@ export const AppBar = () => {
 
   const onHamburgerMenuClicked = () => {
     setIsUsingMobileMenu(true);
+  };
+
+  const [pressTimer, setPressTimer] = useState<NodeJS.Timeout>();
+  const handleTouchStart = () => {
+    setPressTimer(setTimeout(() => navigate(XR_SIZER), 3000));
+  };
+
+  const handleTouchEnd = () => {
+    clearTimeout(pressTimer);
   };
 
   return (
@@ -111,13 +121,25 @@ export const AppBar = () => {
         )}
         {!isMin900WidthScreen && (
           <div className="bg-brown-100 p-1  mr-0 ml-auto">
-            <Logo className="fill-current text-brown-600 h-7 w-auto" />
+            <Logo
+              className="fill-current text-brown-600 h-7 w-auto"
+              onMouseDown={handleTouchStart}
+              onMouseUp={handleTouchEnd}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            />
           </div>
         )}
       </div>
       {isMin900WidthScreen && (
         <div className="border-brown-600 bg-brown-100 border-4 p-2 absolute left-0 right-0 mx-auto w-56 top-3 z-10">
-          <Logo className="fill-current text-brown-600" />
+          <Logo
+            className="fill-current text-brown-600"
+            onMouseDown={handleTouchStart}
+            onMouseUp={handleTouchEnd}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          />
         </div>
       )}
     </div>
