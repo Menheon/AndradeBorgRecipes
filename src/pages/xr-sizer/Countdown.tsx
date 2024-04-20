@@ -3,12 +3,14 @@ import PlayIcon from "@/assets/play.svg?react";
 import PauseIcon from "@/assets/pause.svg?react";
 import TimerResetIcon from "@/assets/timer-reset.svg?react";
 
+const countdownTimeInSeconds = 60;
+
 const Countdown = () => {
-  const [count, setCount] = useState(60);
+  const [count, setCount] = useState(countdownTimeInSeconds);
   const [isActive, setIsActive] = useState(false);
 
   const resetTimer = () => {
-    setCount(60);
+    setCount(countdownTimeInSeconds);
     setIsActive(false);
   };
 
@@ -20,6 +22,8 @@ const Countdown = () => {
       }, 1000);
     } else if (!isActive && count !== 0) {
       clearTimeout(timerId);
+    } else if (isActive && count === 0) {
+      navigator.vibrate([1000, 500, 1000, 500, 1000, 500]);
     }
     return () => clearTimeout(timerId);
   }, [isActive, count]);
