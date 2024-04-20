@@ -3,7 +3,7 @@ import MenuIcon from "@/assets/menu.svg?react";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useState } from "react";
 import CloseIcon from "@/assets/close.svg?react";
-import { useNavigate } from "react-router-dom";
+import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import {
   EMPTY_MY_FRIDGE_PATH,
   INSPIRATION_PATH,
@@ -15,6 +15,7 @@ export const AppBar = () => {
   const isMin900WidthScreen = useMediaQuery(900);
   const isMinSmallScreen = useMediaQuery("sm");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isUsingMobileMenu, setIsUsingMobileMenu] = useState(false);
 
@@ -30,6 +31,12 @@ export const AppBar = () => {
   const handleTouchEnd = () => {
     clearTimeout(pressTimer);
   };
+
+  const isXrSizer = matchPath(location.pathname, XR_SIZER);
+
+  if (isXrSizer) {
+    return <div />;
+  }
 
   return (
     <div className="fixed bg-brown-100 z-20 w-full shadow-md">
