@@ -7,12 +7,16 @@ import {
 } from "react-router-dom";
 import { Recipes } from "@/pages/recipes/Recipes";
 import RecipeInfo from "@/pages/recipe/RecipeInfo";
+import XrSizer from "@/pages/xr-sizer/XrSizer";
 
 export const ROOT_PATH = "/";
 export const RECIPES_PATH = "/recipes";
 export const RECIPE_ITEM_PATH = "/recipes/:recipeId";
 export const INSPIRATION_PATH = "/inspiration";
 export const EMPTY_MY_FRIDGE_PATH = "/empty-my-fridge";
+
+// Other experimental routes.
+export const XR_SIZER = "/xr-sizer";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const routes: RouteObject[] = [
@@ -31,6 +35,10 @@ export const routes: RouteObject[] = [
   {
     path: EMPTY_MY_FRIDGE_PATH,
     element: <p>Empty My Fridge</p>,
+  },
+  {
+    path: XR_SIZER,
+    element: <XrSizer />,
   },
 ];
 
