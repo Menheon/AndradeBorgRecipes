@@ -8,7 +8,10 @@ export const Exercises = ({ workout }: Props) => {
   return (
     <>
       {workout.exercises.map((userExercise) => (
-        <div className="flex items-center justify-center  rounded-lg shadow-md p-1 mx-4 my-2 bg-gradient-to-r from-orange-500 to-orange-600">
+        <div
+          key={userExercise.id}
+          className="flex items-center justify-center  rounded-lg shadow-md p-1 mx-4 my-2 bg-gradient-to-r from-orange-500 to-orange-600"
+        >
           <div className="flex bg-white w-full rounded-md h-36 items-center">
             <img
               src={userExercise.exercise.image}

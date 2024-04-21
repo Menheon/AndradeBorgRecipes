@@ -1,4 +1,8 @@
-import { workouts } from "./data/workouts";
+import { useQuery } from "@tanstack/react-query";
+import {
+  WORKOUTS_QUERY_TAG,
+  getWorkoutsDocumentByUserName,
+} from "./data/workoutService";
 import { User, Workout } from "./types";
 
 interface Props {
@@ -7,12 +11,25 @@ interface Props {
 }
 
 export const Workouts = ({ user, onWorkoutSelected }: Props) => {
+  const getWorkouts = async () => getWorkoutsDocumentByUserName(user);
+  const {
+    data: workouts,
+    isLoading,
+    isSuccess,
+  } = useQuery({
+    queryKey: [WORKOUTS_QUERY_TAG + user],
+    queryFn: getWorkouts,
+  });
+
+  console.log("workouts", workouts);
+  console.log("isLoading", isLoading);
+
   return (
     <div className="mt-8">
-      {workouts
-        .filter((workout) => workout.user === user)
-        .map((workout) => (
+      {isSuccess &&
+        workouts.map((workout) => (
           <div
+            key={workout.id}
             onClick={() => onWorkoutSelected(workout)}
             className="bg-white hover:bg-orange-50 p-4 shadow-md flex rounded-lg cursor-pointer mt-4"
           >
