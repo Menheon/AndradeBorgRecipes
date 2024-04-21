@@ -15,7 +15,7 @@ export const XrSizer = () => {
             onClick={() => setUser(undefined)}
             className="text-white hover:text-slate-50 transition-colors font-bold rounded-md px-3 py-1 text-lg"
           >
-            Logout
+            Select User
           </button>
         </div>
       </div>
@@ -28,13 +28,13 @@ export const XrSizer = () => {
                 <div className="flex justify-center gap-10 pt-3">
                   <button
                     onClick={() => setUser("Kasper")}
-                    className="bg-white hover:bg-slate-50 transition-colors font-bold rounded-md px-3 py-1 ring-2 ring-orange-500 hover:ring-orange-600"
+                    className="bg-white hover:bg-slate-50 transition-colors font-bold  px-4 py-3 rounded-lg ring-2 ring-orange-500 hover:ring-orange-600 text-xl"
                   >
                     Kasper
                   </button>
                   <button
                     onClick={() => setUser("Lylian")}
-                    className="bg-white hover:bg-slate-50 transition-colors font-bold rounded-md px-3 py-1 ring-2 ring-orange-500 hover:ring-orange-600"
+                    className="bg-white hover:bg-slate-50 transition-colors font-bold  px-4 py-3 rounded-lg ring-2 ring-orange-500 hover:ring-orange-600 text-xl"
                   >
                     Lylian
                   </button>
