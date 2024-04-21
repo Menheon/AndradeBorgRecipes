@@ -4,6 +4,7 @@ import {
   getWorkoutsDocumentByUserName,
 } from "./data/workoutService";
 import { User, Workout } from "./types";
+import DumbbellIcon from "@/assets/dumbbell.svg?react";
 
 interface Props {
   user: User;
@@ -26,6 +27,12 @@ export const Workouts = ({ user, onWorkoutSelected }: Props) => {
 
   return (
     <div className="mt-8">
+      {isLoading && (
+        <div className="flex flex-col items-center justify-center">
+          <p className="italic ">Retrieving your workouts...</p>
+          <DumbbellIcon className="animate-spin h-10 w-10 fill-orange-600 " />
+        </div>
+      )}
       {isSuccess &&
         workouts.map((workout) => (
           <div
