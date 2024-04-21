@@ -4,6 +4,7 @@ import PauseIcon from "@/assets/pause.svg?react";
 import TimerResetIcon from "@/assets/timer-reset.svg?react";
 
 const countdownTimeInSeconds = 60;
+const countdownRegulateTimeInSeconds = 5;
 
 const Countdown = () => {
   const [count, setCount] = useState(countdownTimeInSeconds);
@@ -11,6 +12,23 @@ const Countdown = () => {
 
   const resetTimer = () => {
     setCount(countdownTimeInSeconds);
+    setIsActive(false);
+  };
+
+  const regulateTimer = (operation: "addition" | "subtract") => {
+    if (operation === "addition") {
+      setCount((currentCount) =>
+        currentCount + countdownRegulateTimeInSeconds <= 0
+          ? 0
+          : currentCount + countdownRegulateTimeInSeconds,
+      );
+    } else {
+      setCount((currentCount) =>
+        currentCount - countdownRegulateTimeInSeconds <= 0
+          ? 0
+          : currentCount - countdownRegulateTimeInSeconds,
+      );
+    }
     setIsActive(false);
   };
 
@@ -29,7 +47,13 @@ const Countdown = () => {
   }, [isActive, count]);
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-2 select-none items-center">
+      <button
+        onClick={() => regulateTimer("subtract")}
+        className="w-10 h-10 rounded-lg ring-2 ring-orange-500 hover:ring-orange-600 transition-colors text-xl"
+      >
+        -{countdownRegulateTimeInSeconds}s
+      </button>
       <button
         onClick={() => setIsActive((currentState) => !currentState)}
         className="
@@ -44,7 +68,9 @@ const Countdown = () => {
           <PlayIcon className="h-12 w-12 fill-orange-500 hover:fill-orange-600 transition-colors" />
         )}
       </button>
-      <p className="text-5xl font-bold text-orange-600">{count}</p>
+      <p className="text-5xl font-bold text-orange-600 text-center w-24">
+        {count}
+      </p>
       <button
         onClick={resetTimer}
         className="
@@ -54,6 +80,12 @@ const Countdown = () => {
           focus-visible:ring-orange-600"
       >
         <TimerResetIcon className="h-12 w-12 fill-orange-500 hover:fill-orange-600 transition-colors" />
+      </button>
+      <button
+        onClick={() => regulateTimer("addition")}
+        className="w-10 h-10 rounded-lg ring-2 ring-orange-500 hover:ring-orange-600 transition-colors text-xl"
+      >
+        +{countdownRegulateTimeInSeconds}s
       </button>
     </div>
   );
