@@ -1,4 +1,6 @@
-export const exercises = [
+import { Exercise } from "../types";
+
+export const exercises: Exercise[] = [
   {
     name: "Squats",
     image:
@@ -6,8 +8,6 @@ export const exercises = [
     minRepetitions: 8,
     maxRepetitions: 12,
     sets: 4,
-    weight: 50,
-    currentRepetitions: 10,
   },
   {
     name: "Preacher Curls",
@@ -16,8 +16,6 @@ export const exercises = [
     minRepetitions: 8,
     maxRepetitions: 12,
     sets: 4,
-    weight: 7,
-    currentRepetitions: 8,
   },
   {
     name: "French Press",
@@ -26,8 +24,6 @@ export const exercises = [
     minRepetitions: 8,
     maxRepetitions: 12,
     sets: 4,
-    weight: 5,
-    currentRepetitions: 12,
   },
   {
     name: "Dead Lift",
@@ -36,8 +32,6 @@ export const exercises = [
     minRepetitions: 8,
     maxRepetitions: 12,
     sets: 4,
-    weight: 5,
-    currentRepetitions: 12,
   },
   {
     name: "Calf Raises",
@@ -46,7 +40,5 @@ export const exercises = [
     minRepetitions: 8,
     maxRepetitions: 12,
     sets: 4,
-    weight: 5,
-    currentRepetitions: 12,
   },
 ];
