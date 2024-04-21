@@ -12,18 +12,18 @@ export const Exercises = ({ workout }: Props) => {
           key={userExercise.id}
           className="flex items-center justify-center  rounded-lg shadow-md p-1 mx-4 my-2 bg-gradient-to-r from-orange-500 to-orange-600"
         >
-          <div className="flex bg-white w-full rounded-md h-36 items-center">
+          <div className="flex bg-white w-full rounded-md h-36 items-center px-2 gap-4">
             <img
               src={userExercise.exercise.image}
               alt={userExercise.exercise.name}
-              className="rounded-md h-32 w-32"
+              className="rounded-md h-32 w-32 shadow"
             />
             <div className="flex flex-col flex-1 py-1">
               <h2 className="text-2xl font-bold ">
                 {userExercise.exercise.name}
               </h2>
               <div className="flex gap-1">
-                <p className="text-md font-bold italic pl-2">
+                <p className="text-md font-bold italic pl-2 text-slate-400">
                   {userExercise.minReps} - {userExercise.maxReps} reps of{" "}
                   {userExercise.sets} sets
                 </p>
