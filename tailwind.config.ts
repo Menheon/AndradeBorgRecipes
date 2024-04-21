@@ -26,6 +26,7 @@ export default {
       fontFamily: {
         caveat: ["Caveat", ...defaultTheme.fontFamily.sans],
         nunito: ["Nunito Sans", ...defaultTheme.fontFamily.sans],
+        "russo-one": ["Russo One", ...defaultTheme.fontFamily.sans],
       },
     },
   },

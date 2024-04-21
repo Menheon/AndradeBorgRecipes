@@ -7,7 +7,7 @@ export const XrSizer = () => {
   return (
     <>
       <div className="fixed w-full z-20 -mt-[60px] text-center bg-gradient-to-r from-orange-500 to-orange-600 h-[60px] flex items-center justify-center shadow-md">
-        <h1 className="text-4xl font-extrabold text-white select-none">
+        <h1 className="text-4xl text-white select-none font-russo-one">
           XrSizer
         </h1>
         <div className="absolute right-1">
