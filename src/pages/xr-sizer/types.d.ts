@@ -3,17 +3,17 @@ export type User = "Kasper" | "Lylian";
 export interface Workout {
   id?: string;
   name: string;
-  exercises: UserExercise[];
+  exercises: WorkoutExercise[];
   user: User;
 }
 
-export interface UserExercise {
+export interface WorkoutExercise {
   id?: string;
   exercise: Exercise;
   weight: number;
-  currentRepetitions: number;
-  minRepetitions: number;
-  maxRepetitions: number;
+  reps: number;
+  minReps: number;
+  maxReps: number;
   sets: number;
 }
 
