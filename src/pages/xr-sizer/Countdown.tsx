@@ -68,7 +68,9 @@ const Countdown = () => {
           <PlayIcon className="h-12 w-12 fill-orange-500 hover:fill-orange-600 transition-colors" />
         )}
       </button>
-      <p className="text-5xl font-bold text-orange-600 text-center w-24">
+      <p
+        className={`text-5xl font-bold  text-center w-24 ${count === 0 ? "text-red-600 animate-bounce" : "text-orange-600"}`}
+      >
         {count}
       </p>
       <button
