@@ -12,13 +12,13 @@ export interface UserExercise {
   exercise: Exercise;
   weight: number;
   currentRepetitions: number;
+  minRepetitions: number;
+  maxRepetitions: number;
+  sets: number;
 }
 
 export interface Exercise {
   id?: string;
   name: string;
   image: string;
-  minRepetitions: number;
-  maxRepetitions: number;
-  sets: number;
 }

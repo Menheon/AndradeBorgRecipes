@@ -21,9 +21,8 @@ export const Exercises = ({ workout }: Props) => {
               </h2>
               <div className="flex gap-1">
                 <p className="text-md font-bold italic pl-2">
-                  {userExercise.exercise.minRepetitions} -{" "}
-                  {userExercise.exercise.maxRepetitions} reps of{" "}
-                  {userExercise.exercise.sets} sets
+                  {userExercise.minRepetitions} - {userExercise.maxRepetitions}{" "}
+                  reps of {userExercise.sets} sets
                 </p>
               </div>
               <div className="flex gap-1 items-center w-full pt-2">
