@@ -1,4 +1,5 @@
 import Logo from "@/assets/logo.svg?react";
+import SkilletIcon from "@/assets/skillet.svg?react";
 import MenuIcon from "@/assets/menu.svg?react";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useState } from "react";
@@ -65,9 +66,9 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(RECIPES_PATH);
             }}
-            className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
+            className="flex gap-2 items-center text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
           >
-            Recipes
+            Recipes  <SkilletIcon className="size-7"/>
           </button>
           <button
             onClick={() => {
@@ -98,9 +99,9 @@ export const AppBar = () => {
                 setIsUsingMobileMenu(false);
                 navigate(RECIPES_PATH);
               }}
-              className="text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
+              className="flex gap-1 items-center text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
             >
-              Recipes
+              Recipes <SkilletIcon className="size-6"/>
             </button>
             <button
               onClick={() => {
