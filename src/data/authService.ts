@@ -36,7 +36,6 @@ export const getUserById = async (userId: string): Promise<User | null> => {
     id: userSnapshot.id,
     isAdmin: userSnapshot.data().isAdmin,
   };
-  console.log(user);
 
   return user;
 };

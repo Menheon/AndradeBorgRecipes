@@ -6,24 +6,37 @@ import { Recipe } from "@/types/models";
 import { CreateRecipeDialog } from "./components/CreateRecipeDialog";
 import { RecipeSearchField } from "./components/RecipeSearchField";
 import { useQuery } from "@tanstack/react-query";
+import { auth } from "@/firebase";
+import { getUserById, USER_QUERY_KEY } from "@/data/authService";
 
 export const RecipesPage = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
 
+  const getCurrentUser = async () => {
+    if (!auth.currentUser) return;
+    const user = await getUserById(auth.currentUser.uid);
+    return user;
+  };
+
+  const { data: user } = useQuery({
+    queryKey: [USER_QUERY_KEY],
+    queryFn: getCurrentUser,
+  });
+
   const {
     data: recipes,
-    isLoading,
-    isSuccess,
-    isError,
+    isLoading: isLoadingRecipes,
+    isSuccess: isRecipesQuerySuccess,
+    isError: isRecipesQueryError,
   } = useQuery({
     queryKey: [RECIPES_QUERY_TAG],
     queryFn: getAllRecipes,
   });
 
   const initializeRecipes = useCallback(async () => {
-    if (isSuccess) {
+    if (isRecipesQuerySuccess) {
       const sortedRecipes = recipes.sort(
         (a, b) => b.creationDate.getTime() - a.creationDate.getTime(),
       );
@@ -34,7 +47,8 @@ export const RecipesPage = () => {
 
   useEffect(() => {
     initializeRecipes();
-  }, [initializeRecipes]);
+    getCurrentUser();
+  }, [initializeRecipes, getCurrentUser]);
 
   const onSearchInputValueChanged = (newValue: string) => {
     if (newValue === "") {
@@ -69,23 +83,27 @@ export const RecipesPage = () => {
         </h1>
       </div>
 
-      <button
-        className="focus-visible:outline-solid fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors hover:bg-brown-500 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[2.5px] focus-visible:outline-brown-600"
-        onClick={() => setIsCreatingRecipe(true)}
-      >
-        <AddIcon className="h-8 w-8 fill-whiteSmoke" />
-      </button>
-      <CreateRecipeDialog
-        isOpen={isCreatingRecipe}
-        onClose={() => setIsCreatingRecipe(false)}
-      />
+      {user?.isAdmin && (
+        <>
+          <button
+            className="focus-visible:outline-solid fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors hover:bg-brown-500 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[2.5px] focus-visible:outline-brown-600"
+            onClick={() => setIsCreatingRecipe(true)}
+          >
+            <AddIcon className="h-8 w-8 fill-whiteSmoke" />
+          </button>
+          <CreateRecipeDialog
+            isOpen={isCreatingRecipe}
+            onClose={() => setIsCreatingRecipe(false)}
+          />
+        </>
+      )}
 
       <div>
-        {isLoading && <p className="text-center text-xl">Loading...</p>}
-        {isError && (
+        {isLoadingRecipes && <p className="text-center text-xl">Loading...</p>}
+        {isRecipesQueryError && (
           <p className="text-center text-xl">Failed to load recipes</p>
         )}
-        {isSuccess && filteredRecipes.length === 0 && (
+        {isRecipesQuerySuccess && filteredRecipes.length === 0 && (
           <p className="text-center text-xl">
             Whoops! No recipes matching your search...
           </p>
