@@ -1,13 +1,13 @@
 import AddIcon from "@/assets/add.svg?react";
-import { RecipeItem } from "./RecipeItem";
+import { RecipeItem } from "./components/RecipeItem";
 import { useCallback, useEffect, useState } from "react";
 import { RECIPES_QUERY_TAG, getAllRecipes } from "@/data/recipesService";
 import { Recipe } from "@/types/models";
-import { CreateRecipeDialog } from "./CreateRecipeDialog";
-import { RecipeSearchField } from "./RecipeSearchField";
+import { CreateRecipeDialog } from "./components/CreateRecipeDialog";
+import { RecipeSearchField } from "./components/RecipeSearchField";
 import { useQuery } from "@tanstack/react-query";
 
-export const Recipes = () => {
+export const RecipesPage = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);

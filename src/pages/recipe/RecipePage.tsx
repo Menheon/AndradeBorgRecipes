@@ -1,15 +1,15 @@
 import { RECIPE_QUERY_TAG, getRecipeDocumentById } from "@/data/recipesService";
 import { useParams } from "react-router-dom";
-import { StrikeableStep } from "../recipes/StrikeableStep";
+import { StrikeableStep } from "../recipes/components/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
-import { RemovableTag } from "../recipes/RemovableTag";
+import { RemovableTag } from "../recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { DeleteButton } from "./components/DeleteButton";
 import { DeleteRecipeDialog } from "./components/DeleteRecipeDialog";
 
-const RecipeInfo = () => {
+export const RecipePage = () => {
   const { recipeId } = useParams();
   const isMinMediumScreen = useMediaQuery("md");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -170,4 +170,4 @@ const RecipeInfo = () => {
   );
 };
 
-export default RecipeInfo;
+export default RecipePage;

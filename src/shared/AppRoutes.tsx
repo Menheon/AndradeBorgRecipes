@@ -5,8 +5,8 @@ import {
   useNavigate,
   useRoutes,
 } from "react-router-dom";
-import { Recipes } from "@/pages/recipes/Recipes";
-import RecipeInfo from "@/pages/recipe/RecipeInfo";
+import { RecipesPage } from "@/pages/recipes/RecipesPage";
+import { RecipePage } from "@/pages/recipe/RecipePage";
 import XrSizer from "@/pages/xr-sizer/XrSizer";
 
 export const ROOT_PATH = "/";
@@ -22,11 +22,11 @@ export const XR_SIZER = "/xr-sizer";
 export const routes: RouteObject[] = [
   {
     path: RECIPES_PATH,
-    element: <Recipes />,
+    element: <RecipesPage />,
   },
   {
     path: RECIPE_ITEM_PATH,
-    element: <RecipeInfo />,
+    element: <RecipePage />,
   },
   {
     path: INSPIRATION_PATH,

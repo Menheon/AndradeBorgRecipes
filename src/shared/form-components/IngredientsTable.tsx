@@ -4,7 +4,7 @@ import { IngredientLine, Unit } from "@/types/models";
 import { SelectField } from "./SelectField";
 import { getAllUnits, isValidUnit, mapUnitToStringFormat } from "@/util/util";
 import { TextButton } from "./TextButton";
-import { CreateRecipeFormData } from "@/pages/recipes/CreateRecipeDialog";
+import { CreateRecipeFormData } from "@/pages/recipes/components/CreateRecipeDialog";
 import { useFormContext } from "react-hook-form";
 import { IntegerInputField } from "./IntegerInputField";
 import { useMediaQuery } from "@/util/useMediaQuery";
