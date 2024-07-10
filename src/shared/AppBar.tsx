@@ -91,7 +91,9 @@ export const AppBar = () => {
           </button>
 
           <div className="mb-0 mt-auto">
-            <AppBarProfileStatus />
+            <AppBarProfileStatus
+              onNavigateToProfile={() => setIsUsingMobileMenu(false)}
+            />
           </div>
         </div>
       </div>
@@ -128,7 +130,9 @@ export const AppBar = () => {
             </button>
             {isMin900WidthScreen && (
               <div className="ml-auto mr-0">
-                <AppBarProfileStatus />
+                <AppBarProfileStatus
+                  onNavigateToProfile={() => setIsUsingMobileMenu(false)}
+                />
               </div>
             )}
           </>
@@ -139,7 +143,11 @@ export const AppBar = () => {
         )}
         {!isMin900WidthScreen && (
           <div className="ml-auto mr-0 flex items-center gap-2">
-            {isMinSmallScreen && <AppBarProfileStatus />}
+            {isMinSmallScreen && (
+              <AppBarProfileStatus
+                onNavigateToProfile={() => setIsUsingMobileMenu(false)}
+              />
+            )}
             <div className="bg-brown-100 p-1">
               <Logo
                 className="h-7 w-auto fill-current text-brown-600"

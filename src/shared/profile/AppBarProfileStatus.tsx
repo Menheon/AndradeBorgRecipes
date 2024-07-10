@@ -3,10 +3,15 @@ import { TextButton } from "../form-components/TextButton";
 import { useNavigate } from "react-router-dom";
 import { PROFILE } from "../AppRoutes";
 
-export const AppBarProfileStatus = () => {
+type Props = {
+  onNavigateToProfile: () => void;
+};
+
+export const AppBarProfileStatus = ({ onNavigateToProfile }: Props) => {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
+    onNavigateToProfile();
     navigate(PROFILE);
   };
 
