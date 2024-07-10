@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIRESTORE_API_KEY,
+  apiKey: import.meta.env.VITE_FIRESTORE_API_KEY || "PLACEHOLDER_DUMMY_KEY",
   authDomain: import.meta.env.VITE_FIRESTORE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIRESTORE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_FIRESTORE_STORAGE_BUCKET,
