@@ -42,3 +42,8 @@ export interface Recipe {
   id?: string;
   creationDate: Date;
 }
+
+export type User = {
+  isAdmin: boolean;
+  id: string;
+};
