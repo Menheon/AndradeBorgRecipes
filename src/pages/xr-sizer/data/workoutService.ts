@@ -14,8 +14,8 @@ export const WORKOUTS_QUERY_TAG = "workouts-";
 
 export const NEW_WORKOUT_ID = "-1";
 
-const ExercisesCollectionName = "Exercises";
-const WorkoutExercisesCollectionName = "WorkoutExercises";
+// const ExercisesCollectionName = "Exercises";
+// const WorkoutExercisesCollectionName = "WorkoutExercises";
 const WorkoutsCollectionName = "Workouts";
 
 export const getWorkoutsDocumentByUserName = async (user: User) => {
