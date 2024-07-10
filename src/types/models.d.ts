@@ -40,4 +40,5 @@ export interface Recipe {
   tags: Tag[];
   sections: Section[];
   id?: string;
+  creationDate: Date;
 }

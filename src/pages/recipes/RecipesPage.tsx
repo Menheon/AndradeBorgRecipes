@@ -24,8 +24,11 @@ export const RecipesPage = () => {
 
   const initializeRecipes = useCallback(async () => {
     if (isSuccess) {
-      setAllRecipes(recipes);
-      setFilteredRecipes(recipes);
+      const sortedRecipes = recipes.sort(
+        (a, b) => b.creationDate.getTime() - a.creationDate.getTime(),
+      );
+      setAllRecipes(sortedRecipes);
+      setFilteredRecipes(sortedRecipes);
     }
   }, [recipes]);
 
@@ -39,12 +42,17 @@ export const RecipesPage = () => {
     }
     const searchValue = newValue.toLowerCase();
 
-    const newFilteredRecipes = allRecipes.filter(
-      (recipe) =>
-        recipe.name.toLowerCase().includes(searchValue) ||
-        recipe.description.toLowerCase().includes(searchValue) ||
-        recipe.tags.some((tag) => tag.name.toLowerCase().includes(searchValue)),
-    );
+    const newFilteredRecipes = allRecipes
+      .filter(
+        (recipe) =>
+          recipe.name.toLowerCase().includes(searchValue) ||
+          recipe.description.toLowerCase().includes(searchValue) ||
+          recipe.tags.some((tag) =>
+            tag.name.toLowerCase().includes(searchValue),
+          ),
+      )
+      .sort((a, b) => a.creationDate.getDate() - b.creationDate.getDate());
+
     setFilteredRecipes(newFilteredRecipes);
   };
 

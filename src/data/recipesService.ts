@@ -119,11 +119,19 @@ export const getRecipeDocumentById = async (recipeId: string) => {
     }),
   );
 
+  let creationDate = new Date();
+  if ("_document" in recipeSnapshot) {
+    creationDate = new Date(
+      (recipeSnapshot as any)._document.createTime.timestamp.seconds * 1000,
+    );
+  }
+
   const recipe: Recipe = {
     id: recipeSnapshot.id,
     name: recipeData.name,
     description: recipeData.description,
     imageUrl: recipeData.imageUrl,
+    creationDate,
     tags,
     sections,
   };
@@ -194,9 +202,17 @@ export const getAllRecipes = async () => {
         }),
       );
 
+      let creationDate = new Date();
+      if ("_document" in recipeSnapshot) {
+        creationDate = new Date(
+          (recipeSnapshot as any)._document.createTime.timestamp.seconds * 1000,
+        );
+      }
+
       const recipe: Recipe = {
         id: recipeSnapshot.id,
         name: recipeData.name,
+        creationDate,
         description: recipeData.description,
         imageUrl: recipeData.imageUrl,
         tags,
