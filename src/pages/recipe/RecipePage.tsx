@@ -4,44 +4,24 @@ import { StrikeableStep } from "../recipes/components/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { DeleteButton } from "./components/DeleteButton";
 import { DeleteRecipeDialog } from "./components/DeleteRecipeDialog";
-import { auth, getUserById, USER_QUERY_KEY } from "@/data/authService";
+import { useAuth } from "@/store/AuthProvider";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
   const isMinMediumScreen = useMediaQuery("md");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { currentUser, isAdmin } = useAuth();
 
   useEffect(() => {
-    initOnAuthStateChanged();
-
     window.scrollTo({
       top: 0,
       behavior: "instant",
     });
   }, []);
-
-  const queryClient = useQueryClient();
-
-  const initOnAuthStateChanged = () => {
-    auth.onAuthStateChanged(() => {
-      queryClient.invalidateQueries({ queryKey: [USER_QUERY_KEY] });
-    });
-  };
-
-  const getCurrentUser = async () => {
-    if (!auth.currentUser?.uid) return null;
-    const user = await getUserById(auth.currentUser.uid);
-    return user;
-  };
-
-  const { data: user } = useQuery({
-    queryKey: [USER_QUERY_KEY],
-    queryFn: getCurrentUser,
-  });
 
   const getRecipeDocument = async () => {
     const recipeDocument = await getRecipeDocumentById(recipeId ?? "");
@@ -92,7 +72,7 @@ export const RecipePage = () => {
             >
               {recipe.name}
             </h1>
-            {user?.isAdmin && (
+            {currentUser && isAdmin && (
               <div className="absolute right-1 top-1">
                 <DeleteButton onClick={() => setIsDeleteDialogOpen(true)} />
                 <DeleteRecipeDialog

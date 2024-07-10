@@ -5,32 +5,14 @@ import { RECIPES_QUERY_TAG, getAllRecipes } from "@/data/recipesService";
 import { Recipe } from "@/types/models";
 import { CreateRecipeDialog } from "./components/CreateRecipeDialog";
 import { RecipeSearchField } from "./components/RecipeSearchField";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { auth, getUserById, USER_QUERY_KEY } from "@/data/authService";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "@/store/AuthProvider";
 
 export const RecipesPage = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
-
-  const queryClient = useQueryClient();
-
-  const initOnAuthStateChanged = () => {
-    auth.onAuthStateChanged(() => {
-      queryClient.invalidateQueries({ queryKey: [USER_QUERY_KEY] });
-    });
-  };
-
-  const getCurrentUser = async () => {
-    if (!auth.currentUser?.uid) return null;
-    const user = await getUserById(auth.currentUser.uid);
-    return user;
-  };
-
-  const { data: user } = useQuery({
-    queryKey: [USER_QUERY_KEY],
-    queryFn: getCurrentUser,
-  });
+  const { currentUser, isAdmin } = useAuth();
 
   const {
     data: recipes,
@@ -53,9 +35,8 @@ export const RecipesPage = () => {
   }, [recipes]);
 
   useEffect(() => {
-    initOnAuthStateChanged();
     initializeRecipes();
-  }, [initializeRecipes, initOnAuthStateChanged]);
+  }, [initializeRecipes]);
 
   const onSearchInputValueChanged = (newValue: string) => {
     if (newValue === "") {
@@ -90,7 +71,7 @@ export const RecipesPage = () => {
         </h1>
       </div>
 
-      {user?.isAdmin && (
+      {currentUser && isAdmin && (
         <>
           <button
             className="focus-visible:outline-solid fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors hover:bg-brown-500 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[2.5px] focus-visible:outline-brown-600"
