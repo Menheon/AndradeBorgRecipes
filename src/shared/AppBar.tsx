@@ -74,7 +74,7 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(INSPIRATION_PATH);
             }}
-            className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
+            className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider hidden"
           >
             Inspiration
           </button>
@@ -83,7 +83,7 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(EMPTY_MY_FRIDGE_PATH);
             }}
-            className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
+            className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider hidden"
           >
             Empty My Fridge
           </button>
