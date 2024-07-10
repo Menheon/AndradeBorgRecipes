@@ -10,6 +10,7 @@ import {
   addDoc,
   DocumentData,
   doc,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   Ingredient,
@@ -30,6 +31,36 @@ const IngredientsCollectionName = "Ingredients";
 const RecipeSectionsCollectionName = "RecipeSections";
 const RecipeTagsCollectionName = "RecipeTags";
 const RecipesCollectionName = "Recipes";
+
+export const deleteRecipeDocument = async (recipe: Recipe) => {
+  // Delete recipe from database.
+  const recipeRef = doc(recipesDB, RecipesCollectionName, recipe.id ?? "");
+  await deleteDoc(recipeRef);
+
+  // Delete all sections in the recipe.
+  await Promise.all(
+    recipe.sections.map(async (section) => {
+      const sectionRef = doc(
+        recipesDB,
+        RecipeSectionsCollectionName,
+        section.id ?? "",
+      );
+      await deleteDoc(sectionRef);
+
+      // Delete all ingredient lines in the sections.
+      await Promise.all(
+        section.ingredients.map(async (ingredientLine) => {
+          const ingredientLineRef = doc(
+            recipesDB,
+            IngredientLineCollectionName,
+            ingredientLine.id ?? "",
+          );
+          await deleteDoc(ingredientLineRef);
+        }),
+      );
+    }),
+  );
+};
 
 export const getRecipeDocumentById = async (recipeId: string) => {
   const recipeRef = doc(recipesDB, RecipesCollectionName, recipeId);
