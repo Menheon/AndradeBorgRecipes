@@ -5,7 +5,7 @@ import { RECIPES_QUERY_TAG, getAllRecipes } from "@/data/recipesService";
 import { Recipe } from "@/types/models";
 import { CreateRecipeDialog } from "./components/CreateRecipeDialog";
 import { RecipeSearchField } from "./components/RecipeSearchField";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { auth } from "@/firebase";
 import { getUserById, USER_QUERY_KEY } from "@/data/authService";
 
@@ -14,8 +14,16 @@ export const RecipesPage = () => {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
 
+  const queryClient = useQueryClient();
+
+  const initOnAuthStateChanged = () => {
+    auth.onAuthStateChanged(() => {
+      queryClient.invalidateQueries({ queryKey: [USER_QUERY_KEY] });
+    });
+  };
+
   const getCurrentUser = async () => {
-    if (!auth.currentUser) return;
+    if (!auth.currentUser?.uid) return null;
     const user = await getUserById(auth.currentUser.uid);
     return user;
   };
@@ -46,9 +54,9 @@ export const RecipesPage = () => {
   }, [recipes]);
 
   useEffect(() => {
+    initOnAuthStateChanged();
     initializeRecipes();
-    getCurrentUser();
-  }, [initializeRecipes, getCurrentUser]);
+  }, [initializeRecipes, initOnAuthStateChanged]);
 
   const onSearchInputValueChanged = (newValue: string) => {
     if (newValue === "") {

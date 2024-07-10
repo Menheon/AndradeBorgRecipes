@@ -4,10 +4,12 @@ import { StrikeableStep } from "../recipes/components/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { DeleteButton } from "./components/DeleteButton";
 import { DeleteRecipeDialog } from "./components/DeleteRecipeDialog";
+import { getUserById, USER_QUERY_KEY } from "@/data/authService";
+import { auth } from "@/firebase";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
@@ -15,11 +17,32 @@ export const RecipePage = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   useEffect(() => {
+    initOnAuthStateChanged();
+
     window.scrollTo({
       top: 0,
       behavior: "instant",
     });
   }, []);
+
+  const queryClient = useQueryClient();
+
+  const initOnAuthStateChanged = () => {
+    auth.onAuthStateChanged(() => {
+      queryClient.invalidateQueries({ queryKey: [USER_QUERY_KEY] });
+    });
+  };
+
+  const getCurrentUser = async () => {
+    if (!auth.currentUser?.uid) return null;
+    const user = await getUserById(auth.currentUser.uid);
+    return user;
+  };
+
+  const { data: user } = useQuery({
+    queryKey: [USER_QUERY_KEY],
+    queryFn: getCurrentUser,
+  });
 
   const getRecipeDocument = async () => {
     const recipeDocument = await getRecipeDocumentById(recipeId ?? "");
@@ -70,14 +93,16 @@ export const RecipePage = () => {
             >
               {recipe.name}
             </h1>
-            <div className="absolute right-1 top-1">
-              <DeleteButton onClick={() => setIsDeleteDialogOpen(true)} />
-              <DeleteRecipeDialog
-                isOpen={isDeleteDialogOpen}
-                recipe={recipe}
-                onClose={() => setIsDeleteDialogOpen(false)}
-              />
-            </div>
+            {user?.isAdmin && (
+              <div className="absolute right-1 top-1">
+                <DeleteButton onClick={() => setIsDeleteDialogOpen(true)} />
+                <DeleteRecipeDialog
+                  isOpen={isDeleteDialogOpen}
+                  recipe={recipe}
+                  onClose={() => setIsDeleteDialogOpen(false)}
+                />
+              </div>
+            )}
             <hr
               className="mx-40 mb-4 border-t-2 border-brown-600"
               style={{
