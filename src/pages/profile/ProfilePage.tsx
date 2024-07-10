@@ -1,3 +1,4 @@
+import { createNewUserDocument } from "@/data/authService";
 import { auth } from "@/firebase";
 import { FilledButton } from "@/shared/FilledButton";
 import { signInWithPopup } from "firebase/auth";
@@ -10,13 +11,7 @@ export const ProfilePage = () => {
       if (isInitLoading) {
         setIsInitLoading(false);
       }
-
-      console.log("user change", user);
       setIsLoggedIn(user !== null);
-
-      if (user) {
-      } else {
-      }
     });
   };
 
@@ -33,14 +28,12 @@ export const ProfilePage = () => {
 
   const handleRegisterOrLogIn = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    const userCredentials = await signInWithPopup(auth, provider);
 
-    // // This gives you a Google Access Token. You can use it to access the Google API.
-    // const googleCredential =
-    //   GoogleAuthProvider.credentialFromResult(userCredentials);
-
-    // // The signed-in user info.
-    // const user = userCredentials.user;
+    createNewUserDocument({
+      id: userCredentials.user.uid,
+      isAdmin: false,
+    });
   };
 
   return (
