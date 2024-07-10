@@ -23,22 +23,22 @@ export const RecipeItem = ({ recipe }: Props) => {
     <>
       {isMinLargeScreen ? (
         <div
-          className="mb-6 mx-12 border-brown-600 border-2 grid grid-cols-8 h-96  rounded-xl shadow-lg overflow-auto cursor-pointer hover:bg-brown-200 transition"
+          className="mx-12 mb-6 grid h-96 cursor-pointer grid-cols-8 overflow-auto  rounded-xl border-2 border-brown-600 shadow-lg transition hover:bg-brown-200"
           onClick={() => onRecipeItemClicked()}
           style={{
             viewTransitionName: `recipe-container-${recipe.id}`,
           }}
         >
           <img
-            className="w-full h-full min-h-[100px] object-cover col-span-3 border-brown-600 border-r-2"
+            className="col-span-3 h-full min-h-[100px] w-full border-r-2 border-brown-600 object-cover"
             src={recipe.imageUrl}
             style={{
               viewTransitionName: `recipe-img-${recipe.id}`,
             }}
           />
-          <div className="px-12 py-8 col-span-5 flex-col flex">
+          <div className="col-span-5 flex flex-col px-12 py-8">
             <h2
-              className="text-5xl font-bold text-center p-4 text-darkGreen font-caveat tracking-wider"
+              className="text-darkGreen p-4 text-center font-caveat text-5xl font-bold tracking-wider"
               style={{
                 viewTransitionName: `recipe-title-${recipe.id}`,
               }}
@@ -61,7 +61,7 @@ export const RecipeItem = ({ recipe }: Props) => {
               {recipe.description}
             </p>
             <div
-              className="flex gap-1 mb-0 mt-auto"
+              className="mb-0 mt-auto flex gap-1"
               style={{
                 viewTransitionName: `recipe-tags-${recipe.id}`,
               }}
@@ -76,19 +76,19 @@ export const RecipeItem = ({ recipe }: Props) => {
         </div>
       ) : (
         <div
-          className="mb-6 mx-2 xs:mx-6 sm:mx-12 border-brown-600 border-2 grid grid-cols-8 rounded-xl shadow-lg cursor-pointer hover:bg-brown-200 transition"
+          className="mx-2 mb-6 grid cursor-pointer grid-cols-8 rounded-xl border-2 border-brown-600 shadow-lg transition hover:bg-brown-200 xs:mx-6 sm:mx-12"
           onClick={() => onRecipeItemClicked()}
         >
-          <h2 className="p-4 col-span-8 text-5xl font-bold text-center text-darkGreen font-caveat tracking-wider">
+          <h2 className="text-darkGreen col-span-8 p-4 text-center font-caveat text-5xl font-bold tracking-wider">
             {recipe.name}
           </h2>
           <img
-            className="w-full h-full max-h-56 object-cover col-span-8 border-brown-600 border-y-2"
+            className="col-span-8 h-full max-h-56 w-full border-y-2 border-brown-600 object-cover"
             src={recipe.imageUrl}
           />
-          <div className="p-8 col-span-8 flex-col flex">
+          <div className="col-span-8 flex flex-col p-8">
             <p className="text-lg">{recipe.description}</p>
-            <div className="flex gap-1 mb-0 mt-auto pt-2">
+            <div className="mb-0 mt-auto flex gap-1 pt-2">
               {recipe.tags.map((tag) => (
                 <RemovableTag key={tag.id} isRemovable={false}>
                   {tag.name}

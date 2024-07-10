@@ -53,7 +53,7 @@ export const BaseDialog = ({
   const dialogRef = useRef<HTMLDialogElement>(null);
   return (
     <dialog
-      className="min-w-fit max-w-full w-2/3 my-8 rounded-xl bg-white shadow-3xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+      className="shadow-3xl my-8 w-2/3 min-w-fit max-w-full rounded-xl bg-white backdrop:bg-black/50 backdrop:backdrop-blur-sm"
       ref={dialogRef}
       onClose={onClose}
       onClick={onDialogClicked}
@@ -61,10 +61,10 @@ export const BaseDialog = ({
       <form method="dialog" className="p-6">
         <div className="mb-1">
           {/* TODO implement Typography component*/}
-          <h1 className="text-2xl font-bold  font-[system-ui]">{title}</h1>
+          <h1 className="font-[system-ui] text-2xl  font-bold">{title}</h1>
           <p>{description}</p>
         </div>
-        <div className="overflow-y-auto max-h-[calc(100dvh-200px)]">
+        <div className="max-h-[calc(100dvh-200px)] overflow-y-auto">
           {children}
         </div>
         <div className="flex justify-end gap-5 pt-3">

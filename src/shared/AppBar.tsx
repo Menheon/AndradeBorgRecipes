@@ -40,25 +40,25 @@ export const AppBar = () => {
   }
 
   return (
-    <div className="fixed bg-brown-100 z-20 w-full shadow-md">
+    <div className="fixed z-20 w-full bg-brown-100 shadow-md">
       <div
-        className={`p-6 sm:hidden fixed z-50 top-0 left-0 w-full h-full bg-brown-200 transition-all transform ${isUsingMobileMenu ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed left-0 top-0 z-50 h-full w-full transform bg-brown-200 p-6 transition-all sm:hidden ${isUsingMobileMenu ? "translate-x-0" : "-translate-x-full"}`}
       >
         <button
           type="button"
           onClick={() => setIsUsingMobileMenu(false)}
           className="
+              focus-visible:
               absolute
-              top-1
               right-1
-              m-1
-              focus-visible: outline-none
-              focus-visible:ring-2 
-              focus-visible:ring-brown-600
+              top-1
+              m-1 rounded-full
+              outline-none 
               transition
-              rounded-full"
+              focus-visible:ring-2
+              focus-visible:ring-brown-600"
         >
-          <CloseIcon className="h-8 w-8 fill-brown-600 cursor-pointer hover:fill-brown-500" />
+          <CloseIcon className="h-8 w-8 cursor-pointer fill-brown-600 hover:fill-brown-500" />
         </button>
         <div className="flex flex-col gap-2">
           <button
@@ -66,16 +66,16 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(RECIPES_PATH);
             }}
-            className="flex gap-2 items-center text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
+            className="flex items-center gap-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
           >
-            Recipes  <SkilletIcon className="size-7"/>
+            Recipes <SkilletIcon className="size-7" />
           </button>
           <button
             onClick={() => {
               setIsUsingMobileMenu(false);
               navigate(INSPIRATION_PATH);
             }}
-            className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider hidden"
+            className="hidden text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
           >
             Inspiration
           </button>
@@ -84,14 +84,14 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(EMPTY_MY_FRIDGE_PATH);
             }}
-            className="text-xl text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider hidden"
+            className="hidden text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
           >
             Empty My Fridge
           </button>
         </div>
       </div>
 
-      <div className="flex items-center gap-5 py-3 px-5 ">
+      <div className="flex items-center gap-5 px-5 py-3 ">
         {isMinSmallScreen ? (
           <>
             <button
@@ -99,16 +99,16 @@ export const AppBar = () => {
                 setIsUsingMobileMenu(false);
                 navigate(RECIPES_PATH);
               }}
-              className="flex gap-1 items-center text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider"
+              className="flex items-center gap-1 font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
             >
-              Recipes <SkilletIcon className="size-6"/>
+              Recipes <SkilletIcon className="size-6" />
             </button>
             <button
               onClick={() => {
                 setIsUsingMobileMenu(false);
                 navigate(INSPIRATION_PATH);
               }}
-              className="text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider hidden"
+              className="hidden font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
             >
               Inspiration
             </button>
@@ -117,20 +117,20 @@ export const AppBar = () => {
                 setIsUsingMobileMenu(false);
                 navigate(EMPTY_MY_FRIDGE_PATH);
               }}
-              className="text-brown-600 hover:text-brown-500 transition-colors font-semibold tracking-wider hidden"
+              className="hidden font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
             >
               Empty My Fridge
             </button>
           </>
         ) : (
           <button type="button" onClick={onHamburgerMenuClicked}>
-            <MenuIcon className="fill-brown-600 h-8 w-8 hover:fill-brown-500 transition-colors" />
+            <MenuIcon className="h-8 w-8 fill-brown-600 transition-colors hover:fill-brown-500" />
           </button>
         )}
         {!isMin900WidthScreen && (
-          <div className="bg-brown-100 p-1  mr-0 ml-auto">
+          <div className="ml-auto mr-0  bg-brown-100 p-1">
             <Logo
-              className="fill-current text-brown-600 h-7 w-auto"
+              className="h-7 w-auto fill-current text-brown-600"
               onMouseDown={handleTouchStart}
               onMouseUp={handleTouchEnd}
               onTouchStart={handleTouchStart}
@@ -140,7 +140,7 @@ export const AppBar = () => {
         )}
       </div>
       {isMin900WidthScreen && (
-        <div className="border-brown-600 bg-brown-100 border-4 p-2 absolute left-0 right-0 mx-auto w-56 top-3 z-10">
+        <div className="absolute left-0 right-0 top-3 z-10 mx-auto w-56 border-4 border-brown-600 bg-brown-100 p-2">
           <Logo
             className="fill-current text-brown-600"
             onMouseDown={handleTouchStart}

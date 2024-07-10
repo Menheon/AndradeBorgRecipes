@@ -47,10 +47,10 @@ const Countdown = () => {
   }, [isActive, count]);
 
   return (
-    <div className="flex gap-2 select-none items-center">
+    <div className="flex select-none items-center gap-2">
       <button
         onClick={() => regulateTimer("subtract")}
-        className="w-10 h-10 rounded-lg ring-2 ring-orange-500 hover:ring-orange-600 transition-colors text-xl"
+        className="h-10 w-10 rounded-lg text-xl ring-2 ring-orange-500 transition-colors hover:ring-orange-600"
       >
         -{countdownRegulateTimeInSeconds}s
       </button>
@@ -63,13 +63,13 @@ const Countdown = () => {
           focus-visible:ring-orange-600"
       >
         {isActive ? (
-          <PauseIcon className="h-12 w-12 fill-orange-500 hover:fill-orange-600 transition-colors" />
+          <PauseIcon className="h-12 w-12 fill-orange-500 transition-colors hover:fill-orange-600" />
         ) : (
-          <PlayIcon className="h-12 w-12 fill-orange-500 hover:fill-orange-600 transition-colors" />
+          <PlayIcon className="h-12 w-12 fill-orange-500 transition-colors hover:fill-orange-600" />
         )}
       </button>
       <p
-        className={`text-5xl font-bold  text-center w-24 ${count === 0 ? "text-red-600 animate-bounce" : "text-orange-600"}`}
+        className={`w-24 text-center  text-5xl font-bold ${count === 0 ? "animate-bounce text-red-600" : "text-orange-600"}`}
       >
         {count}
       </p>
@@ -81,11 +81,11 @@ const Countdown = () => {
           focus-visible:ring-2 
           focus-visible:ring-orange-600"
       >
-        <TimerResetIcon className="h-12 w-12 fill-orange-500 hover:fill-orange-600 transition-colors" />
+        <TimerResetIcon className="h-12 w-12 fill-orange-500 transition-colors hover:fill-orange-600" />
       </button>
       <button
         onClick={() => regulateTimer("addition")}
-        className="w-10 h-10 rounded-lg ring-2 ring-orange-500 hover:ring-orange-600 transition-colors text-xl"
+        className="h-10 w-10 rounded-lg text-xl ring-2 ring-orange-500 transition-colors hover:ring-orange-600"
       >
         +{countdownRegulateTimeInSeconds}s
       </button>

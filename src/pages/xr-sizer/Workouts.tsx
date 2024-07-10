@@ -30,7 +30,7 @@ export const Workouts = ({ user, onWorkoutSelected }: Props) => {
       {isLoading && (
         <div className="flex flex-col items-center justify-center">
           <p className="italic ">Retrieving your workouts...</p>
-          <DumbbellIcon className="animate-spin h-10 w-10 fill-orange-600 " />
+          <DumbbellIcon className="h-10 w-10 animate-spin fill-orange-600 " />
         </div>
       )}
       {isSuccess &&
@@ -38,9 +38,9 @@ export const Workouts = ({ user, onWorkoutSelected }: Props) => {
           <div
             key={workout.id}
             onClick={() => onWorkoutSelected(workout)}
-            className="bg-white hover:bg-orange-50 p-4 shadow-md flex rounded-lg cursor-pointer mt-4"
+            className="mt-4 flex cursor-pointer rounded-lg bg-white p-4 shadow-md hover:bg-orange-50"
           >
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-1 flex-col">
               <h2 className="text-lg font-bold">{workout.name}</h2>
               <p className="text-md text-slate-400">
                 {workout.exercises.length} Exercise
@@ -50,7 +50,7 @@ export const Workouts = ({ user, onWorkoutSelected }: Props) => {
             <img
               src={workout.exercises[0].exercise.image}
               alt={workout.exercises[0].exercise.name}
-              className="h-32 w-32 rounded-md shadow-md border-orange-500 border-2"
+              className="h-32 w-32 rounded-md border-2 border-orange-500 shadow-md"
             />
           </div>
         ))}

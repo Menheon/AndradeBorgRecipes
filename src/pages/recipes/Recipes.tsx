@@ -49,23 +49,23 @@ export const Recipes = () => {
   };
 
   return (
-    <div className="mx-auto px-4 justify-center">
-      <div className="flex items-center flex-col">
+    <div className="mx-auto justify-center px-4">
+      <div className="flex flex-col items-center">
         <img
-          className="xs:w-[calc(100%-50px)] sm:w-[calc(100%-100px)] h-52 object-cover filter brightness-75 contrast-75"
+          className="h-52 object-cover brightness-75 contrast-75 filter xs:w-[calc(100%-50px)] sm:w-[calc(100%-100px)]"
           src="https://static.vecteezy.com/system/resources/previews/024/396/481/large_2x/table-scene-with-a-selection-of-delicious-foods-top-view-over-a-dark-wood-banner-background-generate-ai-free-photo.jpg"
         />
         <RecipeSearchField onChange={onSearchInputValueChanged} />
-        <h1 className="text-2xl font-bold my-4 font-[system-ui]">
+        <h1 className="my-4 font-[system-ui] text-2xl font-bold">
           ALL RECIPES
         </h1>
       </div>
 
       <button
-        className="cursor-pointer transition-colors fixed bottom-10 right-10 bg-brown-600 hover:bg-brown-500 w-12 h-12 flex justify-center items-center rounded-full focus-visible:outline focus-visible:outline-brown-600 focus-visible:outline-[3px] focus-visible:outline-offset-[2.5px] focus-visible:outline-solid"
+        className="focus-visible:outline-solid fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors hover:bg-brown-500 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[2.5px] focus-visible:outline-brown-600"
         onClick={() => setIsCreatingRecipe(true)}
       >
-        <AddIcon className="fill-whiteSmoke w-8 h-8" />
+        <AddIcon className="h-8 w-8 fill-whiteSmoke" />
       </button>
       <CreateRecipeDialog
         isOpen={isCreatingRecipe}

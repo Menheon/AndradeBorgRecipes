@@ -36,7 +36,7 @@ const StepTable = ({ sectionIndex }: Props) => {
         <thead>
           {sections[sectionIndex].steps.length > 0 && (
             <tr>
-              <td className="pl-3 w-12" />
+              <td className="w-12 pl-3" />
               <td className="pl-3" />
             </tr>
           )}
@@ -49,26 +49,26 @@ const StepTable = ({ sectionIndex }: Props) => {
                 <button
                   type="button"
                   className="
-                      bg-brown-300 
-                      cursor-pointer 
-                      rounded-l 
-                      p-2 
-                      h-12 
+                      mb-1 
                       flex 
+                      h-12 
+                      cursor-pointer 
                       items-center 
-                      mb-1
+                      rounded-l 
+                      bg-brown-300 
+                      p-2
                       transition-colors
                       focus-visible:outline-none
                       focus-visible:ring
-                      focus-visible:ring-brown-100
-                      focus-visible:ring-inset"
+                      focus-visible:ring-inset
+                      focus-visible:ring-brown-100"
                   onClick={() => removeStep(stepIndex)}
                 >
                   <CloseIcon className="h-7 w-7 fill-brown-600 hover:fill-brown-500" />
                 </button>
               </td>
               <td className="p-0">
-                <div className="bg-brown-300 h-12 flex items-center px-1.5 mb-1 rounded-r">
+                <div className="mb-1 flex h-12 items-center rounded-r bg-brown-300 px-1.5">
                   <TextInputField
                     value={step}
                     onChange={(value) => updateStep(value, stepIndex)}

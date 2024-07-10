@@ -10,30 +10,30 @@ export const Exercises = ({ workout }: Props) => {
       {workout.exercises.map((userExercise) => (
         <div
           key={userExercise.id}
-          className="flex items-center justify-center rounded-lg shadow-md p-1 my-2 bg-gradient-to-r from-orange-500 to-orange-600"
+          className="my-2 flex items-center justify-center rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 p-1 shadow-md"
         >
-          <div className="flex bg-white w-full rounded-md h-36 items-center px-2 gap-4">
+          <div className="flex h-36 w-full items-center gap-4 rounded-md bg-white px-2">
             <img
               src={userExercise.exercise.image}
               alt={userExercise.exercise.name}
-              className="rounded-md h-32 w-32 shadow"
+              className="h-32 w-32 rounded-md shadow"
             />
-            <div className="flex flex-col flex-1 py-1">
+            <div className="flex flex-1 flex-col py-1">
               <h2 className="text-2xl font-bold ">
                 {userExercise.exercise.name}
               </h2>
               <div className="flex gap-1">
-                <p className="text-md font-bold italic pl-2 text-slate-400">
+                <p className="text-md pl-2 font-bold italic text-slate-400">
                   {userExercise.minReps} - {userExercise.maxReps} reps of{" "}
                   {userExercise.sets} sets
                 </p>
               </div>
-              <div className="flex gap-1 items-center w-full pt-2">
-                <p className="text-xl font-bold w-20">Reps</p>
+              <div className="flex w-full items-center gap-1 pt-2">
+                <p className="w-20 text-xl font-bold">Reps</p>
                 <p className="text-2xl font-bold">{userExercise.reps}</p>
               </div>
               <div className="flex gap-1">
-                <p className="text-xl font-bold w-20">Weight</p>
+                <p className="w-20 text-xl font-bold">Weight</p>
                 <p className="text-2xl font-bold">{userExercise.weight}</p>
               </div>
             </div>

@@ -11,24 +11,24 @@ export const TextButton = ({ onClicked, children }: Props) => {
     <button
       type="button"
       className="
-        flex
-        gap-1
-        font-semibold
-        items-center
-        hover:text-brown-500
-        py-2 px-4
-        rounded-md
-        outline-none
         m-1
-        focus-visible:ring-brown-600
-        focus-visible:ring-inset
-        focus-visible:ring-2
+        flex
+        items-center
+        gap-1
+        rounded-md
+        px-4 py-2
+        font-semibold
+        outline-none
         transition
+        hover:text-brown-500
+        focus-visible:ring-2
+        focus-visible:ring-inset
+        focus-visible:ring-brown-600
       "
       onClick={onClicked}
     >
       <span>{children}</span>
-      <AddIcon className="fill-brown-600 w-7 h-7" />
+      <AddIcon className="h-7 w-7 fill-brown-600" />
     </button>
   );
 };

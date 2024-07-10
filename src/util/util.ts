@@ -40,10 +40,10 @@ const allUnits: Record<Unit, Unit> = {
   piece: "piece",
   tableSpoon: "tableSpoon",
   teaSpoon: "teaSpoon",
-}
+};
 
 export const getAllUnits = () => Object.values(allUnits);
 
 export const isValidUnit = (value: string): value is Unit => {
-  return Object.keys(allUnits).includes(value)
-}
+  return Object.keys(allUnits).includes(value);
+};

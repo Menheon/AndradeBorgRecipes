@@ -19,7 +19,7 @@ export const TextInputField = forwardRef(
         placeholder={placeholder}
         id={id}
         onChange={(event) => onChange(event.target.value)}
-        className="outline-none px-2 py-1 bg-whiteSmoke border-2 rounded-md border-brown-600 placeholder-brown-500 w-full
+        className="w-full rounded-md border-2 border-brown-600 bg-whiteSmoke px-2 py-1 placeholder-brown-500 outline-none
       focus-visible:ring
         focus-visible:ring-brown-100
       "

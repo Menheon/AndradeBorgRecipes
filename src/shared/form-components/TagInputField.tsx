@@ -87,39 +87,39 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
       {showDropdown && (
         <ul
           className="
-            z-10
             absolute
+            z-10
             w-full 
             rounded-md 
-            shadow-md
             bg-brown-300
+            shadow-md
             shadow-black/50"
         >
           {filteredTags.map((tag) => (
             <li
               key={tag.id}
               className="
+                overflow-clip
                 first:rounded-t-md
-                last:rounded-b-md
-                overflow-clip"
+                last:rounded-b-md"
             >
               <button
                 id={tagInputOptionIdPrefix + tag.name}
                 onClick={() => handleTagSelect(tag)}
                 className="
-                  text-left
-                  cursor-pointer
-                  text-white
-                  p-2
                   w-full
+                  cursor-pointer
+                  rounded-md
+                  bg-brown-300
+                  p-2
+                  text-left
+                  text-white
+                  hover:bg-brown-100
+                  hover:text-brown-600
                   focus-visible:outline
                   focus-visible:outline-2
                   focus-visible:-outline-offset-2
-                  focus-visible:outline-brown-100
-                  rounded-md
-                  bg-brown-300
-                  hover:text-brown-600
-                  hover:bg-brown-100"
+                  focus-visible:outline-brown-100"
               >
                 {tag.name}
               </button>
@@ -129,27 +129,27 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
           {!isCreateButtonDisabled() && (
             <li
               className="
-                first:rounded-t-md
+                overflow-clip
                 rounded-b-md
-                overflow-clip"
+                first:rounded-t-md"
             >
               <button
                 id={`${tagInputOptionIdPrefix}create`}
                 onClick={handleTagAdd}
                 className="
-                  text-left
-                  cursor-pointer
-                  p-2
                   w-full
-                  text-white
+                  cursor-pointer
+                  rounded-md
                   bg-brown-300
+                  p-2
+                  text-left
+                  text-white
+                  hover:bg-brown-100
+                  hover:text-brown-600
                   focus-visible:outline
                   focus-visible:outline-2
                   focus-visible:-outline-offset-2
-                  focus-visible:outline-brown-100
-                  rounded-md
-                  hover:text-brown-600
-                  hover:bg-brown-100"
+                  focus-visible:outline-brown-100"
               >
                 {componentTexts.create} "{inputValue}"
               </button>

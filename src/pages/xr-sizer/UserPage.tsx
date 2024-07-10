@@ -11,7 +11,7 @@ interface Props {
 export const UserPage = ({ user }: Props) => {
   const [selectedWorkout, setSelectedWorkout] = useState<Workout>();
   return (
-    <div className="py-2 px-4">
+    <div className="px-4 py-2">
       {selectedWorkout ? (
         <>
           <Exercises workout={selectedWorkout} />
@@ -19,8 +19,8 @@ export const UserPage = ({ user }: Props) => {
         </>
       ) : (
         <>
-          <h1 className="font-bold text-2xl">Hi, {user}!</h1>
-          <p className="font-semibold text-md">
+          <h1 className="text-2xl font-bold">Hi, {user}!</h1>
+          <p className="text-md font-semibold">
             Check out your current workouts below
           </p>
           <Workouts user={user} onWorkoutSelected={setSelectedWorkout} />

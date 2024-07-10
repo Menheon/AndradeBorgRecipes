@@ -106,9 +106,9 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
       isOpen={isOpen}
       onClose={closeDialog}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 p-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2">
         <div className="col-start-1 sm:col-end-2">
-          <h3 className="text-polyGreen text-md font-semibold pt-2 pb-0.5">
+          <h3 className="text-polyGreen text-md pb-0.5 pt-2 font-semibold">
             Title
           </h3>
           <Controller
@@ -123,7 +123,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
             )}
           />
 
-          <h3 className="text-md font-semibold pt-2 pb-0.5">Image URL</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">Image URL</h3>
           <Controller
             control={control}
             name="imageUrl"
@@ -136,7 +136,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
             )}
           />
 
-          <h3 className="text-md font-semibold pt-2 pb-0.5">Tags</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">Tags</h3>
           {isTagsLoading ? (
             <p>Loading tags...</p>
           ) : (
@@ -152,7 +152,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
                     onTagAdd={onNewTagAdded}
                     addedTags={field.value}
                   />
-                  <ul className="flex gap-1 p-1 min-h-10 flex-wrap">
+                  <ul className="flex min-h-10 flex-wrap gap-1 p-1">
                     {field.value.map((tag, tagIndex) => (
                       <li key={`${tag.name}-${tagIndex}`}>
                         <RemovableTag
@@ -171,7 +171,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
         </div>
 
         <div className="col-start-1 sm:col-start-2 sm:col-end-3">
-          <h3 className="text-polyGreen text-md font-semibold pt-2 pb-0.5">
+          <h3 className="text-polyGreen text-md pb-0.5 pt-2 font-semibold">
             Description
           </h3>
           <Controller
@@ -190,7 +190,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
         </div>
 
         <div className="col-start-1 col-end-3">
-          <h3 className="text-md font-semibold pt-2 pb-0.5">Sections</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">Sections</h3>
           <FormProvider {...methods}>
             <NewRecipeSections />
           </FormProvider>

@@ -53,13 +53,13 @@ const RecipeInfo = () => {
       {isSuccess && recipe && (
         <>
           <div
-            className="border-brown-600 border-2 min-h-[750px] rounded-xl shadow-lg overflow-auto flex flex-col"
+            className="flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 shadow-lg"
             style={{
               viewTransitionName: `recipe-container-${recipe.id}`,
             }}
           >
             <h1
-              className="text-5xl font-bold text-center p-4 text-darkGreen font-caveat tracking-wider"
+              className="text-darkGreen p-4 text-center font-caveat text-5xl font-bold tracking-wider"
               style={{
                 viewTransitionName: `recipe-title-${recipe.id}`,
               }}
@@ -67,14 +67,14 @@ const RecipeInfo = () => {
               {recipe.name}
             </h1>
             <hr
-              className="mb-4 mx-40 border-t-2 border-brown-600"
+              className="mx-40 mb-4 border-t-2 border-brown-600"
               style={{
                 viewTransitionName: `recipe-title-bar-${recipe.id}`,
               }}
             />
             {!isMinMediumScreen && (
               <img
-                className="w-full max-h-80 object-cover border-brown-600 border-y-2"
+                className="max-h-80 w-full border-y-2 border-brown-600 object-cover"
                 src={recipe.imageUrl}
                 style={{
                   viewTransitionName: `recipe-img-${recipe.id}`,
@@ -84,14 +84,14 @@ const RecipeInfo = () => {
             <div className="flex">
               {isMinMediumScreen && (
                 <img
-                  className="w-1/2 h-full object-cover border-brown-600 border-y-2 border-r-2 rounded-r-xl"
+                  className="h-full w-1/2 rounded-r-xl border-y-2 border-r-2 border-brown-600 object-cover"
                   src={recipe.imageUrl}
                   style={{
                     viewTransitionName: `recipe-img-${recipe.id}`,
                   }}
                 />
               )}
-              <div className="px-8 pt-2 col-span-5 flex-col flex">
+              <div className="col-span-5 flex flex-col px-8 pt-2">
                 <p
                   className="text-lg"
                   style={{
@@ -101,7 +101,7 @@ const RecipeInfo = () => {
                   {recipe.description}
                 </p>
                 <div
-                  className="flex gap-1 mb-0 mt-auto"
+                  className="mb-0 mt-auto flex gap-1"
                   style={{
                     viewTransitionName: `recipe-tags-${recipe.id}`,
                   }}
@@ -115,19 +115,19 @@ const RecipeInfo = () => {
               </div>
             </div>
 
-            <div className="bg-whiteSmoke h-full mt-6 py-2 rounded-xl flex-1">
+            <div className="mt-6 h-full flex-1 rounded-xl bg-whiteSmoke py-2">
               {recipe.sections.map((section, i) => (
-                <div className="grid grid-cols-1 xs:grid-cols-2 gap-2" key={i}>
-                  <h3 className="col-span-2 px-5 text-center text-2xl font-caveat font-semibold">
+                <div className="grid grid-cols-1 gap-2 xs:grid-cols-2" key={i}>
+                  <h3 className="col-span-2 px-5 text-center font-caveat text-2xl font-semibold">
                     {section.title}
                   </h3>
-                  <div className="bg-pastelGreen rounded-lg px-5 pb-2 xs:col-span-1 col-span-2">
-                    <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
+                  <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
+                    <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
                       Ingredients
                     </h4>
-                    <ul className="list-disc list-inside">
+                    <ul className="list-inside list-disc">
                       {section.ingredients.map((ingredientLine, i) => (
-                        <li className="list-item pb-2 text-darkGreen" key={i}>
+                        <li className="text-darkGreen list-item pb-2" key={i}>
                           <span className="text-black">
                             {ingredientLine.unit &&
                               `${ingredientLine.amount} ${mapUnitToStringFormat(
@@ -138,8 +138,8 @@ const RecipeInfo = () => {
                       ))}
                     </ul>
                   </div>
-                  <div className="bg-pastelGreen rounded-lg px-5 pb-2 xs:col-span-1 col-span-2">
-                    <h4 className="text-md font-semibold uppercase text-darkGreen tracking-wider pb-2">
+                  <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
+                    <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
                       Steps
                     </h4>
                     <div>
