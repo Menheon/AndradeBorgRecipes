@@ -58,13 +58,13 @@ export const NewRecipeSections = () => {
             type="button"
             onClick={() => removeSection(index)}
             className="
-              focus-visible:
-              absolute
+              absolute 
               right-1
               top-1
-              m-1 rounded-full
-              outline-none 
+              m-1
+              rounded-full
               transition
+              focus-visible:outline-none
               focus-visible:ring-2
               focus-visible:ring-brown-600"
           >

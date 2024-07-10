@@ -177,12 +177,12 @@ export const IngredientsTable = ({ section }: Props) => {
               type="button"
               onClick={() => removeIngredientLine(index)}
               className="
-                focus-visible:
                 absolute
                 right-1
                 top-1
-                rounded-full outline-none
+                rounded-full
                 transition-colors 
+                focus-visible:outline-none 
                 focus-visible:ring-2 
                 focus-visible:ring-brown-600"
             >

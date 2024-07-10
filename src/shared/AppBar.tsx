@@ -48,15 +48,15 @@ export const AppBar = () => {
           type="button"
           onClick={() => setIsUsingMobileMenu(false)}
           className="
-              focus-visible:
-              absolute
-              right-1
-              top-1
-              m-1 rounded-full
-              outline-none 
-              transition
-              focus-visible:ring-2
-              focus-visible:ring-brown-600"
+            absolute 
+            right-1
+            top-1
+            m-1
+            rounded-full
+            transition
+            focus-visible:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-brown-600"
         >
           <CloseIcon className="h-8 w-8 cursor-pointer fill-brown-600 hover:fill-brown-500" />
         </button>
