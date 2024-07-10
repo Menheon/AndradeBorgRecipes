@@ -5,11 +5,15 @@ import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../recipes/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { DeleteButton } from "./components/DeleteButton";
+import { DeleteRecipeDialog } from "./components/DeleteRecipeDialog";
 
 const RecipeInfo = () => {
   const { recipeId } = useParams();
   const isMinMediumScreen = useMediaQuery("md");
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -53,7 +57,7 @@ const RecipeInfo = () => {
       {isSuccess && recipe && (
         <>
           <div
-            className="flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 shadow-lg"
+            className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 shadow-lg"
             style={{
               viewTransitionName: `recipe-container-${recipe.id}`,
             }}
@@ -66,6 +70,14 @@ const RecipeInfo = () => {
             >
               {recipe.name}
             </h1>
+            <div className="absolute right-1 top-1">
+              <DeleteButton onClick={() => setIsDeleteDialogOpen(true)} />
+              <DeleteRecipeDialog
+                isOpen={isDeleteDialogOpen}
+                recipe={recipe}
+                onClose={() => setIsDeleteDialogOpen(false)}
+              />
+            </div>
             <hr
               className="mx-40 mb-4 border-t-2 border-brown-600"
               style={{
