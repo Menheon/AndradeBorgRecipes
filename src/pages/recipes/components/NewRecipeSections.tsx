@@ -52,23 +52,23 @@ export const NewRecipeSections = () => {
       {sections.map((section, index) => (
         <div
           key={index}
-          className="m-1 p-3 rounded-md bg-gray-200 flex flex-col gap-1 relative"
+          className="relative m-1 flex flex-col gap-1 rounded-md bg-gray-200 p-3"
         >
           <button
             type="button"
             onClick={() => removeSection(index)}
             className="
-              absolute
-              top-1
+              absolute 
               right-1
+              top-1
               m-1
-              focus-visible: outline-none
-              focus-visible:ring-2 
-              focus-visible:ring-brown-600
+              rounded-full
               transition
-              rounded-full"
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-brown-600"
           >
-            <CloseIcon className="h-6 w-6 fill-brown-600 cursor-pointer hover:fill-brown-500" />
+            <CloseIcon className="h-6 w-6 cursor-pointer fill-brown-600 hover:fill-brown-500" />
           </button>
           <div>
             <h4>Section title</h4>

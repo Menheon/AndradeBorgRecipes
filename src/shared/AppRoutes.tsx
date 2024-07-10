@@ -5,24 +5,30 @@ import {
   useNavigate,
   useRoutes,
 } from "react-router-dom";
-import { Recipes } from "@/pages/recipes/Recipes";
-import RecipeInfo from "@/pages/recipe/RecipeInfo";
+import { RecipesPage } from "@/pages/recipes/RecipesPage";
+import { RecipePage } from "@/pages/recipe/RecipePage";
+import XrSizer from "@/pages/xr-sizer/XrSizer";
+import { ProfilePage } from "@/pages/profile/ProfilePage";
 
 export const ROOT_PATH = "/";
 export const RECIPES_PATH = "/recipes";
 export const RECIPE_ITEM_PATH = "/recipes/:recipeId";
 export const INSPIRATION_PATH = "/inspiration";
 export const EMPTY_MY_FRIDGE_PATH = "/empty-my-fridge";
+export const PROFILE = "/profile";
+
+// Other experimental routes.
+export const XR_SIZER = "/xr-sizer";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const routes: RouteObject[] = [
   {
     path: RECIPES_PATH,
-    element: <Recipes />,
+    element: <RecipesPage />,
   },
   {
     path: RECIPE_ITEM_PATH,
-    element: <RecipeInfo />,
+    element: <RecipePage />,
   },
   {
     path: INSPIRATION_PATH,
@@ -31,6 +37,14 @@ export const routes: RouteObject[] = [
   {
     path: EMPTY_MY_FRIDGE_PATH,
     element: <p>Empty My Fridge</p>,
+  },
+  {
+    path: PROFILE,
+    element: <ProfilePage />,
+  },
+  {
+    path: XR_SIZER,
+    element: <XrSizer />,
   },
 ];
 

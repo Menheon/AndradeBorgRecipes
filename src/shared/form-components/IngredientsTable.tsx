@@ -4,7 +4,7 @@ import { IngredientLine, Unit } from "@/types/models";
 import { SelectField } from "./SelectField";
 import { getAllUnits, isValidUnit, mapUnitToStringFormat } from "@/util/util";
 import { TextButton } from "./TextButton";
-import { CreateRecipeFormData } from "@/pages/recipes/CreateRecipeDialog";
+import { CreateRecipeFormData } from "@/pages/recipes/components/CreateRecipeDialog";
 import { useFormContext } from "react-hook-form";
 import { IntegerInputField } from "./IntegerInputField";
 import { useMediaQuery } from "@/util/useMediaQuery";
@@ -82,7 +82,7 @@ export const IngredientsTable = ({ section }: Props) => {
           <thead>
             {sections[section].ingredients.length > 0 && (
               <tr>
-                <td className="pl-3 w-12" />
+                <td className="w-12 pl-3" />
                 <td className="pl-3">{ingredientTableTexts.name}</td>
                 <td className="pl-3">{ingredientTableTexts.amount}</td>
                 <td className="pl-3">{ingredientTableTexts.unit}</td>
@@ -97,26 +97,26 @@ export const IngredientsTable = ({ section }: Props) => {
                   <button
                     type="button"
                     className="
-                      bg-brown-300 
-                      cursor-pointer 
-                      rounded-l 
-                      p-2 
-                      h-12 
+                      mb-1 
                       flex 
+                      h-12 
+                      cursor-pointer 
                       items-center 
-                      mb-1
+                      rounded-l 
+                      bg-brown-300 
+                      p-2
                       focus-visible:outline-none
                       focus-visible:ring
-                      focus-visible:ring-brown-100
-                      focus-visible:ring-inset"
+                      focus-visible:ring-inset
+                      focus-visible:ring-brown-100"
                     onClick={() => removeIngredientLine(index)}
                   >
-                    <CloseIcon className="h-7 w-7 fill-brown-600 hover:fill-brown-500 transition-colors" />
+                    <CloseIcon className="h-7 w-7 fill-brown-600 transition-colors hover:fill-brown-500" />
                   </button>
                 </td>
 
                 <td className="p-0">
-                  <div className="bg-brown-300 h-12 flex items-center px-1.5 mb-1">
+                  <div className="mb-1 flex h-12 items-center bg-brown-300 px-1.5">
                     <TextInputField
                       value={value.ingredient.name}
                       onChange={(value) =>
@@ -128,7 +128,7 @@ export const IngredientsTable = ({ section }: Props) => {
                 </td>
 
                 <td className="p-0">
-                  <div className="bg-brown-300 h-12 flex items-center px-1.5 mb-1">
+                  <div className="mb-1 flex h-12 items-center bg-brown-300 px-1.5">
                     <IntegerInputField
                       value={value.amount?.toString() ?? ""}
                       onChange={(value) =>
@@ -140,7 +140,7 @@ export const IngredientsTable = ({ section }: Props) => {
                 </td>
 
                 <td className="p-0">
-                  <div className="bg-brown-300 rounded-r h-12 flex items-center px-1.5 mb-1">
+                  <div className="mb-1 flex h-12 items-center rounded-r bg-brown-300 px-1.5">
                     <SelectField
                       placeholder={ingredientTableTexts.selectUnit}
                       options={getAllUnits()}
@@ -163,28 +163,28 @@ export const IngredientsTable = ({ section }: Props) => {
             key={index}
             className="
               relative
-              mt-1
               mb-2
-              w-full
+              mt-1
               flex
+              w-full
               flex-col
               gap-1
-              p-2
               rounded-md
-              bg-brown-300"
+              bg-brown-300
+              p-2"
           >
             <button
               type="button"
               onClick={() => removeIngredientLine(index)}
               className="
                 absolute
-                top-1
                 right-1
-                transition-colors
-                focus-visible: outline-none
+                top-1
+                rounded-full
+                transition-colors 
+                focus-visible:outline-none 
                 focus-visible:ring-2 
-                focus-visible:ring-brown-600 
-                rounded-full"
+                focus-visible:ring-brown-600"
             >
               <CloseIcon className="h-6 w-6 fill-brown-600 hover:fill-brown-500" />
             </button>

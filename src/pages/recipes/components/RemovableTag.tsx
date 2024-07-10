@@ -12,38 +12,38 @@ export const RemovableTag = ({ children, onRemoved, isRemovable }: Props) => {
     <div
       className="
         flex
+        items-center 
         gap-2 
-        text-whiteSmoke 
+        rounded-md 
         bg-brown-300 
         px-2 
         py-1 
-        rounded-md 
-        items-center"
+        text-whiteSmoke"
     >
       <span>{children}</span>
       {isRemovable && onRemoved && (
         <button
           type="button"
           className="
-            rounded-full 
-            p-0.5 
+            flex 
             h-5 
             w-5 
+            items-center 
+            rounded-full 
             bg-brown-600 
-            flex 
-            items-center
+            p-0.5
             focus-visible:outline-none
-            focus-visible:ring-brown-100
-            focus-visible:ring-2"
+            focus-visible:ring-2
+            focus-visible:ring-brown-100"
           onClick={() => onRemoved()}
         >
           <CloseIcon
             className="
               h-4
               w-4 
-              fill-brown-100 
-              transition-colors
               cursor-pointer 
+              fill-brown-100
+              transition-colors 
               hover:fill-brown-300"
           />
         </button>

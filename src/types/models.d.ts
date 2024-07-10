@@ -40,4 +40,10 @@ export interface Recipe {
   tags: Tag[];
   sections: Section[];
   id?: string;
+  creationDate: Date;
 }
+
+export type User = {
+  isAdmin: boolean;
+  id: string;
+};

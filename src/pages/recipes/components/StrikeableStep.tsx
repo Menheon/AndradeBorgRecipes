@@ -11,18 +11,18 @@ export const StrikeableStep = ({ step }: Props) => {
 
   return (
     <div
-      className="cursor-pointer pb-3 flex gap-2"
+      className="flex cursor-pointer gap-2 pb-3"
       onClick={() => setIsStricken((current) => !current)}
     >
       <div>
         {isStricken ? (
-          <CheckBoxChecked className="w-5 h-5 fill-current hover:text-black text-brown-300" />
+          <CheckBoxChecked className="h-5 w-5 fill-current text-brown-300 hover:text-black" />
         ) : (
-          <CheckBoxUnchecked className="w-5 h-5 fill-current hover:text-black text-brown-300" />
+          <CheckBoxUnchecked className="h-5 w-5 fill-current text-brown-300 hover:text-black" />
         )}
       </div>
 
-      <span className={isStricken ? "line-through text-brown-300" : ""}>
+      <span className={isStricken ? "text-brown-300 line-through" : ""}>
         {step}
       </span>
     </div>
