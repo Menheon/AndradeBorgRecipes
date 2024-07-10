@@ -8,12 +8,14 @@ import {
 import { RecipesPage } from "@/pages/recipes/RecipesPage";
 import { RecipePage } from "@/pages/recipe/RecipePage";
 import XrSizer from "@/pages/xr-sizer/XrSizer";
+import { ProfilePage } from "@/pages/profile/ProfilePage";
 
 export const ROOT_PATH = "/";
 export const RECIPES_PATH = "/recipes";
 export const RECIPE_ITEM_PATH = "/recipes/:recipeId";
 export const INSPIRATION_PATH = "/inspiration";
 export const EMPTY_MY_FRIDGE_PATH = "/empty-my-fridge";
+export const PROFILE = "/profile";
 
 // Other experimental routes.
 export const XR_SIZER = "/xr-sizer";
@@ -35,6 +37,10 @@ export const routes: RouteObject[] = [
   {
     path: EMPTY_MY_FRIDGE_PATH,
     element: <p>Empty My Fridge</p>,
+  },
+  {
+    path: PROFILE,
+    element: <ProfilePage />,
   },
   {
     path: XR_SIZER,
