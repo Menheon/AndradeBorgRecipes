@@ -11,6 +11,7 @@ import {
   RECIPES_PATH,
   XR_SIZER,
 } from "./AppRoutes";
+import { AppBarProfileStatus } from "./profile/AppBarProfileStatus";
 
 export const AppBar = () => {
   const isMin900WidthScreen = useMediaQuery(900);
@@ -60,7 +61,7 @@ export const AppBar = () => {
         >
           <CloseIcon className="h-8 w-8 cursor-pointer fill-brown-600 hover:fill-brown-500" />
         </button>
-        <div className="flex flex-col gap-2">
+        <div className="flex h-full flex-col gap-2">
           <button
             onClick={() => {
               setIsUsingMobileMenu(false);
@@ -88,6 +89,10 @@ export const AppBar = () => {
           >
             Empty My Fridge
           </button>
+
+          <div className="mb-0 mt-auto">
+            <AppBarProfileStatus />
+          </div>
         </div>
       </div>
 
@@ -121,6 +126,11 @@ export const AppBar = () => {
             >
               Empty My Fridge
             </button>
+            {isMin900WidthScreen && (
+              <div className="ml-auto mr-0">
+                <AppBarProfileStatus />
+              </div>
+            )}
           </>
         ) : (
           <button type="button" onClick={onHamburgerMenuClicked}>
@@ -128,14 +138,17 @@ export const AppBar = () => {
           </button>
         )}
         {!isMin900WidthScreen && (
-          <div className="ml-auto mr-0  bg-brown-100 p-1">
-            <Logo
-              className="h-7 w-auto fill-current text-brown-600"
-              onMouseDown={handleTouchStart}
-              onMouseUp={handleTouchEnd}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-            />
+          <div className="ml-auto mr-0 flex items-center gap-2">
+            {isMinSmallScreen && <AppBarProfileStatus />}
+            <div className="bg-brown-100 p-1">
+              <Logo
+                className="h-7 w-auto fill-current text-brown-600"
+                onMouseDown={handleTouchStart}
+                onMouseUp={handleTouchEnd}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              />
+            </div>
           </div>
         )}
       </div>
