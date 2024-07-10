@@ -8,8 +8,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { DeleteButton } from "./components/DeleteButton";
 import { DeleteRecipeDialog } from "./components/DeleteRecipeDialog";
-import { getUserById, USER_QUERY_KEY } from "@/data/authService";
-import { auth } from "@/firebase";
+import { auth, getUserById, USER_QUERY_KEY } from "@/data/authService";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();

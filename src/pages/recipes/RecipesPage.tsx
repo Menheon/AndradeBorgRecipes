@@ -6,8 +6,7 @@ import { Recipe } from "@/types/models";
 import { CreateRecipeDialog } from "./components/CreateRecipeDialog";
 import { RecipeSearchField } from "./components/RecipeSearchField";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { auth } from "@/firebase";
-import { getUserById, USER_QUERY_KEY } from "@/data/authService";
+import { auth, getUserById, USER_QUERY_KEY } from "@/data/authService";
 
 export const RecipesPage = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);

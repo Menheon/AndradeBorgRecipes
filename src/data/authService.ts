@@ -1,10 +1,13 @@
 import { recipesDB } from "@/firebase";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import { User } from "@/types/models";
+import { getAuth } from "firebase/auth";
 
 export const USER_QUERY_KEY = "user";
 
 const UsersCollectionName = "Users";
+
+export const auth = getAuth();
 
 /**
  * Check if the user is new. If so, create a new user document in the database with the UID.

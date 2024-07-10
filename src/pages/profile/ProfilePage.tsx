@@ -1,5 +1,4 @@
-import { createNewUserDocument } from "@/data/authService";
-import { auth } from "@/firebase";
+import { auth, createNewUserDocument } from "@/data/authService";
 import { FilledButton } from "@/shared/FilledButton";
 import { signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
