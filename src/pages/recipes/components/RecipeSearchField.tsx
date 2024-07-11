@@ -6,7 +6,7 @@ interface Props {
 
 export const RecipeSearchField = ({ onChange }: Props) => {
   return (
-    <div className="z-10 mt-[-15px] flex items-center">
+    <div className="z-10 mt-[-15px] flex items-center shadow-md">
       <input
         type="search"
         placeholder="Search..."
