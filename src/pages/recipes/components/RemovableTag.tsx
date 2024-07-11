@@ -17,8 +17,9 @@ export const RemovableTag = ({ children, onRemoved, isRemovable }: Props) => {
         rounded-md 
         bg-brown-300 
         px-2 
-        py-1 
-        text-whiteSmoke"
+        py-1
+        text-whiteSmoke
+        shadow-md"
     >
       <span>{children}</span>
       {isRemovable && onRemoved && (

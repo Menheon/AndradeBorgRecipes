@@ -14,15 +14,22 @@ export const auth = getAuth();
  * @param user - The user object containing the user information.
  * @returns Promise<void>
  */
-export const createNewUserDocument = async (user: User): Promise<void> => {
+export const createAndRetrieveNewUserDocument = async (user: User) => {
   const userRef = doc(recipesDB, UsersCollectionName, user.id);
   const userSnapshot = await getDoc(userRef);
-  if (userSnapshot.exists()) return;
+  if (userSnapshot.exists()) {
+    const user: User = {
+      id: userSnapshot.id,
+      isAdmin: userSnapshot.data().isAdmin,
+    };
+    return user;
+  }
 
   // Create a reference to the new user in the FireStore database
   await setDoc(userRef, {
     isAdmin: user.isAdmin,
   });
+  return user;
 };
 
 /**
@@ -30,7 +37,7 @@ export const createNewUserDocument = async (user: User): Promise<void> => {
  * @param userId - The ID of the user.
  * @returns Promise<User | null> - The user object if found, otherwise null.
  */
-export const getUserById = async (userId: string): Promise<User | null> => {
+export const getUserById = async (userId: string) => {
   const userRef = doc(recipesDB, UsersCollectionName, userId);
   const userSnapshot = await getDoc(userRef);
   if (!userSnapshot.exists()) return null;

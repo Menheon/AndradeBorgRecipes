@@ -1,47 +1,31 @@
 import { RECIPE_QUERY_TAG, getRecipeDocumentById } from "@/data/recipesService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { StrikeableStep } from "../recipes/components/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { DeleteButton } from "./components/DeleteButton";
-import { DeleteRecipeDialog } from "./components/DeleteRecipeDialog";
-import { auth, getUserById, USER_QUERY_KEY } from "@/data/authService";
+import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog";
+import { useAuth } from "@/store/AuthProvider";
+import { IconButton } from "@/shared/form-components/IconButton";
+import { EditRecipeDialog } from "./components/EditRecipe/EditRecipeDialog";
+import { RECIPES_PATH } from "@/shared/AppRoutes";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
   const isMinMediumScreen = useMediaQuery("md");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const { currentUser, isAdmin } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    initOnAuthStateChanged();
-
     window.scrollTo({
       top: 0,
       behavior: "instant",
     });
   }, []);
-
-  const queryClient = useQueryClient();
-
-  const initOnAuthStateChanged = () => {
-    auth.onAuthStateChanged(() => {
-      queryClient.invalidateQueries({ queryKey: [USER_QUERY_KEY] });
-    });
-  };
-
-  const getCurrentUser = async () => {
-    if (!auth.currentUser?.uid) return null;
-    const user = await getUserById(auth.currentUser.uid);
-    return user;
-  };
-
-  const { data: user } = useQuery({
-    queryKey: [USER_QUERY_KEY],
-    queryFn: getCurrentUser,
-  });
 
   const getRecipeDocument = async () => {
     const recipeDocument = await getRecipeDocumentById(recipeId ?? "");
@@ -58,18 +42,6 @@ export const RecipePage = () => {
     queryFn: getRecipeDocument,
   });
 
-  // TODO: Display the recipe data in the component
-  // TODO: Add a button to navigate back to the recipes page
-  // TODO: Add error handling for invalid recipeId
-  // TODO: Add loading state while fetching recipe data
-  // TODO: Add styling to the component
-  // TODO: Add a button to edit the recipe data
-  // TODO: Add a button to share the link to the recipe.
-  // TODO: Scroll to top of page when navigating to a recipe.
-  /* TODO: Instead of fetching the recipe data on page load, send a long the data available from previous page.
-     For example the title, image description, and tags could be shown and the transition could still play,
-     but the sections could be fetched in the background with loading state only there.
-  */
   return (
     <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
       {isLoading && <p className="text-center text-xl">Loading...</p>}
@@ -90,11 +62,29 @@ export const RecipePage = () => {
                 viewTransitionName: `recipe-title-${recipe.id}`,
               }}
             >
+              <IconButton
+                icon="chevron-left"
+                onClick={() => navigate(RECIPES_PATH)}
+                size="lg"
+              />
               {recipe.name}
             </h1>
-            {user?.isAdmin && (
+            {((currentUser && isAdmin) ||
+              location.hostname === "localhost") && (
               <div className="absolute right-1 top-1">
-                <DeleteButton onClick={() => setIsDeleteDialogOpen(true)} />
+                <IconButton
+                  icon="edit"
+                  onClick={() => setIsEditDialogOpen(true)}
+                />
+                <EditRecipeDialog
+                  isOpen={isEditDialogOpen}
+                  recipe={recipe}
+                  onClose={() => setIsEditDialogOpen(false)}
+                />
+                <IconButton
+                  icon="delete"
+                  onClick={() => setIsDeleteDialogOpen(true)}
+                />
                 <DeleteRecipeDialog
                   isOpen={isDeleteDialogOpen}
                   recipe={recipe}
