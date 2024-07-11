@@ -11,6 +11,7 @@ import {
   DocumentData,
   doc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import {
   Ingredient,
@@ -31,6 +32,103 @@ const IngredientsCollectionName = "Ingredients";
 const RecipeSectionsCollectionName = "RecipeSections";
 const RecipeTagsCollectionName = "RecipeTags";
 const RecipesCollectionName = "Recipes";
+
+export const updateRecipeDocument = async (updatedRecipe: Recipe) => {
+  const recipeRef = doc(
+    recipesDB,
+    RecipesCollectionName,
+    updatedRecipe.id ?? "",
+  );
+
+  // Initialize all collection references.
+  const tagCollectionRef = collection(recipesDB, RecipeTagsCollectionName);
+  const sectionCollectionRef = collection(
+    recipesDB,
+    RecipeSectionsCollectionName,
+  );
+  const ingredientsLineCollectionRef = collection(
+    recipesDB,
+    IngredientLineCollectionName,
+  );
+  const ingredientsCollectionRef = collection(
+    recipesDB,
+    IngredientsCollectionName,
+  );
+
+  const tagRefs: DocumentReference<DocumentData, DocumentData>[] = [];
+  // Process each tag in the updated recipe data
+  for (const tag of updatedRecipe.tags) {
+    // If the tag ID is -1, it's a new tag and should be added to the database
+    if (tag.id === NEW_TAG_ID) {
+      // Add the new tag to the database
+      const tagRef = await addDoc(tagCollectionRef, { name: tag.name });
+      tagRefs.push(tagRef);
+    } else {
+      // get the tag reference from the database
+      const tagSnapshot = await getDocs(
+        query(
+          collection(recipesDB, RecipeTagsCollectionName),
+          where("name", "==", tag.name),
+        ),
+      );
+      const tagRef = tagSnapshot.docs[0].ref;
+      if (tagRef) {
+        tagRefs.push(tagSnapshot.docs[0]?.ref);
+      }
+    }
+  }
+
+  const sectionRefs: DocumentReference<DocumentData, DocumentData>[] = [];
+  // Process each section in the updated recipe data
+  for (const section of updatedRecipe.sections) {
+    const ingredientLineRefs: DocumentReference<DocumentData, DocumentData>[] =
+      [];
+    // Process each ingredient line in the section
+    for (const ingredientLine of section.ingredients) {
+      // Query the database for an ingredient with the same name
+      const ingredientSnapshot = await getDocs(
+        query(
+          collection(recipesDB, IngredientsCollectionName),
+          where("name", "==", ingredientLine.ingredient.name),
+        ),
+      );
+      let ingredientRef = ingredientSnapshot.docs[0]?.ref;
+
+      // If the ingredient doesn't already exist in the database, add it
+      if (ingredientSnapshot.empty) {
+        const newIngredientRef = await addDoc(ingredientsCollectionRef, {
+          name: ingredientLine.ingredient.name,
+        });
+        ingredientRef = newIngredientRef;
+      }
+
+      // Create a reference to the ingredient in the Firestore database
+      const ingredientLineRef = await addDoc(ingredientsLineCollectionRef, {
+        amount: ingredientLine.amount,
+        ingredient: ingredientRef,
+        unit: ingredientLine.unit,
+      });
+      ingredientLineRefs.push(ingredientLineRef);
+    }
+
+    // Add the section to the database
+    const sectionRef = await addDoc(sectionCollectionRef, {
+      title: section.title,
+      steps: section.steps,
+      ingredients: ingredientLineRefs,
+    });
+    sectionRefs.push(sectionRef);
+  }
+
+  // Create a reference to the updated recipe in the Firestore database
+  await updateDoc(recipeRef, {
+    name: updatedRecipe.name,
+    description: updatedRecipe.description,
+    imageUrl: updatedRecipe.imageUrl,
+    tags: tagRefs,
+    sections: sectionRefs,
+  });
+};
 
 export const deleteRecipeDocument = async (recipe: Recipe) => {
   // Delete recipe from database.
