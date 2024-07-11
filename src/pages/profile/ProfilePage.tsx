@@ -1,8 +1,12 @@
 import { auth } from "@/data/authService";
+import { RECIPES_PATH } from "@/shared/AppRoutes";
 import { FilledButton } from "@/shared/FilledButton";
+import { IconButton } from "@/shared/form-components/IconButton";
 import { useAuth } from "@/store/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
+  const navigate = useNavigate();
   const {
     currentUser,
     handleRegisterOrLogIn,
@@ -14,7 +18,12 @@ export const ProfilePage = () => {
   return (
     <div className="mx-auto flex flex-col items-center justify-center p-6">
       <div className="flex w-full flex-col items-center rounded-md bg-whiteSmoke p-4 shadow-md sm:w-3/4 lg:w-2/3 xl:w-1/2">
-        <h1 className="px-4 pb-4 text-center font-caveat text-5xl font-bold tracking-wider">
+        <h1 className="self-start px-2 pb-4 font-caveat text-5xl font-bold tracking-wider">
+          <IconButton
+            icon="chevron-left"
+            onClick={() => navigate(RECIPES_PATH)}
+            size="lg"
+          />
           {texts.title}
         </h1>
 

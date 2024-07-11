@@ -1,5 +1,5 @@
 import { RECIPE_QUERY_TAG, getRecipeDocumentById } from "@/data/recipesService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { StrikeableStep } from "../recipes/components/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../recipes/components/RemovableTag";
@@ -10,6 +10,7 @@ import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog
 import { useAuth } from "@/store/AuthProvider";
 import { IconButton } from "@/shared/form-components/IconButton";
 import { EditRecipeDialog } from "./components/EditRecipe/EditRecipeDialog";
+import { RECIPES_PATH } from "@/shared/AppRoutes";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
@@ -17,6 +18,7 @@ export const RecipePage = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { currentUser, isAdmin } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo({
@@ -60,6 +62,11 @@ export const RecipePage = () => {
                 viewTransitionName: `recipe-title-${recipe.id}`,
               }}
             >
+              <IconButton
+                icon="chevron-left"
+                onClick={() => navigate(RECIPES_PATH)}
+                size="lg"
+              />
               {recipe.name}
             </h1>
             {((currentUser && isAdmin) ||
