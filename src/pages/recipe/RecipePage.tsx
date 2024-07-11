@@ -38,18 +38,6 @@ export const RecipePage = () => {
     queryFn: getRecipeDocument,
   });
 
-  // TODO: Display the recipe data in the component
-  // TODO: Add a button to navigate back to the recipes page
-  // TODO: Add error handling for invalid recipeId
-  // TODO: Add loading state while fetching recipe data
-  // TODO: Add styling to the component
-  // TODO: Add a button to edit the recipe data
-  // TODO: Add a button to share the link to the recipe.
-  // TODO: Scroll to top of page when navigating to a recipe.
-  /* TODO: Instead of fetching the recipe data on page load, send a long the data available from previous page.
-     For example the title, image description, and tags could be shown and the transition could still play,
-     but the sections could be fetched in the background with loading state only there.
-  */
   return (
     <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
       {isLoading && <p className="text-center text-xl">Loading...</p>}
