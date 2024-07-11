@@ -9,11 +9,13 @@ import { useEffect, useState } from "react";
 import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog";
 import { useAuth } from "@/store/AuthProvider";
 import { IconButton } from "@/shared/form-components/IconButton";
+import { EditRecipeDialog } from "./components/EditRecipe/EditRecipeDialog";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
   const isMinMediumScreen = useMediaQuery("md");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { currentUser, isAdmin } = useAuth();
 
   useEffect(() => {
@@ -63,6 +65,15 @@ export const RecipePage = () => {
             {((currentUser && isAdmin) ||
               location.hostname === "localhost") && (
               <div className="absolute right-1 top-1">
+                <IconButton
+                  icon="edit"
+                  onClick={() => setIsEditDialogOpen(true)}
+                />
+                <EditRecipeDialog
+                  isOpen={isEditDialogOpen}
+                  recipe={recipe}
+                  onClose={() => setIsEditDialogOpen(false)}
+                />
                 <IconButton
                   icon="delete"
                   onClick={() => setIsDeleteDialogOpen(true)}
