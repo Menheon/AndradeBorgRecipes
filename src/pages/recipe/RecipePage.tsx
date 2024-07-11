@@ -6,8 +6,8 @@ import { RemovableTag } from "../recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { DeleteButton } from "./components/DeleteButton";
-import { DeleteRecipeDialog } from "./components/DeleteRecipeDialog";
+import { DeleteButton } from "./components/DeleteRecipe/DeleteButton";
+import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog";
 import { useAuth } from "@/store/AuthProvider";
 
 export const RecipePage = () => {
