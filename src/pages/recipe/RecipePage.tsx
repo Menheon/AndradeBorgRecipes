@@ -6,9 +6,9 @@ import { RemovableTag } from "../recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { DeleteButton } from "./components/DeleteRecipe/DeleteButton";
 import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog";
 import { useAuth } from "@/store/AuthProvider";
+import { IconButton } from "@/shared/form-components/IconButton";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
@@ -60,9 +60,13 @@ export const RecipePage = () => {
             >
               {recipe.name}
             </h1>
-            {currentUser && isAdmin && (
+            {((currentUser && isAdmin) ||
+              location.hostname === "localhost") && (
               <div className="absolute right-1 top-1">
-                <DeleteButton onClick={() => setIsDeleteDialogOpen(true)} />
+                <IconButton
+                  icon="delete"
+                  onClick={() => setIsDeleteDialogOpen(true)}
+                />
                 <DeleteRecipeDialog
                   isOpen={isDeleteDialogOpen}
                   recipe={recipe}
