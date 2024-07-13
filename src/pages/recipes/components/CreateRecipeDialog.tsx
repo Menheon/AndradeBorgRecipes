@@ -18,8 +18,14 @@ import {
 } from "@/data/recipesService";
 import { RemovableTag } from "./RemovableTag";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { recipesStorage } from "@/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { UploadedImage } from "@/pages/xr-sizer/types";
+import { FileInputField } from "@/shared/form-components/FileInputField";
 
-export interface CreateRecipeFormData extends Recipe {}
+export interface CreateRecipeFormData extends Recipe {
+  uploadedImage?: UploadedImage;
+}
 
 interface Props {
   isOpen: boolean;
@@ -35,6 +41,10 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
       imageUrl: "",
       sections: [],
       tags: [],
+      uploadedImage: {
+        file: undefined,
+        value: "",
+      },
     },
   });
   const { watch, control, handleSubmit, setValue } = methods;
@@ -50,7 +60,25 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
     },
   });
 
-  const handleCreateNewRecipe: SubmitHandler<CreateRecipeFormData> = (data) => {
+  const handleCreateNewRecipe: SubmitHandler<CreateRecipeFormData> = async (
+    data,
+  ) => {
+    // TODO: improve this logic by validating if the image is a URL or a file.
+    // TODO: Make a switch toggle to select between URL and file.
+    if (data.uploadedImage?.file) {
+      try {
+        const storageRef = ref(
+          recipesStorage,
+          `images/${data.uploadedImage.file.name}`,
+        );
+        await uploadBytes(storageRef, data.uploadedImage.file);
+        const downloadUrl = await getDownloadURL(storageRef);
+        console.log(downloadUrl);
+        data.imageUrl = downloadUrl;
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
     postNewRecipeMutation.mutate(data);
     closeDialog();
   };
@@ -62,6 +90,10 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
     setValue("imageUrl", "");
     setValue("sections", []);
     setValue("tags", []);
+    setValue("uploadedImage", {
+      file: undefined,
+      value: "",
+    });
     onClose();
   };
 
@@ -132,6 +164,18 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="Paste the URL for the image of the dish"
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="uploadedImage"
+            render={({ field }) => (
+              <FileInputField
+                label="Recipe Image"
+                {...field}
+                value={field.value ? field.value.value : ""}
               />
             )}
           />

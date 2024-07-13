@@ -22,3 +22,8 @@ export interface Exercise {
   name: string;
   image: string;
 }
+
+export type UploadedImage = {
+  value: string;
+  file: File | undefined;
+};

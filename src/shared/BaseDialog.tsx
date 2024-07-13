@@ -1,8 +1,9 @@
 import { PropsWithChildren, useEffect, useRef } from "react";
 import { FilledButton } from "./FilledButton";
+import { IconButton } from "./form-components/IconButton";
 
 interface Props extends PropsWithChildren {
-  onClose?: () => void;
+  onClose: () => void;
   isOpen: boolean;
   primaryActionLabel: "create" | "delete" | "update";
   primaryAction: () => void;
@@ -36,19 +37,13 @@ export const BaseDialog = ({
 
   useEffect(() => {
     if (isOpen) {
+      document.body.style.overflow = "hidden";
       dialogRef.current?.showModal();
     } else {
+      document.body.style.overflow = "unset";
       dialogRef.current?.close();
     }
   }, [isOpen]);
-
-  const onDialogClicked = (
-    event: React.MouseEvent<HTMLDialogElement, MouseEvent>,
-  ) => {
-    if (event.target === dialogRef.current && onClose) {
-      onClose();
-    }
-  };
 
   const dialogRef = useRef<HTMLDialogElement>(null);
   return (
@@ -56,12 +51,14 @@ export const BaseDialog = ({
       className="shadow-3xl my-8 w-2/3 min-w-fit max-w-full rounded-xl bg-white backdrop:bg-black/50 backdrop:backdrop-blur-sm"
       ref={dialogRef}
       onClose={onClose}
-      onClick={onDialogClicked}
     >
       <form method="dialog" className="p-6">
         <div className="mb-1">
           {/* TODO implement Typography component*/}
           <h1 className="font-[system-ui] text-2xl  font-bold">{title}</h1>
+          <div className="absolute right-1 top-1">
+            <IconButton icon="close" onClick={onClose} />
+          </div>
           <p>{description}</p>
         </div>
         <div className="max-h-[calc(100dvh-200px)] overflow-y-auto">

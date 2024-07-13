@@ -49,136 +49,138 @@ export const RecipePage = () => {
         <p className="text-center text-xl">Error fetching recipe data</p>
       )}
       {isSuccess && recipe && (
-        <>
-          <div
-            className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 shadow-lg"
+        <div
+          className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 shadow-lg"
+          style={{
+            viewTransitionName: `recipe-container-${recipe.id}`,
+          }}
+        >
+          <h1
+            className="text-darkGreen p-4 text-center font-caveat text-5xl font-bold tracking-wider"
             style={{
-              viewTransitionName: `recipe-container-${recipe.id}`,
+              viewTransitionName: `recipe-title-${recipe.id}`,
             }}
           >
-            <h1
-              className="text-darkGreen p-4 text-center font-caveat text-5xl font-bold tracking-wider"
-              style={{
-                viewTransitionName: `recipe-title-${recipe.id}`,
-              }}
-            >
-              <IconButton
-                icon="chevron-left"
-                onClick={() => navigate(RECIPES_PATH)}
-                size="lg"
-              />
-              {recipe.name}
-            </h1>
-            {((currentUser && isAdmin) ||
-              location.hostname === "localhost") && (
-              <div className="absolute right-1 top-1">
-                <IconButton
-                  icon="edit"
-                  onClick={() => setIsEditDialogOpen(true)}
-                />
-                <EditRecipeDialog
-                  isOpen={isEditDialogOpen}
-                  recipe={recipe}
-                  onClose={() => setIsEditDialogOpen(false)}
-                />
-                <IconButton
-                  icon="delete"
-                  onClick={() => setIsDeleteDialogOpen(true)}
-                />
-                <DeleteRecipeDialog
-                  isOpen={isDeleteDialogOpen}
-                  recipe={recipe}
-                  onClose={() => setIsDeleteDialogOpen(false)}
-                />
-              </div>
-            )}
-            <hr
-              className="mx-40 mb-4 border-t-2 border-brown-600"
-              style={{
-                viewTransitionName: `recipe-title-bar-${recipe.id}`,
-              }}
+            <IconButton
+              icon="chevron-left"
+              onClick={() => navigate(RECIPES_PATH)}
+              size="lg"
             />
-            {!isMinMediumScreen && (
+            {recipe.name}
+          </h1>
+          {((currentUser && isAdmin) || location.hostname === "localhost") && (
+            <div className="absolute right-1 top-1">
+              <IconButton
+                icon="edit"
+                onClick={() => setIsEditDialogOpen(true)}
+              />
+              <EditRecipeDialog
+                isOpen={isEditDialogOpen}
+                recipe={recipe}
+                onClose={() => setIsEditDialogOpen(false)}
+              />
+              <IconButton
+                icon="delete"
+                onClick={() => setIsDeleteDialogOpen(true)}
+              />
+              <DeleteRecipeDialog
+                isOpen={isDeleteDialogOpen}
+                recipe={recipe}
+                onClose={() => setIsDeleteDialogOpen(false)}
+              />
+            </div>
+          )}
+          <hr
+            className="mx-40 mb-4 border-t-2 border-brown-600"
+            style={{
+              viewTransitionName: `recipe-title-bar-${recipe.id}`,
+            }}
+          />
+          {!isMinMediumScreen && (
+            <img
+              className="max-h-80 w-full border-y-2 border-brown-600 object-cover"
+              src={recipe.imageUrl}
+              style={{
+                viewTransitionName: `recipe-img-${recipe.id}`,
+              }}
+              alt={recipe.name}
+            />
+          )}
+          <div className="flex">
+            {isMinMediumScreen && (
               <img
-                className="max-h-80 w-full border-y-2 border-brown-600 object-cover"
+                className="h-full w-1/2 rounded-r-xl border-y-2 border-r-2 border-brown-600 object-cover"
                 src={recipe.imageUrl}
                 style={{
                   viewTransitionName: `recipe-img-${recipe.id}`,
                 }}
+                alt={recipe.name}
               />
             )}
-            <div className="flex">
-              {isMinMediumScreen && (
-                <img
-                  className="h-full w-1/2 rounded-r-xl border-y-2 border-r-2 border-brown-600 object-cover"
-                  src={recipe.imageUrl}
-                  style={{
-                    viewTransitionName: `recipe-img-${recipe.id}`,
-                  }}
-                />
-              )}
-              <div className="col-span-5 flex flex-col px-8 pt-2">
-                <p
-                  className="text-lg"
-                  style={{
-                    viewTransitionName: `recipe-description-${recipe.id}`,
-                  }}
-                >
-                  {recipe.description}
-                </p>
-                <div
-                  className="mb-0 mt-auto flex gap-1"
-                  style={{
-                    viewTransitionName: `recipe-tags-${recipe.id}`,
-                  }}
-                >
-                  {recipe.tags.map((tag) => (
-                    <RemovableTag key={tag.id} isRemovable={false}>
-                      {tag.name}
-                    </RemovableTag>
-                  ))}
-                </div>
+            <div className="col-span-5 flex flex-col px-8 pt-2">
+              <p
+                className="text-lg"
+                style={{
+                  viewTransitionName: `recipe-description-${recipe.id}`,
+                }}
+              >
+                {recipe.description}
+              </p>
+              <div
+                className="mb-0 mt-auto flex gap-1"
+                style={{
+                  viewTransitionName: `recipe-tags-${recipe.id}`,
+                }}
+              >
+                {recipe.tags.map((tag) => (
+                  <RemovableTag key={tag.id} isRemovable={false}>
+                    {tag.name}
+                  </RemovableTag>
+                ))}
               </div>
             </div>
+          </div>
 
-            <div className="mt-6 h-full flex-1 rounded-xl bg-whiteSmoke py-2">
-              {recipe.sections.map((section, i) => (
-                <div className="grid grid-cols-1 gap-2 xs:grid-cols-2" key={i}>
-                  <h3 className="col-span-2 px-5 text-center font-caveat text-2xl font-semibold">
-                    {section.title}
-                  </h3>
-                  <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
-                    <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
-                      Ingredients
-                    </h4>
-                    <ul className="list-inside list-disc">
-                      {section.ingredients.map((ingredientLine, i) => (
-                        <li className="text-darkGreen list-item pb-2" key={i}>
-                          <span className="text-black">
-                            {ingredientLine.unit &&
-                              `${ingredientLine.amount} ${mapUnitToStringFormat(
-                                ingredientLine.unit,
-                              )} ${ingredientLine.ingredient.name}`}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
-                    <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
-                      Steps
-                    </h4>
-                    <div>
-                      {section.steps.map((step, i) => (
-                        <StrikeableStep key={i} step={step} />
-                      ))}
-                    </div>
+          <div className="mt-6 h-full flex-1 rounded-xl bg-whiteSmoke py-2">
+            {recipe.sections.map((section, i) => (
+              <div className="grid grid-cols-1 gap-2 xs:grid-cols-2" key={i}>
+                <h3 className="col-span-2 px-5 text-center font-caveat text-2xl font-semibold">
+                  {section.title}
+                </h3>
+                <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
+                  <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
+                    Ingredients
+                  </h4>
+                  <ul className="list-inside list-disc">
+                    {section.ingredients.map((ingredientLine, i) => (
+                      <li
+                        className="text-darkGreen list-item pb-2"
+                        key={ingredientLine.id ?? i}
+                      >
+                        <span className="text-black">
+                          {ingredientLine.unit &&
+                            `${ingredientLine.amount} ${mapUnitToStringFormat(
+                              ingredientLine.unit,
+                            )} ${ingredientLine.ingredient.name}`}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
+                  <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
+                    Steps
+                  </h4>
+                  <div>
+                    {section.steps.map((step, i) => (
+                      <StrikeableStep key={`step-${i}`} step={step} />
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
