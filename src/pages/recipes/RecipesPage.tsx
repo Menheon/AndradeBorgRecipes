@@ -71,7 +71,7 @@ export const RecipesPage = () => {
         </h1>
       </div>
 
-      {currentUser && isAdmin && (
+      {((currentUser && isAdmin) || location.hostname === "localhost") && (
         <>
           <button
             className="focus-visible:outline-solid fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors hover:bg-brown-500 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[2.5px] focus-visible:outline-brown-600"
