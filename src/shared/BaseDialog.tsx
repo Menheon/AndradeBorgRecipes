@@ -36,8 +36,10 @@ export const BaseDialog = ({
 
   useEffect(() => {
     if (isOpen) {
+      document.body.style.overflow = "hidden";
       dialogRef.current?.showModal();
     } else {
+      document.body.style.overflow = "unset";
       dialogRef.current?.close();
     }
   }, [isOpen]);
