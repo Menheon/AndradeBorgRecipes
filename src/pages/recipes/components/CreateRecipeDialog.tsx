@@ -63,7 +63,8 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
   const handleCreateNewRecipe: SubmitHandler<CreateRecipeFormData> = async (
     data,
   ) => {
-    // TODO improve this logic by validating if the image is a URL or a file.
+    // TODO: improve this logic by validating if the image is a URL or a file.
+    // TODO: Make a switch toggle to select between URL and file.
     if (data.uploadedImage?.file) {
       try {
         const storageRef = ref(
