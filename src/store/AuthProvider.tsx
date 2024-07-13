@@ -40,7 +40,6 @@ const getUserSessionData = (userId: string) => {
   const userDataString = sessionStorage.getItem(`user-session-data-${userId}`);
   if (!userDataString) return;
   const userData = JSON.parse(userDataString);
-  console.log("userData storage", userData);
 
   const user: UserModel = {
     id: userId,
@@ -67,7 +66,6 @@ export const AuthContextProvider = ({ children }: Props) => {
 
   const initializeUser = async (user: User) => {
     const userData = getUserSessionData(user.uid);
-    console.log("userData", userData);
 
     let isAdmin = userData ? userData.isAdmin : false;
     if (!userData) {
@@ -109,8 +107,6 @@ export const AuthContextProvider = ({ children }: Props) => {
       setAuthError("Error signing in. Please try again later.");
     }
   };
-
-  console.log("isAdmin", isAdmin);
 
   return (
     <AuthContext.Provider
