@@ -1,9 +1,10 @@
 import DeleteIcon from "@/assets/delete.svg?react";
 import AddIcon from "@/assets/add.svg?react";
 import EditIcon from "@/assets/edit.svg?react";
-import ChevronLeft from "@/assets/chevron-left.svg?react";
+import ChevronLeftIcon from "@/assets/chevron-left.svg?react";
+import CloseIcon from "@/assets/close.svg?react";
 
-type IconName = "delete" | "add" | "edit" | "chevron-left";
+type IconName = "delete" | "add" | "edit" | "chevron-left" | "close";
 
 const iconMap: Record<
   IconName,
@@ -12,7 +13,8 @@ const iconMap: Record<
   delete: DeleteIcon,
   add: AddIcon,
   edit: EditIcon,
-  "chevron-left": ChevronLeft,
+  "chevron-left": ChevronLeftIcon,
+  close: CloseIcon,
 };
 
 type Props = {
