@@ -25,14 +25,13 @@ export const RecipesPage = () => {
   });
 
   const initializeRecipes = useCallback(async () => {
-    if (isRecipesQuerySuccess) {
-      const sortedRecipes = recipes.sort(
-        (a, b) => b.creationDate.getTime() - a.creationDate.getTime(),
-      );
-      setAllRecipes(sortedRecipes);
-      setFilteredRecipes(sortedRecipes);
-    }
-  }, [recipes]);
+    if (!isRecipesQuerySuccess) return;
+    const sortedRecipes = recipes.sort(
+      (a, b) => b.creationDate.getTime() - a.creationDate.getTime(),
+    );
+    setAllRecipes(sortedRecipes);
+    setFilteredRecipes(sortedRecipes);
+  }, [isRecipesQuerySuccess, recipes]);
 
   useEffect(() => {
     initializeRecipes();
@@ -62,12 +61,13 @@ export const RecipesPage = () => {
     <div className="mx-auto justify-center px-4">
       <div className="flex flex-col items-center">
         <img
-          className="h-52 object-cover brightness-75 contrast-75 filter xs:w-[calc(100%-50px)] sm:w-[calc(100%-100px)]"
+          className="h-52 rounded-lg object-cover brightness-75 contrast-75 filter xs:w-[calc(100%-50px)] sm:w-[calc(100%-100px)]"
           src="https://static.vecteezy.com/system/resources/previews/024/396/481/large_2x/table-scene-with-a-selection-of-delicious-foods-top-view-over-a-dark-wood-banner-background-generate-ai-free-photo.jpg"
+          alt="table-with-food"
         />
         <RecipeSearchField onChange={onSearchInputValueChanged} />
-        <h1 className="my-4 font-[system-ui] text-2xl font-bold">
-          ALL RECIPES
+        <h1 className="my-4 font-caveat text-4xl font-bold tracking-wider">
+          {texts.allRecipes}
         </h1>
       </div>
 
@@ -87,19 +87,28 @@ export const RecipesPage = () => {
       )}
 
       <div>
-        {isLoadingRecipes && <p className="text-center text-xl">Loading...</p>}
+        {isLoadingRecipes && (
+          <p className="text-center text-xl">{texts.loadingRecipes}</p>
+        )}
         {isRecipesQueryError && (
-          <p className="text-center text-xl">Failed to load recipes</p>
+          <p className="text-center text-xl">{texts.loadError}</p>
         )}
         {isRecipesQuerySuccess && filteredRecipes.length === 0 && (
-          <p className="text-center text-xl">
-            Whoops! No recipes matching your search...
-          </p>
+          <p className="text-center text-xl">{texts.noMatchingRecipes}</p>
         )}
-        {filteredRecipes.map((recipe) => (
-          <RecipeItem recipe={recipe} key={recipe.name} />
-        ))}
+        <div className="mx-1 flex flex-col gap-3 sm:grid sm:grid-cols-2 md:mx-12 lg:grid-cols-3">
+          {filteredRecipes.map((recipe) => (
+            <RecipeItem recipe={recipe} key={recipe.name} />
+          ))}
+        </div>
       </div>
     </div>
   );
+};
+
+const texts = {
+  allRecipes: "ALL RECIPES",
+  loadingRecipes: "Loading recipes...",
+  loadError: "Failed to load recipes",
+  noMatchingRecipes: "Whoops! No recipes matching your search...",
 };

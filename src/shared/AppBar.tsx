@@ -41,7 +41,7 @@ export const AppBar = () => {
   }
 
   return (
-    <div className="fixed z-20 w-full bg-brown-100 shadow-md">
+    <nav className="fixed z-20 w-full bg-brown-100 shadow-md">
       <div
         className={`fixed left-0 top-0 z-50 h-full w-full transform bg-brown-200 p-6 transition-all sm:hidden ${isUsingMobileMenu ? "translate-x-0" : "-translate-x-full"}`}
       >
@@ -106,7 +106,7 @@ export const AppBar = () => {
                 setIsUsingMobileMenu(false);
                 navigate(RECIPES_PATH);
               }}
-              className="flex items-center gap-1 font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
+              className="flex items-center gap-1 rounded-lg px-2 font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brown-600"
             >
               Recipes <SkilletIcon className="size-6" />
             </button>
@@ -171,6 +171,6 @@ export const AppBar = () => {
           />
         </div>
       )}
-    </div>
+    </nav>
   );
 };

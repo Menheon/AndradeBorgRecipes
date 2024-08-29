@@ -12,9 +12,10 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <AppBar />
-          <div className="pt-[60px]">
+          <main className="pt-[60px]">
             <AppRoutes />
-          </div>
+          </main>
+          <footer className="mt-4 h-4 w-full" />
         </BrowserRouter>
       </QueryClientProvider>
     </AuthContextProvider>
