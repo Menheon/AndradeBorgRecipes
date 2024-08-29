@@ -1,6 +1,5 @@
 import { Recipe } from "@/types/models";
 import { RemovableTag } from "./RemovableTag";
-import { useMediaQuery } from "@/util/useMediaQuery";
 import { generatePath, useNavigate } from "react-router-dom";
 import { RECIPE_ITEM_PATH } from "@/shared/AppRoutes";
 import { flushSync } from "react-dom";
@@ -10,7 +9,6 @@ interface Props {
 }
 
 export const RecipeItem = ({ recipe }: Props) => {
-  const isMinLargeScreen = useMediaQuery("lg");
   const navigate = useNavigate();
 
   const onRecipeItemClicked = () => {
@@ -20,84 +18,33 @@ export const RecipeItem = ({ recipe }: Props) => {
   };
 
   return (
-    <>
-      {isMinLargeScreen ? (
-        <div
-          className="mx-12 mb-6 grid h-96 cursor-pointer grid-cols-8 overflow-auto  rounded-xl border-2 border-brown-600 shadow-lg transition hover:bg-brown-200"
-          onClick={() => onRecipeItemClicked()}
-          style={{
-            viewTransitionName: `recipe-container-${recipe.id}`,
-          }}
-        >
-          <img
-            className="col-span-3 h-full min-h-[100px] w-full border-r-2 border-brown-600 object-cover"
-            src={recipe.imageUrl}
-            style={{
-              viewTransitionName: `recipe-img-${recipe.id}`,
-            }}
-          />
-          <div className="col-span-5 flex flex-col px-12 py-8">
-            <h2
-              className="text-darkGreen p-4 text-center font-caveat text-5xl font-bold tracking-wider"
-              style={{
-                viewTransitionName: `recipe-title-${recipe.id}`,
-              }}
-            >
-              {recipe.name}
-            </h2>
-            <hr
-              className="mb-4 border-t-2 border-brown-600"
-              style={{
-                viewTransitionName: `recipe-title-bar-${recipe.id}`,
-              }}
-            />
-
-            <p
-              className="text-lg"
-              style={{
-                viewTransitionName: `recipe-description-${recipe.id}`,
-              }}
-            >
-              {recipe.description}
-            </p>
-            <div
-              className="mb-0 mt-auto flex gap-1"
-              style={{
-                viewTransitionName: `recipe-tags-${recipe.id}`,
-              }}
-            >
-              {recipe.tags.map((tag) => (
-                <RemovableTag key={tag.id} isRemovable={false}>
-                  {tag.name}
-                </RemovableTag>
-              ))}
-            </div>
-          </div>
+    <button
+      className="flex cursor-pointer flex-col items-center rounded-xl border-2 border-brown-600 shadow-lg transition hover:bg-brown-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brown-600 active:scale-[98.75%]"
+      onClick={onRecipeItemClicked}
+    >
+      <img
+        className="h-56 w-full rounded-t-lg border-b-2 border-brown-600 object-cover md:h-64"
+        src={recipe.imageUrl}
+        alt={recipe.name}
+        style={{
+          viewTransitionName: `recipe-img-${recipe.id}`,
+        }}
+      />
+      <h2 className="flex-1 p-2 text-center font-caveat text-4xl font-bold tracking-wider">
+        {recipe.name}
+      </h2>
+      <div className="flex w-full flex-col p-4 lg:p-6 ">
+        <p className="line-clamp-3 h-20 text-justify text-lg md:line-clamp-4 md:h-28">
+          {recipe.description}
+        </p>
+        <div className="mb-0 mt-auto flex gap-1 pt-2">
+          {recipe.tags.map((tag) => (
+            <RemovableTag key={tag.id} isRemovable={false}>
+              {tag.name}
+            </RemovableTag>
+          ))}
         </div>
-      ) : (
-        <div
-          className="mx-2 mb-6 grid cursor-pointer grid-cols-8 rounded-xl border-2 border-brown-600 shadow-lg transition hover:bg-brown-200 xs:mx-6 sm:mx-12"
-          onClick={() => onRecipeItemClicked()}
-        >
-          <h2 className="text-darkGreen col-span-8 p-4 text-center font-caveat text-5xl font-bold tracking-wider">
-            {recipe.name}
-          </h2>
-          <img
-            className="col-span-8 h-full max-h-56 w-full border-y-2 border-brown-600 object-cover"
-            src={recipe.imageUrl}
-          />
-          <div className="col-span-8 flex flex-col p-8">
-            <p className="text-lg">{recipe.description}</p>
-            <div className="mb-0 mt-auto flex gap-1 pt-2">
-              {recipe.tags.map((tag) => (
-                <RemovableTag key={tag.id} isRemovable={false}>
-                  {tag.name}
-                </RemovableTag>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+      </div>
+    </button>
   );
 };
