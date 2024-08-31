@@ -44,6 +44,7 @@ const getUserSessionData = (userId: string) => {
   const user: UserModel = {
     id: userId,
     isAdmin: "isAdmin" in userData ? userData.isAdmin : false,
+    email: "email" in userData ? userData.email : "",
   };
   return user;
 };
@@ -68,15 +69,18 @@ export const AuthContextProvider = ({ children }: Props) => {
     const userData = getUserSessionData(user.uid);
 
     let isAdmin = userData ? userData.isAdmin : false;
+
     if (!userData) {
       const userDocData = await createAndRetrieveNewUserDocument({
         id: user.uid,
         isAdmin: false,
+        email: user.email ?? "",
       });
       isAdmin = userDocData.isAdmin;
       setUserSessionData({
         id: user.uid,
         isAdmin,
+        email: userDocData.email,
       });
     }
     setIsAdmin(isAdmin);
