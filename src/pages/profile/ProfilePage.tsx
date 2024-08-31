@@ -59,6 +59,7 @@ export const ProfilePage = () => {
     isLoadingSignIn,
     authError,
   } = useAuth();
+  document.title = texts.documentTitle;
 
   return (
     <div className="mx-auto flex flex-col items-center justify-center p-6">
@@ -121,4 +122,5 @@ const texts = {
   signOut: "Sign out",
   notLoggedIn: "You are currently not logged in.",
   signInWithGoogle: "Sign in with Google",
+  documentTitle: "Andrade & Borg Recipes - Profile",
 };

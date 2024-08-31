@@ -42,6 +42,14 @@ export const RecipePage = () => {
     queryFn: getRecipeDocument,
   });
 
+  useEffect(() => {
+    if (recipe?.name) {
+      document.title = `${texts.documentTitle} - ${recipe.name}`;
+    } else {
+      document.title = texts.documentTitle;
+    }
+  }, [recipe?.name]);
+
   return (
     <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
       {isLoading && <p className="text-center text-xl">Loading...</p>}
@@ -186,6 +194,10 @@ export const RecipePage = () => {
       )}
     </div>
   );
+};
+
+const texts = {
+  documentTitle: "Andrade & Borg Recipes",
 };
 
 export default RecipePage;
