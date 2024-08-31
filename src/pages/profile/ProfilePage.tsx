@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const getTimeSpecificWelcomeMessage = (userName: string | undefined) => {
   const currentHour = new Date().getHours();
-  const nameOrEmpty = userName ? `, ${userName}` : "";
+  const nameOrEmpty = userName ? `, ${userName.split(" ")[0]}` : "";
   let message = "";
 
   if (currentHour >= 5 && currentHour < 12) {
