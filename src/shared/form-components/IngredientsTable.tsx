@@ -1,12 +1,12 @@
 import { TextInputField } from "./TextInputField";
 import CloseIcon from "@/assets/close.svg?react";
-import { IngredientLine, Unit } from "@/types/models";
+import { IngredientLine } from "@/types/models";
 import { SelectField } from "./SelectField";
 import { getAllUnits, isValidUnit, mapUnitToStringFormat } from "@/util/util";
 import { TextButton } from "./TextButton";
 import { CreateRecipeFormData } from "@/pages/all-recipes/components/CreateRecipeDialog";
 import { useFormContext } from "react-hook-form";
-import { IntegerInputField } from "./IntegerInputField";
+import { FloatInputField } from "./FloatInputField";
 import { useMediaQuery } from "@/util/useMediaQuery";
 
 interface Props {
@@ -35,7 +35,6 @@ export const IngredientsTable = ({ section }: Props) => {
       emptyIngredientLine,
     ];
 
-    // ! TODO check useFieldArray
     setValue("sections", sections);
   };
 
@@ -47,25 +46,27 @@ export const IngredientsTable = ({ section }: Props) => {
     const sections = watch("sections");
 
     switch (ingredientLineProp) {
-      case "ingredient":
+      case "ingredient": {
         const upperCasedValue =
           newValue.charAt(0).toUpperCase() + newValue.slice(1);
         sections[section].ingredients[ingredientLineIndex].ingredient.name =
           upperCasedValue;
         break;
-      case "amount":
+      }
+      case "amount": {
         if (newValue === "") break;
         sections[section].ingredients[ingredientLineIndex].amount = parseInt(
           newValue,
           10,
         );
         break;
-      case "unit":
+      }
+      case "unit": {
         if (isValidUnit(newValue)) {
-          sections[section].ingredients[ingredientLineIndex].unit =
-            newValue as Unit;
+          sections[section].ingredients[ingredientLineIndex].unit = newValue;
         }
         break;
+      }
       default:
         break;
     }
@@ -92,7 +93,7 @@ export const IngredientsTable = ({ section }: Props) => {
 
           <tbody>
             {sections[section].ingredients.map((value, index) => (
-              <tr key={index}>
+              <tr key={value.id ?? index}>
                 <td className="p-0 pr-1">
                   <button
                     type="button"
@@ -129,7 +130,7 @@ export const IngredientsTable = ({ section }: Props) => {
 
                 <td className="p-0">
                   <div className="mb-1 flex h-12 items-center bg-brown-300 px-1.5">
-                    <IntegerInputField
+                    <FloatInputField
                       value={value.amount?.toString() ?? ""}
                       onChange={(value) =>
                         updateIngredientLine("amount", value, index)
@@ -160,7 +161,7 @@ export const IngredientsTable = ({ section }: Props) => {
       ) : (
         sections[section].ingredients.map((value, index) => (
           <div
-            key={index}
+            key={value.id ?? index}
             className="
               relative
               mb-2
@@ -202,7 +203,7 @@ export const IngredientsTable = ({ section }: Props) => {
 
             <div>
               <label>{ingredientTableTexts.amount}</label>
-              <IntegerInputField
+              <FloatInputField
                 value={value.amount?.toString() ?? ""}
                 onChange={(value) =>
                   updateIngredientLine("amount", value, index)
