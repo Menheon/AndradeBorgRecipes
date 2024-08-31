@@ -17,55 +17,63 @@ export const ProfilePage = () => {
 
   return (
     <div className="mx-auto flex flex-col items-center justify-center p-6">
-      <div className="flex w-full flex-col items-center rounded-md bg-whiteSmoke p-4 shadow-md sm:w-3/4 lg:w-2/3 xl:w-1/2">
-        <h1 className="self-start px-2 pb-4 font-caveat text-5xl font-bold tracking-wider">
-          <IconButton
-            icon="chevron-left"
-            onClick={() => navigate(RECIPES_PATH)}
-            size="lg"
-          />
+      <div className="flex h-80 w-full flex-col items-center rounded-md bg-whiteSmoke p-4 shadow-md sm:w-3/4 lg:w-2/3 xl:w-1/2">
+        <h1 className="w-full self-start px-2 pb-4 text-center font-caveat text-5xl font-bold tracking-wider">
+          <div className="absolute">
+            <IconButton
+              icon="chevron-left"
+              onClick={() => navigate(RECIPES_PATH)}
+              size="lg"
+            />
+          </div>
           {texts.title}
         </h1>
 
-        {isLoadingSignIn && (
-          <p className="text-center text-xl tracking-wide">{texts.loading}</p>
-        )}
+        <div className="flex h-full flex-col items-center">
+          {isLoadingSignIn && (
+            <p className="flex-1 text-center text-xl tracking-wide">
+              {texts.loading}
+            </p>
+          )}
 
-        {authError && (
-          <p className="text-center text-xl tracking-wide">{authError}</p>
-        )}
+          {authError && (
+            <p className="flex-1 text-center text-xl tracking-wide">
+              {authError}
+            </p>
+          )}
 
-        {!isLoadingSignIn && (
-          <>
-            {currentUser ? (
-              <>
-                <p className="pb-4 text-center text-xl tracking-wide">
-                  {`${texts.welcome} ${auth.currentUser?.displayName}!`}
-                </p>
-                <FilledButton onClick={handleSignOut} type="primary">
-                  {texts.signOut}
-                </FilledButton>
-              </>
-            ) : (
-              <>
-                <p className="pb-4 text-center text-xl tracking-wide">
-                  {texts.notLoggedIn}
-                </p>
-                <FilledButton onClick={handleRegisterOrLogIn} type="primary">
-                  {texts.signInWithGoogle}
-                </FilledButton>
-              </>
-            )}
-          </>
-        )}
+          {!isLoadingSignIn && (
+            <>
+              {currentUser ? (
+                <>
+                  <p className="flex-1 pb-4 text-center text-xl tracking-wide">
+                    {`${texts.welcome} ${auth.currentUser?.displayName}!`}
+                  </p>
+                  <FilledButton onClick={handleSignOut} type="primary">
+                    {texts.signOut}
+                  </FilledButton>
+                </>
+              ) : (
+                <>
+                  <p className="flex-1 pb-4 text-center text-xl tracking-wide">
+                    {texts.notLoggedIn}
+                  </p>
+                  <FilledButton onClick={handleRegisterOrLogIn} type="primary">
+                    {texts.signInWithGoogle}
+                  </FilledButton>
+                </>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 const texts = {
-  title: "Profile",
-  loading: "Loading...",
+  title: "My Profile",
+  loading: "Loading your profile data...",
   welcome: "Welcome",
   signOut: "Sign out",
   notLoggedIn: "You are currently not logged in.",

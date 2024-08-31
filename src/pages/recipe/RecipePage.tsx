@@ -61,15 +61,17 @@ export const RecipePage = () => {
               viewTransitionName: `recipe-title-${recipe.id}`,
             }}
           >
-            <IconButton
-              icon="chevron-left"
-              onClick={() => navigate(RECIPES_PATH)}
-              size="lg"
-            />
+            <div className="absolute">
+              <IconButton
+                icon="chevron-left"
+                onClick={() => navigate(RECIPES_PATH)}
+                size="lg"
+              />
+            </div>
             {recipe.name}
           </h1>
           {((currentUser && isAdmin) || location.hostname === "localhost") && (
-            <div className="absolute right-1 top-1">
+            <div className="absolute right-1 top-1 flex">
               <IconButton
                 icon="edit"
                 onClick={() => setIsEditDialogOpen(true)}
