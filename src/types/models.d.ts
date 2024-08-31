@@ -7,6 +7,7 @@ export type Unit =
   | "liter"
   | "can"
   | "handful"
+  | "bottle"
   | "piece";
 
 export interface Tag {

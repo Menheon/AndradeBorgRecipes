@@ -21,9 +21,6 @@ export const mapUnitToStringFormat = (unit: Unit) => {
     case "teaSpoon":
       formattedUnit = "tsp";
       break;
-    case "piece":
-      formattedUnit = "piece";
-      break;
     default:
       break;
   }
@@ -40,6 +37,7 @@ const allUnits: Record<Unit, Unit> = {
   piece: "piece",
   tableSpoon: "tableSpoon",
   teaSpoon: "teaSpoon",
+  bottle: "bottle",
 };
 
 export const getAllUnits = () => Object.values(allUnits);
