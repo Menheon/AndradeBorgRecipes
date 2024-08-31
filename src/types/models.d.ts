@@ -44,8 +44,11 @@ export interface Recipe {
   creationDate: Date;
 }
 
+export type PlatformSupportedLanguages = "da" | "en";
+
 export type User = {
   isAdmin: boolean;
   id: string;
   email: string;
+  preferredLanguage: PlatformSupportedLanguages;
 };

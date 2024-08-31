@@ -25,13 +25,15 @@ const AuthContext = createContext<AuthContextType>({
   isAdmin: false,
 });
 
+const userSessionDataKey = "user-session-data-";
+
 const clearUserSessionData = (userId: string) => {
-  sessionStorage.removeItem(`user-session-data-${userId}`);
+  sessionStorage.removeItem(userSessionDataKey + userId);
 };
 
 const setUserSessionData = (userData: UserModel) => {
   sessionStorage.setItem(
-    `user-session-data-${userData.id}`,
+    userSessionDataKey + userData.id,
     JSON.stringify(userData),
   );
 };
@@ -45,6 +47,8 @@ const getUserSessionData = (userId: string) => {
     id: userId,
     isAdmin: "isAdmin" in userData ? userData.isAdmin : false,
     email: "email" in userData ? userData.email : "",
+    preferredLanguage:
+      "preferredLanguage" in userData ? userData.preferredLanguage : "en",
   };
   return user;
 };
@@ -75,12 +79,14 @@ export const AuthContextProvider = ({ children }: Props) => {
         id: user.uid,
         isAdmin: false,
         email: user.email ?? "",
+        preferredLanguage: navigator.language === "da" ? "da" : "en",
       });
       isAdmin = userDocData.isAdmin;
       setUserSessionData({
         id: user.uid,
         isAdmin,
         email: userDocData.email,
+        preferredLanguage: userDocData.preferredLanguage,
       });
     }
     setIsAdmin(isAdmin);

@@ -19,19 +19,19 @@ export const createAndRetrieveNewUserDocument = async (user: User) => {
   const userSnapshot = await getDoc(userRef);
 
   if (userSnapshot.exists()) {
-    const { isAdmin, email } = userSnapshot.data();
-    const user: User = {
+    const { isAdmin, email, preferredLanguage } = userSnapshot.data();
+    const retrievedUser: User = {
       id: userSnapshot.id,
       isAdmin,
       email,
+      preferredLanguage,
     };
-    return user;
+    return retrievedUser;
   }
 
   // Create a reference to the new user in the FireStore database
   await setDoc(userRef, {
-    isAdmin: user.isAdmin,
-    email: user.email,
+    ...user,
   });
   return user;
 };
@@ -46,11 +46,12 @@ export const getUserById = async (userId: string) => {
   const userSnapshot = await getDoc(userRef);
   if (!userSnapshot.exists()) return null;
 
-  const { isAdmin, email } = userSnapshot.data();
+  const { isAdmin, email, preferredLanguage } = userSnapshot.data();
   const user: User = {
     id: userSnapshot.id,
     isAdmin,
     email,
+    preferredLanguage,
   };
 
   return user;
