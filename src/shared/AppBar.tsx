@@ -49,15 +49,13 @@ export const AppBar = () => {
           type="button"
           onClick={() => setIsUsingMobileMenu(false)}
           className="
-            absolute 
+            focus-visible:base-outline 
+            absolute
             right-1
             top-1
             m-1
             rounded-full
-            transition
-            focus-visible:outline-none
-            focus-visible:ring-2
-            focus-visible:ring-brown-600"
+            transition"
         >
           <CloseIcon className="h-8 w-8 cursor-pointer fill-brown-600 hover:fill-brown-500" />
         </button>
@@ -67,7 +65,7 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(RECIPES_PATH);
             }}
-            className="flex items-center gap-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
+            className="focus-visible:base-outline flex w-fit items-center gap-2 rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
           >
             Recipes <SkilletIcon className="size-7" />
           </button>
@@ -76,7 +74,7 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(INSPIRATION_PATH);
             }}
-            className="hidden text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
+            className="focus-visible:base-outline hidden w-fit rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
           >
             Inspiration
           </button>
@@ -85,7 +83,7 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(EMPTY_MY_FRIDGE_PATH);
             }}
-            className="hidden text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
+            className="focus-visible:base-outline hidden w-fit rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
           >
             Empty My Fridge
           </button>
@@ -106,7 +104,7 @@ export const AppBar = () => {
                 setIsUsingMobileMenu(false);
                 navigate(RECIPES_PATH);
               }}
-              className="flex items-center gap-1 rounded-lg px-2 font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brown-600"
+              className="focus-visible:base-outline flex items-center gap-1 rounded-lg px-2 font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
             >
               Recipes <SkilletIcon className="size-6" />
             </button>
@@ -137,7 +135,11 @@ export const AppBar = () => {
             )}
           </>
         ) : (
-          <button type="button" onClick={onHamburgerMenuClicked}>
+          <button
+            type="button"
+            onClick={onHamburgerMenuClicked}
+            className="focus-visible:base-outline rounded-lg"
+          >
             <MenuIcon className="h-8 w-8 fill-brown-600 transition-colors hover:fill-brown-500" />
           </button>
         )}

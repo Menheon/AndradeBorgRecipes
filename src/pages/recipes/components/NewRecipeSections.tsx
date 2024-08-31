@@ -58,15 +58,13 @@ export const NewRecipeSections = () => {
             type="button"
             onClick={() => removeSection(index)}
             className="
-              absolute 
-              right-1
+              focus-visible:base-outline 
+              absolute
+              right-1 
               top-1
               m-1
               rounded-full
-              transition
-              focus-visible:outline-none
-              focus-visible:ring-2
-              focus-visible:ring-brown-600"
+              transition"
           >
             <CloseIcon className="h-6 w-6 cursor-pointer fill-brown-600 hover:fill-brown-500" />
           </button>
