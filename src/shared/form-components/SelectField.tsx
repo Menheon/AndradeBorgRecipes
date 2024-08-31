@@ -26,12 +26,13 @@ export const SelectField = <T,>({
       onChange={handleValueSelected}
       className="
         w-full
+        cursor-pointer
         rounded-md
-        border-2
-        border-brown-600
+        border-2 
+        border-brown-600 
         bg-whiteSmoke 
-        px-2 
-        py-1 
+        px-2
+        py-1
         outline-none
         focus-visible:ring
         focus-visible:ring-brown-100
