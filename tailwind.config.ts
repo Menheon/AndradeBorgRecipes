@@ -31,8 +31,16 @@ export default {
     },
   },
   plugins: [
-    plugin(({ addVariant }) => {
+    plugin(({ addVariant, addComponents }) => {
       addVariant("search-cancel", "&::-webkit-search-cancel-button");
+      addComponents({
+        ".base-outline": {
+          outlineStyle: "solid",
+          outlineWidth: "2px",
+          outlineOffset: "2px",
+          outlineColor: "#36312d",
+        },
+      });
     }),
   ],
 } satisfies Config;

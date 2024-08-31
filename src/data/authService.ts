@@ -17,10 +17,13 @@ export const auth = getAuth();
 export const createAndRetrieveNewUserDocument = async (user: User) => {
   const userRef = doc(recipesDB, UsersCollectionName, user.id);
   const userSnapshot = await getDoc(userRef);
+
   if (userSnapshot.exists()) {
+    const { isAdmin, email } = userSnapshot.data();
     const user: User = {
       id: userSnapshot.id,
-      isAdmin: userSnapshot.data().isAdmin,
+      isAdmin,
+      email,
     };
     return user;
   }
@@ -42,9 +45,11 @@ export const getUserById = async (userId: string) => {
   const userSnapshot = await getDoc(userRef);
   if (!userSnapshot.exists()) return null;
 
+  const { isAdmin, email } = userSnapshot.data();
   const user: User = {
     id: userSnapshot.id,
-    isAdmin: userSnapshot.data().isAdmin,
+    isAdmin,
+    email,
   };
 
   return user;

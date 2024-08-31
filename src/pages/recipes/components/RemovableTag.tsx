@@ -26,16 +26,14 @@ export const RemovableTag = ({ children, onRemoved, isRemovable }: Props) => {
         <button
           type="button"
           className="
+            focus-visible:base-outline 
             flex 
             h-5 
             w-5 
             items-center 
             rounded-full 
-            bg-brown-600 
-            p-0.5
-            focus-visible:outline-none
-            focus-visible:ring-2
-            focus-visible:ring-brown-100"
+            bg-brown-600
+            p-0.5"
           onClick={() => onRemoved()}
         >
           <CloseIcon

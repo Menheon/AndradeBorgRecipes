@@ -46,4 +46,5 @@ export interface Recipe {
 export type User = {
   isAdmin: boolean;
   id: string;
+  email: string;
 };
