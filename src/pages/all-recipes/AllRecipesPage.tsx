@@ -8,11 +8,12 @@ import { RecipeSearchField } from "./components/RecipeSearchField";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/store/AuthProvider";
 
-export const RecipesPage = () => {
+export const AllRecipesPage = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
   const { currentUser, isAdmin } = useAuth();
+  document.title = texts.documentTitle;
 
   const {
     data: recipes,
@@ -107,6 +108,7 @@ export const RecipesPage = () => {
 };
 
 const texts = {
+  documentTitle: "Andrade & Borg Recipes",
   allRecipes: "ALL RECIPES",
   loadingRecipes: "Loading recipes...",
   loadError: "Failed to load recipes",

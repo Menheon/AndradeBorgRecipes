@@ -1,8 +1,8 @@
 import { RECIPE_QUERY_TAG, getRecipeDocumentById } from "@/data/recipesService";
 import { useNavigate, useParams } from "react-router-dom";
-import { StrikeableStep } from "../recipes/components/StrikeableStep";
+import { StrikeableStep } from "../all-recipes/components/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
-import { RemovableTag } from "../recipes/components/RemovableTag";
+import { RemovableTag } from "../all-recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog
 import { useAuth } from "@/store/AuthProvider";
 import { IconButton } from "@/shared/form-components/IconButton";
 import { EditRecipeDialog } from "./components/EditRecipe/EditRecipeDialog";
-import { RECIPES_PATH } from "@/shared/AppRoutes";
+import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
@@ -42,6 +42,14 @@ export const RecipePage = () => {
     queryFn: getRecipeDocument,
   });
 
+  useEffect(() => {
+    if (recipe?.name) {
+      document.title = `${texts.documentTitle} - ${recipe.name}`;
+    } else {
+      document.title = texts.documentTitle;
+    }
+  }, [recipe?.name]);
+
   return (
     <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
       {isLoading && <p className="text-center text-xl">Loading...</p>}
@@ -61,15 +69,17 @@ export const RecipePage = () => {
               viewTransitionName: `recipe-title-${recipe.id}`,
             }}
           >
-            <IconButton
-              icon="chevron-left"
-              onClick={() => navigate(RECIPES_PATH)}
-              size="lg"
-            />
+            <div className="absolute">
+              <IconButton
+                icon="chevron-left"
+                onClick={() => navigate(ALL_RECIPES_PATH)}
+                size="lg"
+              />
+            </div>
             {recipe.name}
           </h1>
           {((currentUser && isAdmin) || location.hostname === "localhost") && (
-            <div className="absolute right-1 top-1">
+            <div className="absolute right-1 top-1 flex">
               <IconButton
                 icon="edit"
                 onClick={() => setIsEditDialogOpen(true)}
@@ -184,6 +194,10 @@ export const RecipePage = () => {
       )}
     </div>
   );
+};
+
+const texts = {
+  documentTitle: "Andrade & Borg Recipes",
 };
 
 export default RecipePage;

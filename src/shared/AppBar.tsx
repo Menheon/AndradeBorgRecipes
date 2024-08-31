@@ -8,7 +8,7 @@ import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import {
   EMPTY_MY_FRIDGE_PATH,
   INSPIRATION_PATH,
-  RECIPES_PATH,
+  ALL_RECIPES_PATH,
   XR_SIZER,
 } from "./AppRoutes";
 import { AppBarProfileStatus } from "./profile/AppBarProfileStatus";
@@ -63,7 +63,7 @@ export const AppBar = () => {
           <button
             onClick={() => {
               setIsUsingMobileMenu(false);
-              navigate(RECIPES_PATH);
+              navigate(ALL_RECIPES_PATH);
             }}
             className="focus-visible:base-outline flex w-fit items-center gap-2 rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
           >
@@ -102,7 +102,7 @@ export const AppBar = () => {
             <button
               onClick={() => {
                 setIsUsingMobileMenu(false);
-                navigate(RECIPES_PATH);
+                navigate(ALL_RECIPES_PATH);
               }}
               className="focus-visible:base-outline flex items-center gap-1 rounded-lg px-2 font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
             >

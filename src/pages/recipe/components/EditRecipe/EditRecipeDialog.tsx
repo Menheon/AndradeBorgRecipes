@@ -5,8 +5,8 @@ import {
   TAGS_QUERY_TAG,
   updateRecipeDocument,
 } from "@/data/recipesService";
-import { NewRecipeSections } from "@/pages/recipes/components/NewRecipeSections";
-import { RemovableTag } from "@/pages/recipes/components/RemovableTag";
+import { NewRecipeSections } from "@/pages/all-recipes/components/NewRecipeSections";
+import { RemovableTag } from "@/pages/all-recipes/components/RemovableTag";
 import { BaseDialog } from "@/shared/BaseDialog";
 import TagInputField from "@/shared/form-components/TagInputField";
 import { TextAreaField } from "@/shared/form-components/TextAreaField";

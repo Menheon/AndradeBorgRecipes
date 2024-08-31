@@ -45,13 +45,17 @@ export const IconButton = ({ onClick, icon, size = "md" }: Props) => {
   return (
     <button
       onClick={onClick}
-      className="
+      className={`
         focus-visible:base-outline
+        ${getSize()}
+        m-1
+        flex
+        items-center
+        justify-center
         rounded-full
-        p-1
         text-brown-600
         transition
-        hover:text-brown-500"
+        hover:text-brown-500`}
     >
       <IconNode className={getSize()} />
     </button>

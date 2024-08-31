@@ -5,13 +5,14 @@ import {
   useNavigate,
   useRoutes,
 } from "react-router-dom";
-import { RecipesPage } from "@/pages/recipes/RecipesPage";
+import { AllRecipesPage } from "@/pages/all-recipes/AllRecipesPage";
 import { RecipePage } from "@/pages/recipe/RecipePage";
 import XrSizer from "@/pages/xr-sizer/XrSizer";
 import { ProfilePage } from "@/pages/profile/ProfilePage";
 
 export const ROOT_PATH = "/";
-export const RECIPES_PATH = "/recipes";
+const OLD_ALL_RECIPES_PATH = "/recipes";
+export const ALL_RECIPES_PATH = "/all-recipes";
 export const RECIPE_ITEM_PATH = "/recipes/:recipeId";
 export const INSPIRATION_PATH = "/inspiration";
 export const EMPTY_MY_FRIDGE_PATH = "/empty-my-fridge";
@@ -23,8 +24,8 @@ export const XR_SIZER = "/xr-sizer";
 // eslint-disable-next-line react-refresh/only-export-components
 export const routes: RouteObject[] = [
   {
-    path: RECIPES_PATH,
-    element: <RecipesPage />,
+    path: ALL_RECIPES_PATH,
+    element: <AllRecipesPage />,
   },
   {
     path: RECIPE_ITEM_PATH,
@@ -54,8 +55,11 @@ export const AppRoutes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname === ROOT_PATH) {
-      navigate(RECIPES_PATH);
+    if (
+      location.pathname === ROOT_PATH ||
+      location.pathname === OLD_ALL_RECIPES_PATH
+    ) {
+      navigate(ALL_RECIPES_PATH);
     }
   }, [location.pathname, navigate]);
 

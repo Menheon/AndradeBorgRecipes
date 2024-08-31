@@ -1,5 +1,5 @@
 import { deleteRecipeDocument, RECIPES_QUERY_TAG } from "@/data/recipesService";
-import { RECIPES_PATH } from "@/shared/AppRoutes";
+import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
 import { BaseDialog } from "@/shared/BaseDialog";
 import { Recipe } from "@/types/models";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
@@ -25,7 +25,7 @@ export const DeleteRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
 
   const handleDeleteRecipe = () => {
     postDeleteRecipeMutation.mutate(recipe);
-    navigate(RECIPES_PATH);
+    navigate(ALL_RECIPES_PATH);
     onClose();
   };
 
