@@ -31,6 +31,7 @@ export const createAndRetrieveNewUserDocument = async (user: User) => {
   // Create a reference to the new user in the FireStore database
   await setDoc(userRef, {
     isAdmin: user.isAdmin,
+    email: user.email,
   });
   return user;
 };
