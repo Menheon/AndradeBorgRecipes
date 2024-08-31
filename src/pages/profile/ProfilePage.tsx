@@ -1,4 +1,3 @@
-import { auth } from "@/data/authService";
 import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
 import { FilledButton } from "@/shared/FilledButton";
 import { IconButton } from "@/shared/form-components/IconButton";
@@ -9,7 +8,8 @@ import { getTimeSpecificWelcomeMessage } from "./util";
 export const ProfilePage = () => {
   const navigate = useNavigate();
   const {
-    currentUser,
+    googleUserData,
+    storedUserData,
     handleRegisterOrLogIn,
     handleSignOut,
     isLoadingSignIn,
@@ -49,20 +49,25 @@ export const ProfilePage = () => {
               <div className="flex-1 pb-4 text-center text-xl tracking-wide">
                 <p className="text-center text-xl tracking-wide">
                   {getTimeSpecificWelcomeMessage(
-                    auth.currentUser?.displayName ?? undefined,
+                    googleUserData?.displayName ?? undefined,
                   )}
                 </p>
-                {!currentUser && (
+                {!googleUserData && (
                   <p className="pt-3 text-center text-lg tracking-wide">
                     {texts.notLoggedIn}
                   </p>
                 )}
+                {storedUserData && (
+                  <>
+                    <p>{storedUserData.preferredLanguage}</p>
+                  </>
+                )}
               </div>
               <FilledButton
-                onClick={currentUser ? handleSignOut : handleRegisterOrLogIn}
+                onClick={googleUserData ? handleSignOut : handleRegisterOrLogIn}
                 type="primary"
               >
-                {currentUser ? texts.signOut : texts.signInWithGoogle}
+                {googleUserData ? texts.signOut : texts.signInWithGoogle}
               </FilledButton>
             </>
           )}

@@ -7,22 +7,27 @@ type Props = {
   children: React.ReactNode;
 };
 
+type UserData = {
+  googleUserData: User | null;
+  storedUserData: UserModel | null;
+};
+
 type AuthContextType = {
-  currentUser: User | null;
+  googleUserData: User | null;
+  storedUserData: UserModel | null;
   handleSignOut: () => void;
   handleRegisterOrLogIn: () => void;
   isLoadingSignIn: boolean;
   authError: string | null;
-  isAdmin: boolean;
 };
 
 const AuthContext = createContext<AuthContextType>({
-  currentUser: null,
+  googleUserData: null,
+  storedUserData: null,
   handleSignOut: () => {},
   handleRegisterOrLogIn: () => {},
   isLoadingSignIn: true,
   authError: null,
-  isAdmin: false,
 });
 
 const userSessionDataKey = "user-session-data-";
@@ -39,7 +44,7 @@ const setUserSessionData = (userData: UserModel) => {
 };
 
 const getUserSessionData = (userId: string) => {
-  const userDataString = sessionStorage.getItem(`user-session-data-${userId}`);
+  const userDataString = sessionStorage.getItem(userSessionDataKey + userId);
   if (!userDataString) return;
   const userData = JSON.parse(userDataString);
 
@@ -55,8 +60,10 @@ const getUserSessionData = (userId: string) => {
 
 export const AuthContextProvider = ({ children }: Props) => {
   const [isInitLoading, setIsInitLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [currentUser, setCurrentUser] = useState<UserData>({
+    googleUserData: null,
+    storedUserData: null,
+  });
   const [authError, setAuthError] = useState<string | null>(null);
 
   const handleSignOut = async () => {
@@ -72,8 +79,6 @@ export const AuthContextProvider = ({ children }: Props) => {
   const initializeUser = async (user: User) => {
     const userData = getUserSessionData(user.uid);
 
-    let isAdmin = userData ? userData.isAdmin : false;
-
     if (!userData) {
       const userDocData = await createAndRetrieveNewUserDocument({
         id: user.uid,
@@ -81,15 +86,24 @@ export const AuthContextProvider = ({ children }: Props) => {
         email: user.email ?? "",
         preferredLanguage: navigator.language === "da" ? "da" : "en",
       });
-      isAdmin = userDocData.isAdmin;
       setUserSessionData({
+        ...userDocData,
         id: user.uid,
-        isAdmin,
-        email: userDocData.email,
-        preferredLanguage: userDocData.preferredLanguage,
       });
+      setCurrentUser(({ googleUserData: googleData }) => ({
+        googleUserData: googleData,
+        storedUserData: {
+          ...userDocData,
+        },
+      }));
+    } else {
+      setCurrentUser(({ googleUserData: googleData }) => ({
+        googleUserData: googleData,
+        storedUserData: {
+          ...userData,
+        },
+      }));
     }
-    setIsAdmin(isAdmin);
   };
 
   useEffect(() => {
@@ -100,7 +114,10 @@ export const AuthContextProvider = ({ children }: Props) => {
       if (user) {
         await initializeUser(user);
       }
-      setCurrentUser(user);
+      setCurrentUser(({ storedUserData: storedData }) => ({
+        googleUserData: user,
+        storedUserData: storedData,
+      }));
     });
 
     return () => {
@@ -121,8 +138,8 @@ export const AuthContextProvider = ({ children }: Props) => {
   return (
     <AuthContext.Provider
       value={{
-        isAdmin,
-        currentUser,
+        googleUserData: currentUser.googleUserData,
+        storedUserData: currentUser.storedUserData,
         handleSignOut,
         isLoadingSignIn: isInitLoading,
         handleRegisterOrLogIn,

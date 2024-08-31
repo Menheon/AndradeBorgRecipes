@@ -11,7 +11,7 @@ type Props = {
 
 export const AppBarProfileStatus = ({ onNavigateToProfile }: Props) => {
   const navigate = useNavigate();
-  const { currentUser, isAdmin } = useAuth();
+  const { storedUserData, googleUserData } = useAuth();
 
   const handleProfileClick = () => {
     onNavigateToProfile();
@@ -24,13 +24,13 @@ export const AppBarProfileStatus = ({ onNavigateToProfile }: Props) => {
         onClicked={handleProfileClick}
         size="sm"
         iconNode={
-          currentUser?.photoURL ? (
+          googleUserData?.photoURL ? (
             <div className="relative">
-              {isAdmin && (
+              {storedUserData?.isAdmin && (
                 <CrownIcon className="absolute -right-3 -top-3 size-5 rotate-45" />
               )}
               <img
-                src={currentUser.photoURL}
+                src={googleUserData.photoURL}
                 alt="profile-pic"
                 className="ml-0.5 size-7 rounded-full border-2 border-brown-600"
               />
@@ -40,7 +40,9 @@ export const AppBarProfileStatus = ({ onNavigateToProfile }: Props) => {
           )
         }
       >
-        {currentUser ? currentUser.displayName?.split(" ")[0] : texts.signIn}
+        {googleUserData
+          ? googleUserData.displayName?.split(" ")[0]
+          : texts.signIn}
       </TextButton>
     </div>
   );

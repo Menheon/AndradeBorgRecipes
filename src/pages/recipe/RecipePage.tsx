@@ -17,7 +17,7 @@ export const RecipePage = () => {
   const isMinMediumScreen = useMediaQuery("md");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const { currentUser, isAdmin } = useAuth();
+  const { storedUserData } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -78,7 +78,8 @@ export const RecipePage = () => {
             </div>
             {recipe.name}
           </h1>
-          {((currentUser && isAdmin) || location.hostname === "localhost") && (
+          {((storedUserData && storedUserData.isAdmin) ||
+            location.hostname === "localhost") && (
             <div className="absolute right-1 top-1 flex">
               <IconButton
                 icon="edit"

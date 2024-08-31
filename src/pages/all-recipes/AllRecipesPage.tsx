@@ -12,7 +12,7 @@ export const AllRecipesPage = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
-  const { currentUser, isAdmin } = useAuth();
+  const { storedUserData } = useAuth();
   document.title = texts.documentTitle;
 
   const {
@@ -72,10 +72,11 @@ export const AllRecipesPage = () => {
         </h1>
       </div>
 
-      {((currentUser && isAdmin) || location.hostname === "localhost") && (
+      {((storedUserData && storedUserData.isAdmin) ||
+        location.hostname === "localhost") && (
         <>
           <button
-            className="focus-visible:base-outline fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors hover:bg-brown-500"
+            className="fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors focus-visible:base-outline hover:bg-brown-500"
             onClick={() => setIsCreatingRecipe(true)}
           >
             <AddIcon className="h-8 w-8 fill-whiteSmoke" />
