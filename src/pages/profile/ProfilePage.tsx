@@ -12,6 +12,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { updateUserLanguagePreference } from "@/data/authService";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { translations } from "@/i18n";
 
 type LanguagePreferenceFormData = {
   preferredLanguage: PlatformSupportedLanguages;
@@ -28,9 +29,8 @@ export const ProfilePage = () => {
     isLoadingSignIn,
     authError,
   } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  document.title = t("pages.profile.documentTitle");
   const languages = getPlatformSupportedLanguages();
 
   const { control, handleSubmit, setValue } =
@@ -66,6 +66,12 @@ export const ProfilePage = () => {
       getTimeSpecificWelcomeMessage(googleUserData?.displayName ?? undefined),
     [googleUserData?.displayName],
   );
+  const profilePageTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.profile,
+    [i18n.language],
+  );
+  document.title = t(profilePageTranslations.documentTitle);
 
   return (
     <div className="mx-auto flex flex-col items-center justify-center p-6">
@@ -78,13 +84,13 @@ export const ProfilePage = () => {
               size="lg"
             />
           </div>
-          {t("pages.profile.myProfile")}
+          {t(profilePageTranslations.myProfile)}
         </h1>
 
         <div className="flex h-full flex-1 flex-col items-center">
           {isLoadingSignIn && (
             <p className="flex-1 text-center text-xl tracking-wide">
-              {t("pages.profile.loadingProfileData")}
+              {t(profilePageTranslations.loadingProfileData)}
             </p>
           )}
 
@@ -102,13 +108,13 @@ export const ProfilePage = () => {
                 </p>
                 {!googleUserData && (
                   <p className="pt-3 text-center text-lg tracking-wide">
-                    {t("pages.profile.notLoggedIn")}
+                    {t(profilePageTranslations.notLoggedIn)}
                   </p>
                 )}
                 {googleUserData && storedUserData && (
                   <div className="mt-2 w-48 flex-1">
                     <h2 className="text-lg">
-                      {t("pages.profile.preferredLanguage.title")}
+                      {t(profilePageTranslations.preferredLanguage.title)}
                     </h2>
                     <Controller
                       control={control}
@@ -116,7 +122,7 @@ export const ProfilePage = () => {
                       render={({ field }) => (
                         <SelectField
                           placeholder={t(
-                            "pages.profile.preferredLanguage.title",
+                            profilePageTranslations.preferredLanguage.title,
                           )}
                           options={languages}
                           getDisplayValue={({ label }) => label}
@@ -142,8 +148,8 @@ export const ProfilePage = () => {
                 type="primary"
               >
                 {googleUserData
-                  ? t("pages.profile.signOut")
-                  : t("pages.profile.signInWithGoogle")}
+                  ? t(profilePageTranslations.signOut)
+                  : t(profilePageTranslations.signInWithGoogle)}
               </FilledButton>
             </>
           )}
