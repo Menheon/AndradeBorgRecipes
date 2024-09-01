@@ -1,8 +1,11 @@
 import { deleteRecipeDocument, RECIPES_QUERY_TAG } from "@/data/recipesService";
+import { translations } from "@/i18n";
 import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
 import { BaseDialog } from "@/shared/BaseDialog";
-import { Recipe } from "@/types/models";
+import { PlatformSupportedLanguages, Recipe } from "@/types/models";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -29,23 +32,29 @@ export const DeleteRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
     onClose();
   };
 
+  const { t, i18n } = useTranslation();
+  const deleteRecipeTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.recipes
+        .deleteRecipe,
+    [i18n.language],
+  );
+
   return (
     <BaseDialog
       isOpen={isOpen}
-      title={texts.deleteRecipe}
+      title={t(deleteRecipeTranslations.deleteRecipeTitle)}
       primaryAction={handleDeleteRecipe}
       primaryActionLabel="delete"
       isPrimaryActionDisabled={false}
       onClose={onClose}
     >
       <div className="py-2">
-        <p>{texts.deleteRecipeDescription}</p>
+        <p>
+          {t(deleteRecipeTranslations.deleteRecipeDescriptionOn)}{" "}
+          <i>"{recipe.name}"</i>?
+        </p>
       </div>
     </BaseDialog>
   );
-};
-
-const texts = {
-  deleteRecipe: "Delete Recipe",
-  deleteRecipeDescription: "Are you sure you want to delete this recipe?",
 };

@@ -5,12 +5,15 @@ import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../all-recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog";
 import { useAuth } from "@/store/AuthProvider";
 import { IconButton } from "@/shared/form-components/IconButton";
 import { EditRecipeDialog } from "./components/EditRecipe/EditRecipeDialog";
 import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
+import { translations } from "@/i18n";
+import { PlatformSupportedLanguages } from "@/types/models";
+import { useTranslation } from "react-i18next";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
@@ -42,19 +45,32 @@ export const RecipePage = () => {
     queryFn: getRecipeDocument,
   });
 
+  const { t, i18n } = useTranslation();
+  const recipeTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.recipe,
+    [i18n.language],
+  );
+
   useEffect(() => {
     if (recipe?.name) {
-      document.title = `${texts.documentTitle} - ${recipe.name}`;
+      document.title = `${t(recipeTranslations.documentTitle)} - ${recipe.name}`;
     } else {
-      document.title = texts.documentTitle;
+      document.title = t(recipeTranslations.documentTitle);
     }
-  }, [recipe?.name]);
+  }, [recipe?.name, recipeTranslations.documentTitle, t]);
 
   return (
     <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
-      {isLoading && <p className="text-center text-xl">Loading...</p>}
+      {isLoading && (
+        <p className="text-center text-xl">
+          {t(recipeTranslations.loadingRecipe)}
+        </p>
+      )}
       {isError && (
-        <p className="text-center text-xl">Error fetching recipe data</p>
+        <p className="text-center text-xl">
+          {t(recipeTranslations.errorLoadingRecipe)}
+        </p>
       )}
       {isSuccess && recipe && (
         <div
@@ -160,7 +176,7 @@ export const RecipePage = () => {
                 </h3>
                 <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
                   <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
-                    Ingredients
+                    {t(recipeTranslations.ingredients)}
                   </h4>
                   <ul className="list-inside list-disc">
                     {section.ingredients.map((ingredientLine, i) => (
@@ -180,7 +196,7 @@ export const RecipePage = () => {
                 </div>
                 <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
                   <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
-                    Steps
+                    {t(recipeTranslations.steps)}
                   </h4>
                   <div>
                     {section.steps.map((step, i) => (
@@ -195,10 +211,6 @@ export const RecipePage = () => {
       )}
     </div>
   );
-};
-
-const texts = {
-  documentTitle: "Andrade & Borg Recipes",
 };
 
 export default RecipePage;

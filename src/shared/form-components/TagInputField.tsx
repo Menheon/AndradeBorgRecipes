@@ -1,7 +1,9 @@
-import { Tag } from "@/types/models";
-import { useEffect, useState } from "react";
+import { PlatformSupportedLanguages, Tag } from "@/types/models";
+import { useEffect, useMemo, useState } from "react";
 import { TextInputField } from "./TextInputField";
 import { NEW_TAG_ID } from "@/data/recipesService";
+import { translations } from "@/i18n";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   existingTags: Tag[];
@@ -77,12 +79,20 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
     );
   };
 
+  const { t, i18n } = useTranslation();
+  const tagTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.recipes
+        .createRecipe.tags,
+    [i18n.language],
+  );
+
   return (
     <div className="relative">
       <TextInputField
         value={inputValue}
         onChange={handleInputChange}
-        placeholder={componentTexts.inputPlaceholder}
+        placeholder={t(tagTranslations.writeRecipeTags)}
       />
       {showDropdown && (
         <ul
@@ -151,7 +161,7 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
                   focus-visible:-outline-offset-2
                   focus-visible:outline-brown-100"
               >
-                {componentTexts.create} "{inputValue}"
+                {t(tagTranslations.createNewTag)} "{inputValue}"
               </button>
             </li>
           )}
@@ -159,11 +169,6 @@ const TagInputField = ({ existingTags, onTagAdd, addedTags }: Props) => {
       )}
     </div>
   );
-};
-
-const componentTexts = {
-  inputPlaceholder: "Write the relevant tags for the recipe",
-  create: "Create new tag",
 };
 
 export default TagInputField;

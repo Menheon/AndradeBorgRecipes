@@ -5,20 +5,23 @@ import {
   TAGS_QUERY_TAG,
   updateRecipeDocument,
 } from "@/data/recipesService";
+import { translations } from "@/i18n";
 import { NewRecipeSections } from "@/pages/all-recipes/components/NewRecipeSections";
 import { RemovableTag } from "@/pages/all-recipes/components/RemovableTag";
 import { BaseDialog } from "@/shared/BaseDialog";
 import TagInputField from "@/shared/form-components/TagInputField";
 import { TextAreaField } from "@/shared/form-components/TextAreaField";
 import { TextInputField } from "@/shared/form-components/TextInputField";
-import { Recipe, Tag } from "@/types/models";
+import { PlatformSupportedLanguages, Recipe, Tag } from "@/types/models";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import {
   Controller,
   FormProvider,
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   isOpen: boolean;
@@ -104,11 +107,19 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
     setValue("tags", filteredTags);
   };
 
+  const { t, i18n } = useTranslation();
+  const createRecipeTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.recipes
+        .createRecipe,
+    [i18n.language],
+  );
+
   return (
     <BaseDialog
       isPrimaryActionDisabled={isCreateFormStateInvalid()}
       isOpen={isOpen}
-      title={texts.updateRecipe}
+      title={t(createRecipeTranslations.generalData.updateRecipeTitle)}
       primaryAction={handleSubmit(handleUpdateRecipe)}
       primaryActionLabel="update"
       onClose={closeDialog}
@@ -116,7 +127,7 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
       <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2">
         <div className="col-start-1 sm:col-end-2">
           <h3 className="text-polyGreen text-md pb-0.5 pt-2 font-semibold">
-            Title
+            {t(createRecipeTranslations.generalData.title)}
           </h3>
           <Controller
             control={control}
@@ -125,12 +136,16 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
               <TextInputField
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Write the name for the recipe"
+                placeholder={t(
+                  createRecipeTranslations.generalData.writeRecipeTitle,
+                )}
               />
             )}
           />
 
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">Image URL</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">
+            {t(createRecipeTranslations.generalData.imageUrl)}
+          </h3>
           <Controller
             control={control}
             name="imageUrl"
@@ -138,14 +153,18 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
               <TextInputField
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Paste the URL for the image of the dish"
+                placeholder={t(
+                  createRecipeTranslations.generalData.pasteImageUrl,
+                )}
               />
             )}
           />
 
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">Tags</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">
+            {t(createRecipeTranslations.tags.tagsTitle)}
+          </h3>
           {isTagsLoading ? (
-            <p>Loading tags...</p>
+            <p>{t(createRecipeTranslations.tags.loadingTags)}</p>
           ) : (
             <Controller
               control={control}
@@ -179,7 +198,7 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
 
         <div className="col-start-1 sm:col-start-2 sm:col-end-3">
           <h3 className="text-polyGreen text-md pb-0.5 pt-2 font-semibold">
-            Description
+            {t(createRecipeTranslations.generalData.description)}
           </h3>
           <Controller
             control={control}
@@ -188,7 +207,9 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
               <TextAreaField
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Write the description of the recipe"
+                placeholder={t(
+                  createRecipeTranslations.generalData.writeDescription,
+                )}
                 columns={40}
                 rows={8}
               />
@@ -197,7 +218,9 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
         </div>
 
         <div className="col-start-1 col-end-3">
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">Sections</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">
+            {t(createRecipeTranslations.sections.sectionsTitle)}
+          </h3>
           <FormProvider {...methods}>
             <NewRecipeSections />
           </FormProvider>
@@ -205,8 +228,4 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
       </div>
     </BaseDialog>
   );
-};
-
-const texts = {
-  updateRecipe: "Update Recipe",
 };

@@ -26,9 +26,14 @@ type Translations = {
         loadError: string;
         noMatchingRecipes: string;
         searchPlaceholder: string;
+        deleteRecipe: {
+          deleteRecipeTitle: string;
+          deleteRecipeDescriptionOn: string;
+        };
         createRecipe: {
           generalData: {
             createRecipeTitle: string;
+            updateRecipeTitle: string;
             title: string;
             writeRecipeTitle: string;
             imageUrl: string;
@@ -42,6 +47,8 @@ type Translations = {
           tags: {
             tagsTitle: string;
             loadingTags: string;
+            writeRecipeTags: string;
+            createNewTag: string;
           };
           steps: {
             addNewStep: string;
@@ -65,6 +72,13 @@ type Translations = {
             writeSectionTitle: string;
           };
         };
+      };
+      recipe: {
+        loadingRecipe: string;
+        errorLoadingRecipe: string;
+        ingredients: string;
+        steps: string;
+        documentTitle: string;
       };
       profile: {
         myProfile: string;
@@ -107,10 +121,16 @@ export const translations: Translations = {
         loadError: "Der opstod en fejl under indlæsningen af opskrifterne",
         noMatchingRecipes: "Hovsa! Ingen matchende opskrifter fundet...",
         searchPlaceholder: "Søg efter opskrifter...",
+        deleteRecipe: {
+          deleteRecipeTitle: "Slet opskrift",
+          deleteRecipeDescriptionOn:
+            "Er du sikker på, at du vil slette denne opskrift på",
+        },
         createRecipe: {
           generalData: {
             title: "Titel",
             createRecipeTitle: "Opret ny opskrift",
+            updateRecipeTitle: "Opdater opskrift",
             writeRecipeTitle: "Indtast opskriftens navn",
             recipeImage: "Opskriftsbillede",
             description: "Beskrivelse",
@@ -123,6 +143,8 @@ export const translations: Translations = {
           tags: {
             tagsTitle: "Tags",
             loadingTags: "Indlæser tags...",
+            writeRecipeTags: "Indtast relevante tags til opskriften",
+            createNewTag: "Opret nyt tag",
           },
           steps: {
             addNewStep: "Tilføj nyt trin",
@@ -146,6 +168,14 @@ export const translations: Translations = {
             writeSectionTitle: "Indtast sektionstitel",
           },
         },
+      },
+      recipe: {
+        loadingRecipe: "Indlæser opskrift...",
+        errorLoadingRecipe:
+          "Der opstod en fejl under indlæsningen af opskriften.",
+        ingredients: "Ingredienser",
+        steps: "Trin",
+        documentTitle: "Andrade & Borg Opskrifter",
       },
       profile: {
         myProfile: "Min Profil",
@@ -185,10 +215,16 @@ export const translations: Translations = {
         loadError: "Failed to load recipes",
         noMatchingRecipes: "Whoops! No recipes matching your search...",
         searchPlaceholder: "Search for recipes...",
+        deleteRecipe: {
+          deleteRecipeTitle: "Delete Recipe",
+          deleteRecipeDescriptionOn:
+            "Are you sure you want to delete this recipe on",
+        },
         createRecipe: {
           generalData: {
             title: "Title",
             createRecipeTitle: "Create a new recipe",
+            updateRecipeTitle: "Update recipe",
             writeRecipeTitle: "Write the name for the recipe",
             recipeImage: "Recipe image",
             description: "Description",
@@ -201,6 +237,8 @@ export const translations: Translations = {
           tags: {
             tagsTitle: "Tags",
             loadingTags: "Loading tags...",
+            writeRecipeTags: "Write the relevant tags for the recipe",
+            createNewTag: "Create new tag",
           },
           steps: {
             addNewStep: "Add new step",
@@ -224,6 +262,13 @@ export const translations: Translations = {
             writeSectionTitle: "Write section title",
           },
         },
+      },
+      recipe: {
+        loadingRecipe: "Loading recipe...",
+        errorLoadingRecipe: "An error occurred whilst loading the recipe.",
+        ingredients: "Ingredients",
+        steps: "Steps",
+        documentTitle: "Andrade & Borg Recipes",
       },
       profile: {
         myProfile: "My Profile",
