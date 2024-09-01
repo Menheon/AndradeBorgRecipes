@@ -1,4 +1,4 @@
-import { Unit } from "../types/models";
+import { PlatformSupportedLanguages, Unit } from "../types/models";
 
 export const mapUnitToStringFormat = (unit: Unit) => {
   let formattedUnit = unit.toString();
@@ -45,3 +45,17 @@ export const getAllUnits = () => Object.values(allUnits);
 export const isValidUnit = (value: string): value is Unit => {
   return Object.keys(allUnits).includes(value);
 };
+
+const allPlatformSupportedLanguages: Record<
+  PlatformSupportedLanguages,
+  string
+> = {
+  da: "Dansk",
+  en: "English",
+};
+
+export const getPlatformSupportedLanguages = () =>
+  Object.entries(allPlatformSupportedLanguages).map(([code, label]) => ({
+    code: code as PlatformSupportedLanguages,
+    label,
+  }));
