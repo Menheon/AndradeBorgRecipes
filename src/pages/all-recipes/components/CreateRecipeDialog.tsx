@@ -193,6 +193,12 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
                 label={t(createRecipeTranslations.generalData.recipeImage)}
                 {...field}
                 value={field.value ? field.value.value : ""}
+                buttonTitle={t(
+                  createRecipeTranslations.generalData.uploadFileImage,
+                )}
+                noFileChosenLabel={t(
+                  createRecipeTranslations.generalData.noImageChosen,
+                )}
               />
             )}
           />

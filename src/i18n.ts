@@ -34,6 +34,8 @@ type Translations = {
             imageUrl: string;
             pasteImageUrl: string;
             recipeImage: string;
+            uploadFileImage: string;
+            noImageChosen: string;
             description: string;
             writeDescription: string;
           };
@@ -115,6 +117,8 @@ export const translations: Translations = {
             writeDescription: "Indtast beskrivelsen til opskriften",
             pasteImageUrl: "Indsæt en URL til opskriftbilledet",
             imageUrl: "Billede URL",
+            noImageChosen: "Intet billede valgt",
+            uploadFileImage: "Vælg billede",
           },
           tags: {
             tagsTitle: "Tags",
@@ -191,6 +195,8 @@ export const translations: Translations = {
             writeDescription: "Write the description of the recipe",
             pasteImageUrl: "Paste the URL for the image of the dish",
             imageUrl: "Image URL",
+            noImageChosen: "No image selected",
+            uploadFileImage: "Select image",
           },
           tags: {
             tagsTitle: "Tags",
