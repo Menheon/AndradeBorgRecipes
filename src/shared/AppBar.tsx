@@ -2,7 +2,7 @@ import Logo from "@/assets/logo.svg?react";
 import SkilletIcon from "@/assets/skillet.svg?react";
 import MenuIcon from "@/assets/menu.svg?react";
 import { useMediaQuery } from "@/util/useMediaQuery";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import CloseIcon from "@/assets/close.svg?react";
 import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -12,6 +12,9 @@ import {
   XR_SIZER,
 } from "./AppRoutes";
 import { AppBarProfileStatus } from "./profile/AppBarProfileStatus";
+import { translations } from "@/i18n";
+import { PlatformSupportedLanguages } from "@/types/models";
+import { useTranslation } from "react-i18next";
 
 export const AppBar = () => {
   const isMin900WidthScreen = useMediaQuery(900);
@@ -34,6 +37,12 @@ export const AppBar = () => {
     clearTimeout(pressTimer);
   };
 
+  const { t, i18n } = useTranslation();
+  const appBarTranslations = useMemo(
+    () => translations[i18n.language as PlatformSupportedLanguages].navigation,
+    [i18n.language],
+  );
+
   const isXrSizer = matchPath(location.pathname, XR_SIZER);
 
   if (isXrSizer) {
@@ -49,13 +58,13 @@ export const AppBar = () => {
           type="button"
           onClick={() => setIsUsingMobileMenu(false)}
           className="
-            focus-visible:base-outline 
-            absolute
+            absolute 
             right-1
             top-1
             m-1
             rounded-full
-            transition"
+            transition
+            focus-visible:base-outline"
         >
           <CloseIcon className="h-8 w-8 cursor-pointer fill-brown-600 hover:fill-brown-500" />
         </button>
@@ -65,27 +74,27 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(ALL_RECIPES_PATH);
             }}
-            className="focus-visible:base-outline flex w-fit items-center gap-2 rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
+            className="flex w-fit items-center gap-2 rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors focus-visible:base-outline hover:text-brown-500"
           >
-            Recipes <SkilletIcon className="size-7" />
+            {t(appBarTranslations.recipes)} <SkilletIcon className="size-7" />
           </button>
           <button
             onClick={() => {
               setIsUsingMobileMenu(false);
               navigate(INSPIRATION_PATH);
             }}
-            className="focus-visible:base-outline hidden w-fit rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
+            className="hidden w-fit rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors focus-visible:base-outline hover:text-brown-500"
           >
-            Inspiration
+            {t(appBarTranslations.inspiration)}
           </button>
           <button
             onClick={() => {
               setIsUsingMobileMenu(false);
               navigate(EMPTY_MY_FRIDGE_PATH);
             }}
-            className="focus-visible:base-outline hidden w-fit rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
+            className="hidden w-fit rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors focus-visible:base-outline hover:text-brown-500"
           >
-            Empty My Fridge
+            {t(appBarTranslations.emptyMyFridge)}
           </button>
 
           <div className="mb-0 mt-auto">
@@ -104,9 +113,9 @@ export const AppBar = () => {
                 setIsUsingMobileMenu(false);
                 navigate(ALL_RECIPES_PATH);
               }}
-              className="focus-visible:base-outline flex items-center gap-1 rounded-lg px-2 font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
+              className="flex items-center gap-1 rounded-lg px-2 font-semibold tracking-wider text-brown-600 transition-colors focus-visible:base-outline hover:text-brown-500"
             >
-              Recipes <SkilletIcon className="size-6" />
+              {t(appBarTranslations.recipes)} <SkilletIcon className="size-6" />
             </button>
             <button
               onClick={() => {
@@ -115,7 +124,7 @@ export const AppBar = () => {
               }}
               className="hidden font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
             >
-              Inspiration
+              {t(appBarTranslations.inspiration)}
             </button>
             <button
               onClick={() => {
@@ -124,7 +133,7 @@ export const AppBar = () => {
               }}
               className="hidden font-semibold tracking-wider text-brown-600 transition-colors hover:text-brown-500"
             >
-              Empty My Fridge
+              {t(appBarTranslations.emptyMyFridge)}
             </button>
             {isMin900WidthScreen && (
               <div className="ml-auto mr-0">
@@ -138,7 +147,7 @@ export const AppBar = () => {
           <button
             type="button"
             onClick={onHamburgerMenuClicked}
-            className="focus-visible:base-outline rounded-lg"
+            className="rounded-lg focus-visible:base-outline"
           >
             <MenuIcon className="h-8 w-8 fill-brown-600 transition-colors hover:fill-brown-500" />
           </button>

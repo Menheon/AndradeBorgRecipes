@@ -4,6 +4,12 @@ import { PlatformSupportedLanguages } from "./types/models";
 
 type Translations = {
   [key in PlatformSupportedLanguages]: {
+    navigation: {
+      recipes: string;
+      inspiration: string;
+      emptyMyFridge: string;
+      signIn: string;
+    };
     pages: {
       profile: {
         myProfile: string;
@@ -24,6 +30,12 @@ type Translations = {
 
 export const translations: Translations = {
   da: {
+    navigation: {
+      recipes: "Opskrifter",
+      inspiration: "Inspiration",
+      emptyMyFridge: "Tøm Mit Køkken",
+      signIn: "Log ind",
+    },
     pages: {
       profile: {
         myProfile: "Min Profil",
@@ -41,6 +53,12 @@ export const translations: Translations = {
     },
   },
   en: {
+    navigation: {
+      recipes: "Recipes",
+      inspiration: "Inspiration",
+      emptyMyFridge: "Empty My Fridge",
+      signIn: "Sign in",
+    },
     pages: {
       profile: {
         myProfile: "My Profile",
