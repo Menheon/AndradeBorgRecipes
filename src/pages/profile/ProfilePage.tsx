@@ -6,8 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { getTimeSpecificWelcomeMessage } from "./util";
 import { SelectField } from "@/shared/form-components/SelectField";
 import { getPlatformSupportedLanguages } from "@/util/util";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { PlatformSupportedLanguages } from "@/types/models";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { updateUserLanguagePreference } from "@/data/authService";
+import { useMutation } from "@tanstack/react-query";
+
+type LanguagePreferenceFormData = {
+  preferredLanguage: PlatformSupportedLanguages;
+};
 
 export const ProfilePage = () => {
   const navigate = useNavigate();
@@ -16,20 +23,40 @@ export const ProfilePage = () => {
     storedUserData,
     handleRegisterOrLogIn,
     handleSignOut,
+    refetchUserData,
     isLoadingSignIn,
     authError,
   } = useAuth();
   document.title = texts.documentTitle;
   const languages = getPlatformSupportedLanguages();
 
-  const [selectedLanguage, setSelectedLanguage] = useState<
-    PlatformSupportedLanguages | undefined
-  >(undefined);
+  const { control, handleSubmit, setValue } =
+    useForm<LanguagePreferenceFormData>({
+      mode: "all",
+      defaultValues: {
+        preferredLanguage: storedUserData?.preferredLanguage,
+      },
+    });
+
+  const postUpdatedLanguagePreferenceMutation = useMutation({
+    mutationFn: updateUserLanguagePreference,
+    onSuccess: refetchUserData,
+  });
+
+  const handleUpdateLanguagePreference: SubmitHandler<
+    LanguagePreferenceFormData
+  > = ({ preferredLanguage }) => {
+    if (!storedUserData) return;
+    postUpdatedLanguagePreferenceMutation.mutate({
+      preferredLanguage,
+      userId: storedUserData?.id,
+    });
+  };
 
   useEffect(() => {
     if (!storedUserData?.preferredLanguage) return;
-    setSelectedLanguage(storedUserData.preferredLanguage);
-  }, [storedUserData?.preferredLanguage]);
+    setValue("preferredLanguage", storedUserData.preferredLanguage);
+  }, [setValue, storedUserData?.preferredLanguage]);
 
   const welcomeMessage = useMemo(
     () =>
@@ -75,19 +102,29 @@ export const ProfilePage = () => {
                     {texts.notLoggedIn}
                   </p>
                 )}
-                {storedUserData && (
+                {googleUserData && storedUserData && (
                   <div className="mt-2 w-48 flex-1">
                     <h2 className="text-lg">{texts.preferredLanguage.title}</h2>
-                    <SelectField
-                      placeholder={texts.preferredLanguage.title}
-                      options={languages}
-                      getDisplayValue={({ label }) => label}
-                      getValue={({ code }) => code}
-                      onValueSelected={(value) =>
-                        setSelectedLanguage(value as PlatformSupportedLanguages)
-                      }
-                      selectedOption={languages.find(
-                        ({ code }) => code === selectedLanguage,
+                    <Controller
+                      control={control}
+                      name="preferredLanguage"
+                      render={({ field }) => (
+                        <SelectField
+                          placeholder={texts.preferredLanguage.title}
+                          options={languages}
+                          getDisplayValue={({ label }) => label}
+                          getValue={({ code }) => code}
+                          onValueSelected={(value) => {
+                            setValue(
+                              "preferredLanguage",
+                              value as PlatformSupportedLanguages,
+                            );
+                            handleSubmit(handleUpdateLanguagePreference)();
+                          }}
+                          selectedOption={languages.find(
+                            ({ code }) => code === field.value,
+                          )}
+                        />
                       )}
                     />
                   </div>

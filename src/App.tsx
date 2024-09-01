@@ -8,8 +8,8 @@ const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <AuthContextProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
         <BrowserRouter>
           <AppBar />
           <main className="pt-[60px]">
@@ -17,8 +17,8 @@ const App = () => {
           </main>
           <footer className="mt-4 h-4 w-full" />
         </BrowserRouter>
-      </QueryClientProvider>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </QueryClientProvider>
   );
 };
 

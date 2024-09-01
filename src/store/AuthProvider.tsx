@@ -17,6 +17,7 @@ type AuthContextType = {
   storedUserData: UserModel | null;
   handleSignOut: () => void;
   handleRegisterOrLogIn: () => void;
+  refetchUserData: () => void;
   isLoadingSignIn: boolean;
   authError: string | null;
 };
@@ -26,6 +27,7 @@ const AuthContext = createContext<AuthContextType>({
   storedUserData: null,
   handleSignOut: () => {},
   handleRegisterOrLogIn: () => {},
+  refetchUserData: () => {},
   isLoadingSignIn: true,
   authError: null,
 });
@@ -114,9 +116,9 @@ export const AuthContextProvider = ({ children }: Props) => {
       if (user) {
         await initializeUser(user);
       }
-      setCurrentUser(({ storedUserData: storedData }) => ({
+      setCurrentUser(({ storedUserData }) => ({
         googleUserData: user,
-        storedUserData: storedData,
+        storedUserData,
       }));
     });
 
@@ -135,6 +137,12 @@ export const AuthContextProvider = ({ children }: Props) => {
     }
   };
 
+  const refetchUserData = async () => {
+    if (!currentUser.googleUserData) return;
+    clearUserSessionData(currentUser.googleUserData.uid);
+    await initializeUser(currentUser.googleUserData);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -143,6 +151,7 @@ export const AuthContextProvider = ({ children }: Props) => {
         handleSignOut,
         isLoadingSignIn: isInitLoading,
         handleRegisterOrLogIn,
+        refetchUserData,
         authError,
       }}
     >

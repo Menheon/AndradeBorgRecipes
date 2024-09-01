@@ -1,6 +1,6 @@
 import { recipesDB } from "@/firebase";
 import { getDoc, doc, setDoc } from "firebase/firestore";
-import { User } from "@/types/models";
+import { PlatformSupportedLanguages, User } from "@/types/models";
 import { getAuth } from "firebase/auth";
 
 export const USER_QUERY_KEY = "user";
@@ -55,4 +55,30 @@ export const getUserById = async (userId: string) => {
   };
 
   return user;
+};
+
+type PostUserLanguagePreference = {
+  userId: string;
+  preferredLanguage: PlatformSupportedLanguages;
+};
+
+export const updateUserLanguagePreference = async ({
+  userId,
+  preferredLanguage,
+}: PostUserLanguagePreference) => {
+  const userRef = doc(recipesDB, UsersCollectionName, userId);
+  const userSnapshot = await getDoc(userRef);
+  if (!userSnapshot.exists()) return;
+
+  const { isAdmin, email } = userSnapshot.data();
+  const retrievedUser: User = {
+    id: userSnapshot.id,
+    isAdmin,
+    email,
+    preferredLanguage,
+  };
+
+  await setDoc(userRef, {
+    ...retrievedUser,
+  });
 };
