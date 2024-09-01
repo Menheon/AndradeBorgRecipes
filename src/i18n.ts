@@ -10,12 +10,40 @@ i18n
     resources: {
       en: {
         translation: {
-          test: "Welcome to React and react-i18next",
+          pages: {
+            profile: {
+              myProfile: "My Profile",
+              signInWithGoogle: "Sign in with Google",
+              signOut: "Sign out",
+              loadingProfileData: "Loading your profile data...",
+              notLoggedIn: "You are currently not logged in.",
+              documentTitle: "Andrade & Borg Recipes - Profile",
+              preferredLanguage: {
+                title: "Preferred language",
+                da: "Dansk",
+                en: "English",
+              },
+            },
+          },
         },
       },
       da: {
         translation: {
-          test: "Pølsemix",
+          pages: {
+            profile: {
+              myProfile: "Min Profil",
+              signInWithGoogle: "Log ind med Google",
+              signOut: "Log ud",
+              loadingProfileData: "Indlæser dine profiloplysninger...",
+              notLoggedIn: "Du er pt. ikke logget ind.",
+              documentTitle: "Andrade & Borg Opskrifter - Profil",
+              preferredLanguage: {
+                title: "Foretrukket sprog",
+                da: "Dansk",
+                en: "English",
+              },
+            },
+          },
         },
       },
     },

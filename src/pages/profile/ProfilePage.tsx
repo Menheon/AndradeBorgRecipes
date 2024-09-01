@@ -28,7 +28,9 @@ export const ProfilePage = () => {
     isLoadingSignIn,
     authError,
   } = useAuth();
-  document.title = texts.documentTitle;
+  const { t } = useTranslation();
+
+  document.title = t("pages.profile.documentTitle");
   const languages = getPlatformSupportedLanguages();
 
   const { control, handleSubmit, setValue } =
@@ -65,8 +67,6 @@ export const ProfilePage = () => {
     [googleUserData?.displayName],
   );
 
-  const { t } = useTranslation();
-
   return (
     <div className="mx-auto flex flex-col items-center justify-center p-6">
       <div className="flex h-full min-h-80 w-full flex-col items-center rounded-md bg-whiteSmoke p-4 shadow-md sm:w-3/4 lg:w-2/3 xl:w-1/2">
@@ -78,14 +78,13 @@ export const ProfilePage = () => {
               size="lg"
             />
           </div>
-          {texts.title}
-          {t("test")}
+          {t("pages.profile.myProfile")}
         </h1>
 
         <div className="flex h-full flex-1 flex-col items-center">
           {isLoadingSignIn && (
             <p className="flex-1 text-center text-xl tracking-wide">
-              {texts.loading}
+              {t("pages.profile.loadingProfileData")}
             </p>
           )}
 
@@ -103,18 +102,22 @@ export const ProfilePage = () => {
                 </p>
                 {!googleUserData && (
                   <p className="pt-3 text-center text-lg tracking-wide">
-                    {texts.notLoggedIn}
+                    {t("pages.profile.notLoggedIn")}
                   </p>
                 )}
                 {googleUserData && storedUserData && (
                   <div className="mt-2 w-48 flex-1">
-                    <h2 className="text-lg">{texts.preferredLanguage.title}</h2>
+                    <h2 className="text-lg">
+                      {t("pages.profile.preferredLanguage.title")}
+                    </h2>
                     <Controller
                       control={control}
                       name="preferredLanguage"
                       render={({ field }) => (
                         <SelectField
-                          placeholder={texts.preferredLanguage.title}
+                          placeholder={t(
+                            "pages.profile.preferredLanguage.title",
+                          )}
                           options={languages}
                           getDisplayValue={({ label }) => label}
                           getValue={({ code }) => code}
@@ -138,7 +141,9 @@ export const ProfilePage = () => {
                 onClick={googleUserData ? handleSignOut : handleRegisterOrLogIn}
                 type="primary"
               >
-                {googleUserData ? texts.signOut : texts.signInWithGoogle}
+                {googleUserData
+                  ? t("pages.profile.signOut")
+                  : t("pages.profile.signInWithGoogle")}
               </FilledButton>
             </>
           )}
@@ -146,18 +151,4 @@ export const ProfilePage = () => {
       </div>
     </div>
   );
-};
-
-const texts = {
-  title: "My Profile",
-  loading: "Loading your profile data...",
-  signOut: "Sign out",
-  preferredLanguage: {
-    title: "Preferred language",
-    da: "Dansk",
-    en: "English",
-  },
-  notLoggedIn: "You are currently not logged in.",
-  signInWithGoogle: "Sign in with Google",
-  documentTitle: "Andrade & Borg Recipes - Profile",
 };
