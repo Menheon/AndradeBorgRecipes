@@ -3,6 +3,10 @@ import { CreateRecipeFormData } from "./CreateRecipeDialog";
 import { TextButton } from "@/shared/form-components/TextButton";
 import CloseIcon from "@/assets/close.svg?react";
 import { TextInputField } from "@/shared/form-components/TextInputField";
+import { translations } from "@/i18n";
+import { PlatformSupportedLanguages } from "@/types/models";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   sectionIndex: number;
@@ -27,6 +31,14 @@ const StepTable = ({ sectionIndex }: Props) => {
     setValue("sections", sections);
   };
 
+  const { t, i18n } = useTranslation();
+  const createRecipeTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.recipes
+        .createRecipe,
+    [i18n.language],
+  );
+
   return (
     <>
       <table
@@ -44,7 +56,7 @@ const StepTable = ({ sectionIndex }: Props) => {
 
         <tbody>
           {sections[sectionIndex].steps.map((step, stepIndex) => (
-            <tr key={stepIndex}>
+            <tr key={`step-${stepIndex}`}>
               <td className="p-0 pr-1">
                 <button
                   type="button"
@@ -72,7 +84,7 @@ const StepTable = ({ sectionIndex }: Props) => {
                   <TextInputField
                     value={step}
                     onChange={(value) => updateStep(value, stepIndex)}
-                    placeholder={stepTableTexts.writeStep}
+                    placeholder={t(createRecipeTranslations.steps.writeStep)}
                   />
                 </div>
               </td>
@@ -80,15 +92,11 @@ const StepTable = ({ sectionIndex }: Props) => {
           ))}
         </tbody>
       </table>
-      <TextButton onClicked={addStep}>{stepTableTexts.addNewStep}</TextButton>
+      <TextButton onClicked={addStep}>
+        {t(createRecipeTranslations.steps.addNewStep)}
+      </TextButton>
     </>
   );
-};
-
-const stepTableTexts = {
-  addNewStep: "Add new step",
-  writeStep: "Write step",
-  name: "Step",
 };
 
 export default StepTable;

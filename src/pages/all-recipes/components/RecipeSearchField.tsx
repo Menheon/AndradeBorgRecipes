@@ -1,15 +1,25 @@
 import SearchIcon from "@/assets/search.svg?react";
+import { translations } from "@/i18n";
+import { PlatformSupportedLanguages } from "@/types/models";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   onChange: (newValue: string) => void;
 }
 
 export const RecipeSearchField = ({ onChange }: Props) => {
+  const { t, i18n } = useTranslation();
+  const recipesTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.recipes,
+    [i18n.language],
+  );
   return (
-    <div className="focus-within:base-outline z-10 mt-[-15px] flex items-center rounded-lg shadow-md">
+    <div className="z-10 mt-[-15px] flex items-center rounded-lg shadow-md focus-within:base-outline">
       <input
         type="search"
-        placeholder={texts.searchPlaceholder}
+        placeholder={t(recipesTranslations.searchPlaceholder)}
         className="
           h-9
           w-72
@@ -33,8 +43,4 @@ export const RecipeSearchField = ({ onChange }: Props) => {
       </div>
     </div>
   );
-};
-
-const texts = {
-  searchPlaceholder: "Search for recipes...",
 };

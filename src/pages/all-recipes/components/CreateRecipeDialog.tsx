@@ -7,7 +7,7 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { Recipe, Tag } from "@/types/models";
+import { PlatformSupportedLanguages, Recipe, Tag } from "@/types/models";
 import { NewRecipeSections } from "./NewRecipeSections";
 import TagInputField from "@/shared/form-components/TagInputField";
 import {
@@ -22,6 +22,9 @@ import { recipesStorage } from "@/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UploadedImage } from "@/pages/xr-sizer/types";
 import { FileInputField } from "@/shared/form-components/FileInputField";
+import { translations } from "@/i18n";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 export interface CreateRecipeFormData extends Recipe {
   uploadedImage?: UploadedImage;
@@ -129,19 +132,27 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
     setValue("tags", filteredTags);
   };
 
+  const { t, i18n } = useTranslation();
+  const createRecipeTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.recipes
+        .createRecipe,
+    [i18n.language],
+  );
+
   return (
     <BaseDialog
       isPrimaryActionDisabled={isCreateFormStateInvalid()}
       primaryAction={handleSubmit(handleCreateNewRecipe)}
       primaryActionLabel="create"
-      title="Create a new recipe"
+      title={t(createRecipeTranslations.generalData.createRecipeTitle)}
       isOpen={isOpen}
       onClose={closeDialog}
     >
       <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2">
         <div className="col-start-1 sm:col-end-2">
           <h3 className="text-polyGreen text-md pb-0.5 pt-2 font-semibold">
-            Title
+            {t(createRecipeTranslations.generalData.title)}
           </h3>
           <Controller
             control={control}
@@ -150,12 +161,16 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
               <TextInputField
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Write the name for the recipe"
+                placeholder={t(
+                  createRecipeTranslations.generalData.writeRecipeTitle,
+                )}
               />
             )}
           />
 
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">Image URL</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">
+            {t(createRecipeTranslations.generalData.imageUrl)}
+          </h3>
           <Controller
             control={control}
             name="imageUrl"
@@ -163,7 +178,9 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
               <TextInputField
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Paste the URL for the image of the dish"
+                placeholder={t(
+                  createRecipeTranslations.generalData.pasteImageUrl,
+                )}
               />
             )}
           />
@@ -173,16 +190,18 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
             name="uploadedImage"
             render={({ field }) => (
               <FileInputField
-                label="Recipe Image"
+                label={t(createRecipeTranslations.generalData.recipeImage)}
                 {...field}
                 value={field.value ? field.value.value : ""}
               />
             )}
           />
 
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">Tags</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">
+            {t(createRecipeTranslations.tags.tagsTitle)}
+          </h3>
           {isTagsLoading ? (
-            <p>Loading tags...</p>
+            <p>{t(createRecipeTranslations.tags.loadingTags)}</p>
           ) : (
             <Controller
               control={control}
@@ -216,7 +235,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
 
         <div className="col-start-1 sm:col-start-2 sm:col-end-3">
           <h3 className="text-polyGreen text-md pb-0.5 pt-2 font-semibold">
-            Description
+            {t(createRecipeTranslations.generalData.description)}
           </h3>
           <Controller
             control={control}
@@ -225,7 +244,9 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
               <TextAreaField
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Write the description of the recipe"
+                placeholder={t(
+                  createRecipeTranslations.generalData.writeDescription,
+                )}
                 columns={40}
                 rows={8}
               />
@@ -234,7 +255,9 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
         </div>
 
         <div className="col-start-1 col-end-3">
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">Sections</h3>
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">
+            {t(createRecipeTranslations.sections.sectionsTitle)}
+          </h3>
           <FormProvider {...methods}>
             <NewRecipeSections />
           </FormProvider>

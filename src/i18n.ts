@@ -4,6 +4,14 @@ import { PlatformSupportedLanguages } from "./types/models";
 
 type Translations = {
   [key in PlatformSupportedLanguages]: {
+    general: {
+      actions: {
+        create: string;
+        update: string;
+        delete: string;
+        cancel: string;
+      };
+    };
     navigation: {
       recipes: string;
       inspiration: string;
@@ -11,6 +19,51 @@ type Translations = {
       signIn: string;
     };
     pages: {
+      recipes: {
+        documentTitle: string;
+        allRecipes: string;
+        loadingRecipes: string;
+        loadError: string;
+        noMatchingRecipes: string;
+        searchPlaceholder: string;
+        createRecipe: {
+          generalData: {
+            createRecipeTitle: string;
+            title: string;
+            writeRecipeTitle: string;
+            imageUrl: string;
+            pasteImageUrl: string;
+            recipeImage: string;
+            description: string;
+            writeDescription: string;
+          };
+          tags: {
+            tagsTitle: string;
+            loadingTags: string;
+          };
+          steps: {
+            addNewStep: string;
+            writeStep: string;
+          };
+          sections: {
+            sectionsTitle: string;
+            sectionTitle: string;
+            stepsTitle: string;
+            ingredients: {
+              ingredientsTitle: string;
+              addNewIngredient: string;
+              selectUnit: string;
+              writeAmount: string;
+              writeIngredient: string;
+              name: string;
+              amount: string;
+              unit: string;
+            };
+            addNewSection: string;
+            writeSectionTitle: string;
+          };
+        };
+      };
       profile: {
         myProfile: string;
         signInWithGoogle: string;
@@ -30,6 +83,14 @@ type Translations = {
 
 export const translations: Translations = {
   da: {
+    general: {
+      actions: {
+        create: "Opret",
+        delete: "Slet",
+        update: "Opdater",
+        cancel: "Afbryd",
+      },
+    },
     navigation: {
       recipes: "Opskrifter",
       inspiration: "Inspiration",
@@ -37,6 +98,51 @@ export const translations: Translations = {
       signIn: "Log ind",
     },
     pages: {
+      recipes: {
+        documentTitle: "Andrade & Borg Opskrifter",
+        allRecipes: "Alle opskrifter",
+        loadingRecipes: "Indlæser opskrifter...",
+        loadError: "Der opstod en fejl under indlæsningen af opskrifterne",
+        noMatchingRecipes: "Hovsa! Ingen matchende opskrifter fundet...",
+        searchPlaceholder: "Søg efter opskrifter...",
+        createRecipe: {
+          generalData: {
+            title: "Titel",
+            createRecipeTitle: "Opret ny opskrift",
+            writeRecipeTitle: "Indtast opskriftens navn",
+            recipeImage: "Opskriftsbillede",
+            description: "Beskrivelse",
+            writeDescription: "Indtast beskrivelsen til opskriften",
+            pasteImageUrl: "Indsæt en URL til opskriftbilledet",
+            imageUrl: "Billede URL",
+          },
+          tags: {
+            tagsTitle: "Tags",
+            loadingTags: "Indlæser tags...",
+          },
+          steps: {
+            addNewStep: "Tilføj nyt trin",
+            writeStep: "Indtast trin",
+          },
+          sections: {
+            sectionsTitle: "Sektioner",
+            sectionTitle: "Sektionstitel",
+            stepsTitle: "Trin",
+            ingredients: {
+              ingredientsTitle: "Ingredienser",
+              addNewIngredient: "Tilføj ny ingrediens",
+              selectUnit: "Vælg enhed",
+              writeAmount: "Indtast mængde",
+              writeIngredient: "Indtast ingrediens",
+              name: "Navn",
+              amount: "Mængde",
+              unit: "Enhed",
+            },
+            addNewSection: "Tilføj ny sektion",
+            writeSectionTitle: "Indtast sektionstitel",
+          },
+        },
+      },
       profile: {
         myProfile: "Min Profil",
         signInWithGoogle: "Log ind med Google",
@@ -53,6 +159,14 @@ export const translations: Translations = {
     },
   },
   en: {
+    general: {
+      actions: {
+        create: "Create",
+        delete: "Delete",
+        update: "Update",
+        cancel: "Cancel",
+      },
+    },
     navigation: {
       recipes: "Recipes",
       inspiration: "Inspiration",
@@ -60,6 +174,51 @@ export const translations: Translations = {
       signIn: "Sign in",
     },
     pages: {
+      recipes: {
+        documentTitle: "Andrade & Borg Recipes",
+        allRecipes: "All recipes",
+        loadingRecipes: "Loading recipes...",
+        loadError: "Failed to load recipes",
+        noMatchingRecipes: "Whoops! No recipes matching your search...",
+        searchPlaceholder: "Search for recipes...",
+        createRecipe: {
+          generalData: {
+            title: "Title",
+            createRecipeTitle: "Create a new recipe",
+            writeRecipeTitle: "Write the name for the recipe",
+            recipeImage: "Recipe image",
+            description: "Description",
+            writeDescription: "Write the description of the recipe",
+            pasteImageUrl: "Paste the URL for the image of the dish",
+            imageUrl: "Image URL",
+          },
+          tags: {
+            tagsTitle: "Tags",
+            loadingTags: "Loading tags...",
+          },
+          steps: {
+            addNewStep: "Add new step",
+            writeStep: "Write step",
+          },
+          sections: {
+            sectionsTitle: "Sections",
+            sectionTitle: "Section title",
+            stepsTitle: "Steps",
+            ingredients: {
+              ingredientsTitle: "Ingredients",
+              addNewIngredient: "Add new ingredient",
+              selectUnit: "Select unit",
+              writeAmount: "Write amount",
+              writeIngredient: "Write ingredient",
+              name: "Name",
+              amount: "Amount",
+              unit: "Unit",
+            },
+            addNewSection: "Add new section",
+            writeSectionTitle: "Write section title",
+          },
+        },
+      },
       profile: {
         myProfile: "My Profile",
         signInWithGoogle: "Sign in with Google",

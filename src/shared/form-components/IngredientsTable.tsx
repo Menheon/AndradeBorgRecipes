@@ -1,6 +1,6 @@
 import { TextInputField } from "./TextInputField";
 import CloseIcon from "@/assets/close.svg?react";
-import { IngredientLine } from "@/types/models";
+import { IngredientLine, PlatformSupportedLanguages } from "@/types/models";
 import { SelectField } from "./SelectField";
 import { getAllUnits, isValidUnit, mapUnitToStringFormat } from "@/util/util";
 import { TextButton } from "./TextButton";
@@ -8,6 +8,9 @@ import { CreateRecipeFormData } from "@/pages/all-recipes/components/CreateRecip
 import { useFormContext } from "react-hook-form";
 import { FloatInputField } from "./FloatInputField";
 import { useMediaQuery } from "@/util/useMediaQuery";
+import { translations } from "@/i18n";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   section: number;
@@ -73,6 +76,14 @@ export const IngredientsTable = ({ section }: Props) => {
     setValue("sections", sections);
   };
 
+  const { t, i18n } = useTranslation();
+  const ingredientsTranslations = useMemo(
+    () =>
+      translations[i18n.language as PlatformSupportedLanguages].pages.recipes
+        .createRecipe.sections.ingredients,
+    [i18n.language],
+  );
+
   return (
     <>
       {isScreenMinExtraSmall ? (
@@ -84,9 +95,9 @@ export const IngredientsTable = ({ section }: Props) => {
             {sections[section].ingredients.length > 0 && (
               <tr>
                 <td className="w-12 pl-3" />
-                <td className="pl-3">{ingredientTableTexts.name}</td>
-                <td className="pl-3">{ingredientTableTexts.amount}</td>
-                <td className="pl-3">{ingredientTableTexts.unit}</td>
+                <td className="pl-3">{t(ingredientsTranslations.name)}</td>
+                <td className="pl-3">{t(ingredientsTranslations.amount)}</td>
+                <td className="pl-3">{t(ingredientsTranslations.unit)}</td>
               </tr>
             )}
           </thead>
@@ -123,7 +134,7 @@ export const IngredientsTable = ({ section }: Props) => {
                       onChange={(value) =>
                         updateIngredientLine("ingredient", value, index)
                       }
-                      placeholder={ingredientTableTexts.writeIngredient}
+                      placeholder={t(ingredientsTranslations.writeIngredient)}
                     />
                   </div>
                 </td>
@@ -135,7 +146,7 @@ export const IngredientsTable = ({ section }: Props) => {
                       onChange={(value) =>
                         updateIngredientLine("amount", value, index)
                       }
-                      placeholder={ingredientTableTexts.writeAmount}
+                      placeholder={t(ingredientsTranslations.writeAmount)}
                     />
                   </div>
                 </td>
@@ -143,7 +154,7 @@ export const IngredientsTable = ({ section }: Props) => {
                 <td className="p-0">
                   <div className="mb-1 flex h-12 items-center rounded-r bg-brown-300 px-1.5">
                     <SelectField
-                      placeholder={ingredientTableTexts.selectUnit}
+                      placeholder={t(ingredientsTranslations.selectUnit)}
                       options={getAllUnits()}
                       getDisplayValue={mapUnitToStringFormat}
                       getValue={(unit) => unit}
@@ -191,31 +202,31 @@ export const IngredientsTable = ({ section }: Props) => {
             </button>
 
             <div>
-              <label>{ingredientTableTexts.name}</label>
+              <label>{t(ingredientsTranslations.name)}</label>
               <TextInputField
                 value={value.ingredient.name}
                 onChange={(value) =>
                   updateIngredientLine("ingredient", value, index)
                 }
-                placeholder={ingredientTableTexts.writeIngredient}
+                placeholder={t(ingredientsTranslations.writeIngredient)}
               />
             </div>
 
             <div>
-              <label>{ingredientTableTexts.amount}</label>
+              <label>{t(ingredientsTranslations.amount)}</label>
               <FloatInputField
                 value={value.amount?.toString() ?? ""}
                 onChange={(value) =>
                   updateIngredientLine("amount", value, index)
                 }
-                placeholder={ingredientTableTexts.writeAmount}
+                placeholder={t(ingredientsTranslations.writeAmount)}
               />
             </div>
 
             <div>
-              <label>{ingredientTableTexts.unit}</label>
+              <label>{t(ingredientsTranslations.unit)}</label>
               <SelectField
-                placeholder={ingredientTableTexts.selectUnit}
+                placeholder={t(ingredientsTranslations.selectUnit)}
                 options={getAllUnits()}
                 getDisplayValue={mapUnitToStringFormat}
                 getValue={(unit) => unit}
@@ -229,18 +240,8 @@ export const IngredientsTable = ({ section }: Props) => {
         ))
       )}
       <TextButton onClicked={addIngredientLine}>
-        {ingredientTableTexts.addNewIngredient}
+        {t(ingredientsTranslations.addNewIngredient)}
       </TextButton>
     </>
   );
-};
-
-const ingredientTableTexts = {
-  addNewIngredient: "Add new ingredient",
-  selectUnit: "Select unit",
-  writeAmount: "Write amount",
-  writeIngredient: "Write ingredient",
-  name: "Name",
-  amount: "Amount",
-  unit: "Unit",
 };
