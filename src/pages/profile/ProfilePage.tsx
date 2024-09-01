@@ -11,6 +11,7 @@ import { PlatformSupportedLanguages } from "@/types/models";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { updateUserLanguagePreference } from "@/data/authService";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 type LanguagePreferenceFormData = {
   preferredLanguage: PlatformSupportedLanguages;
@@ -64,6 +65,8 @@ export const ProfilePage = () => {
     [googleUserData?.displayName],
   );
 
+  const { t } = useTranslation();
+
   return (
     <div className="mx-auto flex flex-col items-center justify-center p-6">
       <div className="flex h-full min-h-80 w-full flex-col items-center rounded-md bg-whiteSmoke p-4 shadow-md sm:w-3/4 lg:w-2/3 xl:w-1/2">
@@ -76,6 +79,7 @@ export const ProfilePage = () => {
             />
           </div>
           {texts.title}
+          {t("test")}
         </h1>
 
         <div className="flex h-full flex-1 flex-col items-center">

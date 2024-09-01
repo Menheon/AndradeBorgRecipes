@@ -2,6 +2,7 @@ import { auth, createAndRetrieveNewUserDocument } from "@/data/authService";
 import { GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { User as UserModel } from "@/types/models";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   children: React.ReactNode;
@@ -67,6 +68,7 @@ export const AuthContextProvider = ({ children }: Props) => {
     storedUserData: null,
   });
   const [authError, setAuthError] = useState<string | null>(null);
+  const { i18n } = useTranslation();
 
   const handleSignOut = async () => {
     try {
@@ -88,6 +90,8 @@ export const AuthContextProvider = ({ children }: Props) => {
         email: user.email ?? "",
         preferredLanguage: navigator.language === "da" ? "da" : "en",
       });
+      i18n.changeLanguage(userDocData.preferredLanguage);
+
       setUserSessionData({
         ...userDocData,
         id: user.uid,
@@ -105,6 +109,7 @@ export const AuthContextProvider = ({ children }: Props) => {
           ...userData,
         },
       }));
+      i18n.changeLanguage(userData.preferredLanguage);
     }
   };
 
