@@ -5,15 +5,17 @@ interface Props {
   onChange: (newValue: string) => void;
   placeholder: string;
   value: string;
+  disabled?: boolean;
 }
 
 export const TextInputField = forwardRef(
   (
-    { id, onChange, placeholder, value }: Props,
+    { id, onChange, placeholder, value, disabled = false }: Props,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     return (
       <input
+        disabled={disabled}
         ref={ref}
         value={value}
         placeholder={placeholder}
