@@ -18,7 +18,7 @@ const iconMap: Record<
 };
 
 type Props = {
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   icon: IconName;
   size?: "sm" | "md" | "lg";
 };
