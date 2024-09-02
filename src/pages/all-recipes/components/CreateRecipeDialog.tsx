@@ -66,8 +66,6 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
   const handleCreateNewRecipe: SubmitHandler<CreateRecipeFormData> = async (
     data,
   ) => {
-    // TODO: improve this logic by validating if the image is a URL or a file.
-    // TODO: Make a switch toggle to select between URL and file.
     if (data.uploadedImage?.file) {
       try {
         const storageRef = ref(
@@ -168,23 +166,6 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
             )}
           />
 
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">
-            {t(createRecipeTranslations.generalData.imageUrl)}
-          </h3>
-          <Controller
-            control={control}
-            name="imageUrl"
-            render={({ field }) => (
-              <TextInputField
-                value={field.value}
-                onChange={field.onChange}
-                placeholder={t(
-                  createRecipeTranslations.generalData.pasteImageUrl,
-                )}
-              />
-            )}
-          />
-
           <Controller
             control={control}
             name="uploadedImage"
@@ -198,6 +179,23 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
                 )}
                 noFileChosenLabel={t(
                   createRecipeTranslations.generalData.noImageChosen,
+                )}
+              />
+            )}
+          />
+
+          <h3 className="text-md pb-0.5 pt-2 font-semibold">
+            {t(createRecipeTranslations.generalData.imageUrl)}
+          </h3>
+          <Controller
+            control={control}
+            name="imageUrl"
+            render={({ field }) => (
+              <TextInputField
+                value={field.value}
+                onChange={field.onChange}
+                placeholder={t(
+                  createRecipeTranslations.generalData.pasteImageUrl,
                 )}
               />
             )}
