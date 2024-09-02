@@ -74,7 +74,6 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
         );
         await uploadBytes(storageRef, data.uploadedImage.file);
         const downloadUrl = await getDownloadURL(storageRef);
-        console.log(downloadUrl);
         data.imageUrl = downloadUrl;
       } catch (error) {
         console.log("error", error);
