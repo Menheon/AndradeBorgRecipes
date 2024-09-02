@@ -6,9 +6,11 @@ import {
   updateRecipeDocument,
 } from "@/data/recipesService";
 import { translations } from "@/i18n";
+import { CreateRecipeFormData } from "@/pages/all-recipes/components/CreateRecipeDialog";
 import { NewRecipeSections } from "@/pages/all-recipes/components/NewRecipeSections";
 import { RemovableTag } from "@/pages/all-recipes/components/RemovableTag";
 import { BaseDialog } from "@/shared/BaseDialog";
+import { FileInputField } from "@/shared/form-components/FileInputField";
 import TagInputField from "@/shared/form-components/TagInputField";
 import { TextAreaField } from "@/shared/form-components/TextAreaField";
 import { TextInputField } from "@/shared/form-components/TextInputField";
@@ -22,6 +24,8 @@ import {
   useForm,
 } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { recipesStorage } from "@/firebase";
 
 type Props = {
   isOpen: boolean;
@@ -30,12 +34,16 @@ type Props = {
 };
 
 export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
-  const methods = useForm<Recipe>({
+  const methods = useForm<CreateRecipeFormData>({
     mode: "all",
     defaultValues: {
       name: recipe.name,
       description: recipe.description,
       imageUrl: recipe.imageUrl,
+      uploadedImage: {
+        file: undefined,
+        value: "",
+      },
       sections: recipe.sections,
       tags: recipe.tags,
     },
@@ -55,7 +63,23 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
     },
   });
 
-  const handleUpdateRecipe: SubmitHandler<Recipe> = (data) => {
+  const handleUpdateRecipe: SubmitHandler<CreateRecipeFormData> = async (
+    data,
+  ) => {
+    if (data.uploadedImage?.file) {
+      try {
+        const storageRef = ref(
+          recipesStorage,
+          `images/${data.uploadedImage.file.name}`,
+        );
+        await uploadBytes(storageRef, data.uploadedImage.file);
+        const downloadUrl = await getDownloadURL(storageRef);
+        console.log(downloadUrl);
+        data.imageUrl = downloadUrl;
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
     const updatedRecipe: Recipe = {
       ...data,
       id: recipe.id,
@@ -72,6 +96,10 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
     setValue("imageUrl", formState?.imageUrl ?? recipe.imageUrl);
     setValue("sections", formState?.sections ?? recipe.sections);
     setValue("tags", formState?.tags ?? recipe.tags);
+    setValue("uploadedImage", {
+      file: undefined,
+      value: "",
+    });
     onClose();
   };
 
@@ -138,6 +166,24 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
                 onChange={field.onChange}
                 placeholder={t(
                   createRecipeTranslations.generalData.writeRecipeTitle,
+                )}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="uploadedImage"
+            render={({ field }) => (
+              <FileInputField
+                label={t(createRecipeTranslations.generalData.recipeImage)}
+                {...field}
+                value={field.value ? field.value.value : ""}
+                buttonTitle={t(
+                  createRecipeTranslations.generalData.uploadFileImage,
+                )}
+                noFileChosenLabel={t(
+                  createRecipeTranslations.generalData.noImageChosen,
                 )}
               />
             )}
