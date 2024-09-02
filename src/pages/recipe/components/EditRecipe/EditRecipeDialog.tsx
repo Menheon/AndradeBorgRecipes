@@ -11,7 +11,6 @@ import { NewRecipeSections } from "@/pages/all-recipes/components/NewRecipeSecti
 import { RemovableTag } from "@/pages/all-recipes/components/RemovableTag";
 import { BaseDialog } from "@/shared/BaseDialog";
 import { FileInputField } from "@/shared/form-components/FileInputField";
-import TagInputField from "@/shared/form-components/TagInputField";
 import { TextAreaField } from "@/shared/form-components/TextAreaField";
 import { TextInputField } from "@/shared/form-components/TextInputField";
 import { PlatformSupportedLanguages, Recipe, Tag } from "@/types/models";
@@ -26,6 +25,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { recipesStorage } from "@/firebase";
+import AutocompleteMultiSelectField from "@/shared/form-components/AutocompleteMultiSelectField";
 
 type Props = {
   isOpen: boolean;
@@ -217,12 +217,15 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
               name="tags"
               render={({ field }) => (
                 <>
-                  <TagInputField
-                    // Apply date time key, to ensure clearing input state.
+                  <AutocompleteMultiSelectField
                     key={new Date().getTime()}
-                    existingTags={existingTags ?? []}
-                    onTagAdd={onNewTagAdded}
-                    addedTags={field.value}
+                    existingOptions={existingTags ?? []}
+                    onOptionSelected={onNewTagAdded}
+                    addedOptions={field.value}
+                    getOptionId={(tag) => tag.id}
+                    createNewOption={(name, id) => ({ id, name })}
+                    getOptionValue={(tag) => tag.name}
+                    keyPrefix="tag-option-"
                   />
                   <ul className="flex min-h-10 flex-wrap gap-1 p-1">
                     {field.value.map((tag, tagIndex) => (

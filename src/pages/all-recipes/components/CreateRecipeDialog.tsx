@@ -9,7 +9,6 @@ import {
 } from "react-hook-form";
 import { PlatformSupportedLanguages, Recipe, Tag } from "@/types/models";
 import { NewRecipeSections } from "./NewRecipeSections";
-import TagInputField from "@/shared/form-components/TagInputField";
 import {
   RECIPES_QUERY_TAG,
   TAGS_QUERY_TAG,
@@ -25,6 +24,7 @@ import { FileInputField } from "@/shared/form-components/FileInputField";
 import { translations } from "@/i18n";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import AutocompleteMultiSelectField from "@/shared/form-components/AutocompleteMultiSelectField";
 
 export interface CreateRecipeFormData extends Recipe {
   uploadedImage?: UploadedImage;
@@ -212,12 +212,15 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
               name="tags"
               render={({ field }) => (
                 <>
-                  <TagInputField
-                    // Apply date time key, to ensure clearing input state.
+                  <AutocompleteMultiSelectField
                     key={new Date().getTime()}
-                    existingTags={existingTags ?? []}
-                    onTagAdd={onNewTagAdded}
-                    addedTags={field.value}
+                    existingOptions={existingTags ?? []}
+                    onOptionSelected={onNewTagAdded}
+                    addedOptions={field.value}
+                    getOptionId={(tag) => tag.id}
+                    createNewOption={(name, id) => ({ id, name })}
+                    getOptionValue={(tag) => tag.name}
+                    keyPrefix="tag-option-"
                   />
                   <ul className="flex min-h-10 flex-wrap gap-1 p-1">
                     {field.value.map((tag, tagIndex) => (
