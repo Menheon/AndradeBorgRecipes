@@ -24,6 +24,7 @@ import {
 export const RECIPES_QUERY_TAG = "recipes";
 export const TAGS_QUERY_TAG = "tags";
 export const RECIPE_QUERY_TAG = "recipe";
+export const INGREDIENTS_QUERY_TAG = "ingredients";
 
 export const NEW_TAG_ID = "-1";
 
@@ -430,4 +431,25 @@ export const createNewRecipeDocument = async (newRecipeData: Recipe) => {
     tags: tagRefs,
     sections: sectionRefs,
   });
+};
+
+/**
+ * Retrieves a list of all the ingredients in the database.
+ * @returns Promise<Ingredient[]>
+ */
+export const getAllIngredients = async () => {
+  const ingredientsRef = collection(recipesDB, IngredientsCollectionName);
+  const { docs: ingredientDocs } = await getDocs(ingredientsRef);
+
+  const tags: Ingredient[] = await Promise.all(
+    ingredientDocs.map(async (ingredientSnapshot) => {
+      const ingredientData = ingredientSnapshot.data();
+      const ingredient: Ingredient = {
+        name: ingredientData.name,
+        id: ingredientSnapshot.id,
+      };
+      return ingredient;
+    }),
+  );
+  return tags;
 };

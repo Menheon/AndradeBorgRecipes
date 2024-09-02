@@ -253,7 +253,7 @@ export const translations: Translations = {
               addNewIngredient: "Add new ingredient",
               selectUnit: "Select unit",
               writeAmount: "Write amount",
-              writeIngredient: "Write ingredient",
+              writeIngredient: "Write a used ingredient",
               name: "Name",
               amount: "Amount",
               unit: "Unit",

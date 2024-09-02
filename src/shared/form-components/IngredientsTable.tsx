@@ -1,6 +1,10 @@
 import { TextInputField } from "./TextInputField";
 import CloseIcon from "@/assets/close.svg?react";
-import { IngredientLine, PlatformSupportedLanguages } from "@/types/models";
+import {
+  Ingredient,
+  IngredientLine,
+  PlatformSupportedLanguages,
+} from "@/types/models";
 import { SelectField } from "./SelectField";
 import { getAllUnits, isValidUnit, mapUnitToStringFormat } from "@/util/util";
 import { TextButton } from "./TextButton";
@@ -11,6 +15,13 @@ import { useMediaQuery } from "@/util/useMediaQuery";
 import { translations } from "@/i18n";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import AutocompleteMultiSelectField from "./AutocompleteMultiSelectField";
+import { useQuery } from "@tanstack/react-query";
+import {
+  getAllIngredients,
+  INGREDIENTS_QUERY_TAG,
+} from "@/data/recipesService";
+import { IconButton } from "./IconButton";
 
 interface Props {
   section: number;
@@ -76,6 +87,22 @@ export const IngredientsTable = ({ section }: Props) => {
     setValue("sections", sections);
   };
 
+  const { data: existingIngredients } = useQuery({
+    queryKey: [INGREDIENTS_QUERY_TAG],
+    queryFn: getAllIngredients,
+  });
+
+  const onNewIngredientAdded = (
+    newIngredient: Ingredient,
+    ingredientLineIndex: number,
+  ) => {
+    updateIngredientLine("ingredient", newIngredient.name, ingredientLineIndex);
+  };
+
+  const handleIngredientCleared = (ingredientLineIndex: number) => {
+    updateIngredientLine("ingredient", "", ingredientLineIndex);
+  };
+
   const { t, i18n } = useTranslation();
   const ingredientsTranslations = useMemo(
     () =>
@@ -129,13 +156,48 @@ export const IngredientsTable = ({ section }: Props) => {
 
                 <td className="p-0">
                   <div className="mb-1 flex h-12 items-center bg-brown-300 px-1.5">
-                    <TextInputField
-                      value={value.ingredient.name}
-                      onChange={(value) =>
-                        updateIngredientLine("ingredient", value, index)
-                      }
-                      placeholder={t(ingredientsTranslations.writeIngredient)}
-                    />
+                    {value.ingredient.name ? (
+                      <>
+                        <div className="max-w-48">
+                          <TextInputField
+                            disabled
+                            value={value.ingredient.name}
+                            onChange={() => undefined}
+                            placeholder={""}
+                          />
+                        </div>
+                        <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-whiteSmoke hover:bg-brown-100">
+                          <IconButton
+                            icon="close"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              handleIngredientCleared(index);
+                            }}
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <div className="max-w-48">
+                        <AutocompleteMultiSelectField
+                          key={new Date().getTime()}
+                          existingOptions={existingIngredients ?? []}
+                          onOptionSelected={(ingredient) =>
+                            onNewIngredientAdded(ingredient, index)
+                          }
+                          addedOptions={[value.ingredient]}
+                          getOptionId={(ingredient) => ingredient.id ?? ""}
+                          createNewOption={(name, id) => ({ id, name })}
+                          getOptionValue={(ingredient) => ingredient.name}
+                          keyPrefix="ingredient-option-"
+                          createNewOptionLabel={
+                            ingredientsTranslations.addNewIngredient
+                          }
+                          inputOptionLabel={
+                            ingredientsTranslations.writeIngredient
+                          }
+                        />
+                      </div>
+                    )}
                   </div>
                 </td>
 
@@ -201,15 +263,48 @@ export const IngredientsTable = ({ section }: Props) => {
               <CloseIcon className="h-6 w-6 fill-brown-600 hover:fill-brown-500" />
             </button>
 
-            <div>
-              <label>{t(ingredientsTranslations.name)}</label>
-              <TextInputField
-                value={value.ingredient.name}
-                onChange={(value) =>
-                  updateIngredientLine("ingredient", value, index)
-                }
-                placeholder={t(ingredientsTranslations.writeIngredient)}
-              />
+            <label>{t(ingredientsTranslations.name)}</label>
+            <div className="flex">
+              {value.ingredient.name ? (
+                <>
+                  <div className="flex-1">
+                    <TextInputField
+                      disabled
+                      value={value.ingredient.name}
+                      onChange={() => undefined}
+                      placeholder={""}
+                    />
+                  </div>
+                  <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-whiteSmoke hover:bg-brown-100">
+                    <IconButton
+                      icon="close"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleIngredientCleared(index);
+                      }}
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="w-full">
+                  <AutocompleteMultiSelectField
+                    key={new Date().getTime()}
+                    existingOptions={existingIngredients ?? []}
+                    onOptionSelected={(ingredient) =>
+                      onNewIngredientAdded(ingredient, index)
+                    }
+                    addedOptions={[value.ingredient]}
+                    getOptionId={(ingredient) => ingredient.id ?? ""}
+                    createNewOption={(name, id) => ({ id, name })}
+                    getOptionValue={(ingredient) => ingredient.name}
+                    keyPrefix="ingredient-option-"
+                    createNewOptionLabel={
+                      ingredientsTranslations.addNewIngredient
+                    }
+                    inputOptionLabel={ingredientsTranslations.writeIngredient}
+                  />
+                </div>
+              )}
             </div>
 
             <div>
