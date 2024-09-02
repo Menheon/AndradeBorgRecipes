@@ -91,6 +91,7 @@ export const AutocompleteMultiSelectField = <T,>({
         getOptionValue(option).toLowerCase() === inputValue.toLowerCase(),
     );
   };
+  // TODO - implement some screen positional logic, so I know to place the dropdown above or below.
 
   return (
     <div className="relative">
@@ -102,9 +103,12 @@ export const AutocompleteMultiSelectField = <T,>({
       {showDropdown && (
         <ul
           className="
-              fixed
+              absolute
               z-10
-              rounded-md 
+              mb-2
+              max-h-32
+              overflow-y-auto 
+              rounded-md
               bg-brown-300
               shadow-md
               shadow-black/50"
