@@ -226,6 +226,12 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
                     createNewOption={(name, id) => ({ id, name })}
                     getOptionValue={(tag) => tag.name}
                     keyPrefix="tag-option-"
+                    createNewOptionLabel={
+                      createRecipeTranslations.tags.createNewTag
+                    }
+                    inputOptionLabel={
+                      createRecipeTranslations.tags.writeRecipeTags
+                    }
                   />
                   <ul className="flex min-h-10 flex-wrap gap-1 p-1">
                     {field.value.map((tag, tagIndex) => (

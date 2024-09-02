@@ -1,8 +1,5 @@
-import { PlatformSupportedLanguages } from "@/types/models";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { TextInputField } from "./TextInputField";
-import { translations } from "@/i18n";
-import { useTranslation } from "react-i18next";
 
 type Props<T> = {
   onOptionSelected: (option: T) => void;
@@ -12,6 +9,8 @@ type Props<T> = {
   getOptionValue: (option: T) => string;
   getOptionId: (option: T) => string;
   createNewOption: (label: string, id: string) => T;
+  createNewOptionLabel: string;
+  inputOptionLabel: string;
 };
 
 const NEW_OPTION_ID = "-1";
@@ -24,6 +23,8 @@ export const AutocompleteMultiSelectField = <T,>({
   createNewOption,
   getOptionValue,
   getOptionId,
+  createNewOptionLabel,
+  inputOptionLabel,
 }: Props<T>) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredOptions, setFilteredOptions] = useState<T[]>([]);
@@ -91,20 +92,12 @@ export const AutocompleteMultiSelectField = <T,>({
     );
   };
 
-  const { t, i18n } = useTranslation();
-  const tagTranslations = useMemo(
-    () =>
-      translations[i18n.language as PlatformSupportedLanguages].pages.recipes
-        .createRecipe.tags,
-    [i18n.language],
-  );
-
   return (
     <div className="relative">
       <TextInputField
         value={inputValue}
         onChange={handleInputChange}
-        placeholder={t(tagTranslations.writeRecipeTags)}
+        placeholder={inputOptionLabel}
       />
       {showDropdown && (
         <ul
@@ -172,7 +165,7 @@ export const AutocompleteMultiSelectField = <T,>({
                     focus-visible:-outline-offset-2
                     focus-visible:outline-brown-100"
               >
-                {t(tagTranslations.createNewTag)} "{inputValue}"
+                {createNewOptionLabel} "<i>{inputValue}</i>"
               </button>
             </li>
           )}
