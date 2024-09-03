@@ -31,13 +31,12 @@ export const AutocompleteMultiSelectField = <T,>({
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleInputChange = (value: string) => {
-    const trimmedValue = value.trim();
-    const capitalizedValue = trimmedValue[0]
-      ? trimmedValue[0].toUpperCase() + trimmedValue.substring(1)
+    const capitalizedValue = value[0]
+      ? value[0].toUpperCase() + value.substring(1)
       : "";
 
     setInputValue(capitalizedValue);
-    if (capitalizedValue !== "") {
+    if (value.trim() !== "") {
       // Filter existing tags based on input value
       const filtered = existingOptions.filter(
         (option) =>
