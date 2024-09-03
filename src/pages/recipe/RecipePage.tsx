@@ -35,11 +35,12 @@ export const RecipePage = () => {
     return recipeDocument;
   };
 
+  // TODO - implement pretty skeleton loader for loading and fetching.
   const {
     data: recipe,
-    isLoading,
     isSuccess,
     isError,
+    isFetching,
   } = useQuery({
     queryKey: [`${RECIPE_QUERY_TAG}-${recipeId}`],
     queryFn: getRecipeDocument,
@@ -62,17 +63,17 @@ export const RecipePage = () => {
 
   return (
     <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
-      {isLoading && (
+      {isFetching && (
         <p className="text-center text-xl">
           {t(recipeTranslations.loadingRecipe)}
         </p>
       )}
-      {isError && (
+      {isError && !isFetching && (
         <p className="text-center text-xl">
           {t(recipeTranslations.errorLoadingRecipe)}
         </p>
       )}
-      {isSuccess && recipe && (
+      {isSuccess && recipe && !isFetching && (
         <div
           className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 shadow-lg"
           style={{
