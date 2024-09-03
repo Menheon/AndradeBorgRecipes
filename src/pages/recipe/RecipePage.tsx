@@ -102,6 +102,7 @@ export const RecipePage = () => {
                 onClick={() => setIsEditDialogOpen(true)}
               />
               <EditRecipeDialog
+                key={new Date().getTime()}
                 isOpen={isEditDialogOpen}
                 recipe={recipe}
                 onClose={() => setIsEditDialogOpen(false)}
