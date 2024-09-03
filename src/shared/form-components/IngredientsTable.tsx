@@ -164,7 +164,7 @@ export const IngredientsTable = ({ section }: Props) => {
                   <div className="mb-1 flex h-12 items-center bg-brown-300 px-1.5">
                     {value.ingredient.name ? (
                       <>
-                        <div className="max-w-48">
+                        <div className="flex-1">
                           <TextInputField
                             disabled
                             value={value.ingredient.name}
@@ -183,7 +183,7 @@ export const IngredientsTable = ({ section }: Props) => {
                         </div>
                       </>
                     ) : (
-                      <div className="max-w-48">
+                      <div className="flex-1">
                         <AutocompleteMultiSelectField
                           key={new Date().getTime()}
                           existingOptions={sortedIngredients}
