@@ -91,6 +91,12 @@ export const IngredientsTable = ({ section }: Props) => {
     queryKey: [INGREDIENTS_QUERY_TAG],
     queryFn: getAllIngredients,
   });
+  const sortedIngredients = useMemo(
+    () =>
+      existingIngredients?.sort((i1, i2) => i1.name.localeCompare(i2.name)) ??
+      [],
+    [existingIngredients],
+  );
 
   const onNewIngredientAdded = (
     newIngredient: Ingredient,
@@ -180,7 +186,7 @@ export const IngredientsTable = ({ section }: Props) => {
                       <div className="max-w-48">
                         <AutocompleteMultiSelectField
                           key={new Date().getTime()}
-                          existingOptions={existingIngredients ?? []}
+                          existingOptions={sortedIngredients}
                           onOptionSelected={(ingredient) =>
                             onNewIngredientAdded(ingredient, index)
                           }
@@ -289,7 +295,7 @@ export const IngredientsTable = ({ section }: Props) => {
                 <div className="w-full">
                   <AutocompleteMultiSelectField
                     key={new Date().getTime()}
-                    existingOptions={existingIngredients ?? []}
+                    existingOptions={sortedIngredients}
                     onOptionSelected={(ingredient) =>
                       onNewIngredientAdded(ingredient, index)
                     }
