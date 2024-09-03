@@ -75,7 +75,7 @@ export const RecipePage = () => {
       )}
       {isSuccess && recipe && !isFetching && (
         <div
-          className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 shadow-lg"
+          className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 bg-brown-100 shadow-lg"
           style={{
             viewTransitionName: `recipe-container-${recipe.id}`,
           }}
@@ -148,7 +148,7 @@ export const RecipePage = () => {
             )}
             <div className="col-span-5 flex flex-col px-8 pt-2">
               <p
-                className="text-lg"
+                className="text-justify text-lg"
                 style={{
                   viewTransitionName: `recipe-description-${recipe.id}`,
                 }}
