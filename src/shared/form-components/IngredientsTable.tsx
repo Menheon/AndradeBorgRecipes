@@ -69,10 +69,8 @@ export const IngredientsTable = ({ section }: Props) => {
       }
       case "amount": {
         if (newValue === "") break;
-        sections[section].ingredients[ingredientLineIndex].amount = parseInt(
-          newValue,
-          10,
-        );
+        sections[section].ingredients[ingredientLineIndex].amount =
+          parseFloat(newValue);
         break;
       }
       case "unit": {
