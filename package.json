@@ -13,6 +13,7 @@
     "firebase-deploy": "firebase deploy"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.23",
     "@tanstack/react-query": "^5.29.2",
     "firebase": "^10.7.1",
     "i18next": "^23.14.0",
