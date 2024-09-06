@@ -1,5 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TextInputField } from "./TextInputField";
+import {
+  autoUpdate,
+  useFloating,
+  useFocus,
+  useInteractions,
+  offset,
+  flip,
+  size,
+} from "@floating-ui/react";
 
 type Props<T> = {
   onOptionSelected: (option: T) => void;
@@ -28,7 +37,6 @@ export const AutocompleteMultiSelectField = <T,>({
 }: Props<T>) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredOptions, setFilteredOptions] = useState<T[]>([]);
-  const [showDropdown, setShowDropdown] = useState(false);
 
   const handleInputChange = (value: string) => {
     const capitalizedValue = value[0]
@@ -50,17 +58,14 @@ export const AutocompleteMultiSelectField = <T,>({
           ),
       );
       setFilteredOptions(filtered);
-      setShowDropdown(true);
     } else {
       setFilteredOptions([]);
-      setShowDropdown(false);
     }
   };
 
   const handleOptionSelected = (option: T) => {
     onOptionSelected(option);
     setInputValue("");
-    setShowDropdown(false);
   };
 
   const handleOptionAdded = () => {
@@ -69,19 +74,6 @@ export const AutocompleteMultiSelectField = <T,>({
     const newOption = createNewOption(trimmedValue, NEW_OPTION_ID);
     onOptionSelected(newOption);
     setInputValue("");
-    setShowDropdown(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOnClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOnClick);
-    };
-  }, []);
-
-  const handleOnClick = (event: MouseEvent) => {
-    if ((event.target as HTMLElement)?.id.includes(keyPrefix)) return;
-    setShowDropdown(false);
   };
 
   const isCreateButtonDisabled = () => {
@@ -90,27 +82,56 @@ export const AutocompleteMultiSelectField = <T,>({
         getOptionValue(option).toLowerCase() === inputValue.toLowerCase(),
     );
   };
-  // TODO - implement some screen positional logic, so I know to place the dropdown above or below.
+
+  const [isOpen, setIsOpen] = useState(false);
+  const { refs, floatingStyles, context } = useFloating({
+    whileElementsMounted: autoUpdate,
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement: "bottom-start",
+    middleware: [
+      offset(5),
+      // This prevents the floating element from overflowing along its side axis,
+      // by flipping it to the opposite side by default.
+      flip({ padding: 10 }),
+      size({
+        apply({ rects, elements, availableHeight }) {
+          Object.assign(elements.floating.style, {
+            maxHeight: `${availableHeight}px`,
+            minWidth: `${rects.reference.width}px`,
+          });
+        },
+        padding: 20,
+      }),
+    ],
+  });
+  const focus = useFocus(context);
+  const { getReferenceProps, getFloatingProps } = useInteractions([focus]);
 
   return (
     <div className="relative">
       <TextInputField
+        ref={refs.setReference}
         value={inputValue}
         onChange={handleInputChange}
         placeholder={inputOptionLabel}
+        {...getReferenceProps()}
       />
-      {showDropdown && (
+
+      {isOpen && inputValue.trim() && (
         <ul
+          ref={refs.setFloating}
+          style={floatingStyles}
+          {...getFloatingProps()}
           className="
-              absolute
-              z-10
-              mb-2
-              max-h-32
-              overflow-y-auto 
-              rounded-md
-              bg-brown-300
-              shadow-md
-              shadow-black/50"
+            z-10
+            mb-2
+            max-h-80 
+            overflow-y-auto
+            rounded-md
+            bg-brown-300
+            shadow-md
+            shadow-black/50"
         >
           {filteredOptions.map((option) => (
             <li
@@ -124,19 +145,19 @@ export const AutocompleteMultiSelectField = <T,>({
                 id={keyPrefix + getOptionValue(option)}
                 onClick={() => handleOptionSelected(option)}
                 className="
-                    w-full
-                    cursor-pointer
-                    rounded-md
-                    bg-brown-300
-                    p-2
-                    text-left
-                    text-white
-                    hover:bg-brown-100
-                    hover:text-brown-600
-                    focus-visible:outline
-                    focus-visible:outline-2
-                    focus-visible:-outline-offset-2
-                    focus-visible:outline-brown-100"
+                  w-full
+                  cursor-pointer
+                  rounded-md
+                  bg-brown-300
+                  p-2
+                  text-left
+                  text-white
+                  hover:bg-brown-100
+                  hover:text-brown-600
+                  focus-visible:outline
+                  focus-visible:outline-2
+                  focus-visible:-outline-offset-2
+                  focus-visible:outline-brown-100"
               >
                 {getOptionValue(option)}
               </button>
