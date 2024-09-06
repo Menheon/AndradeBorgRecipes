@@ -66,6 +66,7 @@ export const FileInputField = forwardRef(
             border-2
             border-brown-600
             bg-whiteSmoke
+            shadow-sm
             outline-none"
         >
           <button

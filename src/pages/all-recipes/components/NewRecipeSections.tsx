@@ -63,7 +63,7 @@ export const NewRecipeSections = () => {
       {sections.map((section, index) => (
         <div
           key={section.id ?? index}
-          className="relative m-1 flex flex-col gap-1 rounded-md bg-gray-200 p-3"
+          className="relative m-1 flex flex-col gap-1 rounded-md bg-gray-200 p-3 shadow-md"
         >
           <button
             type="button"

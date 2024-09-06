@@ -118,10 +118,7 @@ export const IngredientsTable = ({ section }: Props) => {
   return (
     <>
       {isScreenMinExtraSmall ? (
-        <table
-          className="
-          w-full"
-        >
+        <table className="w-full">
           <thead>
             {sections[section].ingredients.length > 0 && (
               <tr>
@@ -150,7 +147,7 @@ export const IngredientsTable = ({ section }: Props) => {
                       p-2
                       focus-visible:outline-none
                       focus-visible:ring
-                      focus-visible:ring-inset
+                      focus-visible:ring-inset 
                       focus-visible:ring-brown-100"
                     onClick={() => removeIngredientLine(index)}
                   >
@@ -170,7 +167,7 @@ export const IngredientsTable = ({ section }: Props) => {
                             placeholder={""}
                           />
                         </div>
-                        <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-whiteSmoke hover:bg-brown-100">
+                        <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-whiteSmoke shadow-sm hover:bg-brown-100">
                           <IconButton
                             icon="close"
                             onClick={(event) => {

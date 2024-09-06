@@ -25,13 +25,14 @@ export const TextAreaField = ({
       className="
         w-full
         resize-none
-        rounded-md 
-        border-2 
+        rounded-md
+        border-2
         border-brown-600 
         bg-whiteSmoke 
         px-2 
         py-1 
         placeholder-brown-500 
+        shadow-sm 
         outline-none
         focus-visible:ring
         focus-visible:ring-brown-100"
