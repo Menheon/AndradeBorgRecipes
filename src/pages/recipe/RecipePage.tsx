@@ -170,13 +170,13 @@ export const RecipePage = () => {
             </div>
           </div>
 
-          <div className="mt-6 h-full flex-1 rounded-xl bg-whiteSmoke py-2">
+          <div className="bg-grey-150 mt-6 h-full flex-1 rounded-xl py-2">
             {recipe.sections.map((section, i) => (
               <div className="grid grid-cols-1 gap-2 xs:grid-cols-2" key={i}>
                 <h3 className="col-span-2 px-5 text-center font-caveat text-2xl font-semibold">
                   {section.title}
                 </h3>
-                <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
+                <div className="col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
                   <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
                     {t(recipeTranslations.ingredients)}
                   </h4>
@@ -196,7 +196,7 @@ export const RecipePage = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="bg-pastelGreen col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
+                <div className="col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
                   <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
                     {t(recipeTranslations.steps)}
                   </h4>

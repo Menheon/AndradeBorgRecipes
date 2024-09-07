@@ -88,7 +88,7 @@ export const AllRecipesPage = () => {
             className="fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors focus-visible:base-outline hover:bg-brown-500"
             onClick={() => setIsCreatingRecipe(true)}
           >
-            <AddIcon className="h-8 w-8 fill-whiteSmoke" />
+            <AddIcon className="fill-grey-150 h-8 w-8" />
           </button>
           <CreateRecipeDialog
             isOpen={isCreatingRecipe}

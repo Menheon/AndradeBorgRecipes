@@ -39,7 +39,7 @@ export const RecipeSearchField = ({ onChange }: Props) => {
         onChange={(event) => onChange(event.target.value)}
       />
       <div className="flex h-9 w-9 items-center justify-center rounded-r-lg bg-brown-600">
-        <SearchIcon className="h-7 w-7 fill-whiteSmoke" />
+        <SearchIcon className="fill-grey-150 h-7 w-7" />
       </div>
     </div>
   );

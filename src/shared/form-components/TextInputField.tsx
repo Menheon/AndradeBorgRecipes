@@ -33,7 +33,7 @@ export const TextInputField = forwardRef(
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full rounded-md border-2 border-brown-600 bg-whiteSmoke px-2 py-1 placeholder-brown-500 shadow-sm outline-none
+        className="bg-grey-150 w-full rounded-md border-2 border-brown-600 px-2 py-1 placeholder-brown-500 shadow-sm outline-none
       focus-visible:ring
         focus-visible:ring-brown-100
       "

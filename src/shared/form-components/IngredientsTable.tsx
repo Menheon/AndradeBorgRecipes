@@ -167,7 +167,7 @@ export const IngredientsTable = ({ section }: Props) => {
                             placeholder={""}
                           />
                         </div>
-                        <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-whiteSmoke shadow-sm hover:bg-brown-100">
+                        <div className="bg-grey-150 ml-0.5 rounded-md border-2 border-brown-600 shadow-sm hover:bg-brown-100">
                           <IconButton
                             icon="close"
                             onClick={(event) => {
@@ -276,7 +276,7 @@ export const IngredientsTable = ({ section }: Props) => {
                       placeholder={""}
                     />
                   </div>
-                  <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-whiteSmoke hover:bg-brown-100">
+                  <div className="bg-grey-150 ml-0.5 rounded-md border-2 border-brown-600 hover:bg-brown-100">
                     <IconButton
                       icon="close"
                       onClick={(event) => {

@@ -45,7 +45,7 @@ export const BaseDialog = ({
 
   return (
     <dialog
-      className="shadow-3xl my-8 w-2/3 min-w-fit max-w-full rounded-xl bg-white backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+      className="shadow-3xl backdrop:bg-black/50 my-8 w-2/3 min-w-fit max-w-full rounded-xl bg-grey-100 backdrop:backdrop-blur-sm"
       ref={dialogRef}
       onClose={onClose}
     >
