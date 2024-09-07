@@ -81,12 +81,12 @@ export const RecipePage = () => {
           }}
         >
           <h1
-            className="text-darkGreen p-4 text-center font-caveat text-5xl font-bold tracking-wider"
+            className="text-darkGreen mt-2 p-4 text-center font-caveat text-5xl font-bold tracking-wider"
             style={{
               viewTransitionName: `recipe-title-${recipe.id}`,
             }}
           >
-            <div className="absolute">
+            <div className="absolute left-0 top-0">
               <IconButton
                 icon="chevron-left"
                 onClick={() => navigate(ALL_RECIPES_PATH)}
