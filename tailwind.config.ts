@@ -13,6 +13,8 @@ export default {
       "grey-200": "#dadce4",
       "grey-500": "#abadb4",
       "grey-600": "#87888d",
+      "grey-700": "#6e6f74",
+      "grey-900": "#131414",
       "brown-100": "#d1ccc8",
       "brown-200": "#bfbab6",
       "brown-300": "#a29c98",
@@ -21,6 +23,8 @@ export default {
       "orange-100": "#fff0b5",
       "orange-500": "#feb743",
       "orange-600": "#fd8306",
+      "cream-100": "#fefaef",
+      "cream-200": "#e3e0d6",
     },
     fontFamily: {
       caveat: ["Caveat", ...defaultTheme.fontFamily.sans],

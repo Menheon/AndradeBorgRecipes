@@ -75,7 +75,7 @@ export const ProfilePage = () => {
 
   return (
     <div className="mx-auto flex flex-col items-center justify-center p-6">
-      <div className="bg-grey-150 flex h-full min-h-80 w-full flex-col items-center rounded-md p-4 shadow-md sm:w-3/4 lg:w-2/3 xl:w-1/2">
+      <div className="bg-cream-100 flex h-full min-h-80 w-full flex-col items-center rounded-md p-4 shadow-md sm:w-3/4 lg:w-2/3 xl:w-1/2">
         <h1 className="w-full self-start px-2 pb-4 text-center font-caveat text-5xl font-bold tracking-wider">
           <div className="absolute">
             <IconButton

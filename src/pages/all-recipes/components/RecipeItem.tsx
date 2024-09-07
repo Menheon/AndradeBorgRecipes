@@ -19,7 +19,7 @@ export const RecipeItem = ({ recipe }: Props) => {
 
   return (
     <button
-      className="flex cursor-pointer flex-col items-center rounded-xl border-2 border-brown-600 bg-brown-100 shadow-lg transition focus-visible:base-outline hover:bg-brown-200 active:scale-[98.75%]"
+      className="bg-cream-100 hover:bg-cream-200 flex cursor-pointer flex-col items-center rounded-xl border-2 border-brown-600 shadow-lg transition focus-visible:base-outline active:scale-[98.75%]"
       onClick={onRecipeItemClicked}
     >
       <img

@@ -21,11 +21,11 @@ export const RecipeSearchField = ({ onChange }: Props) => {
         type="search"
         placeholder={t(recipesTranslations.searchPlaceholder)}
         className="
+          bg-grey-150
           h-9
           w-72
           rounded-l-lg
-          border-2
-          border-brown-600 bg-brown-100 
+          border-2 border-brown-600 
           px-2 
           py-1 
           placeholder-brown-600

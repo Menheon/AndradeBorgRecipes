@@ -161,7 +161,7 @@ export const AppBar = () => {
             )}
             <div className="bg-brown-100 p-1">
               <Logo
-                className="h-7 w-auto fill-current text-brown-600"
+                className="fill-current h-7 w-auto text-brown-600"
                 onMouseDown={handleTouchStart}
                 onMouseUp={handleTouchEnd}
                 onTouchStart={handleTouchStart}
