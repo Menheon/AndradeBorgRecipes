@@ -174,7 +174,7 @@ export const AppBar = () => {
       {isMin900WidthScreen && (
         <div className="absolute left-0 right-0 top-3 z-10 mx-auto w-56 border-4 border-brown-600 bg-brown-100 p-2 shadow-md">
           <Logo
-            className="fill-current text-brown-600"
+            className="fill-current -ml-1 w-full text-brown-600"
             onMouseDown={handleTouchStart}
             onMouseUp={handleTouchEnd}
             onTouchStart={handleTouchStart}
