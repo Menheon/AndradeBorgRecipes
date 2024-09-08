@@ -44,6 +44,7 @@ export const RecipePage = () => {
   } = useQuery({
     queryKey: [`${RECIPE_QUERY_TAG}-${recipeId}`],
     queryFn: getRecipeDocument,
+    refetchOnWindowFocus: false,
   });
 
   const { t, i18n } = useTranslation();
@@ -170,7 +171,7 @@ export const RecipePage = () => {
             </div>
           </div>
 
-          <div className="bg-cream-100 mt-6 h-full flex-1 rounded-xl py-2">
+          <div className="mt-6 h-full flex-1 rounded-xl bg-cream-100 py-2">
             {recipe.sections.map((section, i) => (
               <div className="grid grid-cols-1 gap-2 xs:grid-cols-2" key={i}>
                 <h3 className="col-span-2 px-5 text-center font-caveat text-2xl font-semibold">

@@ -112,6 +112,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
   const { data: existingTags, isLoading: isTagsLoading } = useQuery({
     queryKey: [TAGS_QUERY_TAG],
     queryFn: getAllRecipeTags,
+    refetchOnWindowFocus: false,
   });
 
   const onNewTagAdded = (newTag: Tag) => {

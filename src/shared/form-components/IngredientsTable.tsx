@@ -88,6 +88,7 @@ export const IngredientsTable = ({ section }: Props) => {
   const { data: existingIngredients } = useQuery({
     queryKey: [INGREDIENTS_QUERY_TAG],
     queryFn: getAllIngredients,
+    refetchOnWindowFocus: false,
   });
   const sortedIngredients = useMemo(
     () =>
@@ -167,7 +168,7 @@ export const IngredientsTable = ({ section }: Props) => {
                             placeholder={""}
                           />
                         </div>
-                        <div className="bg-grey-150 ml-0.5 rounded-md border-2 border-brown-600 shadow-sm hover:bg-brown-100">
+                        <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-grey-150 shadow-sm hover:bg-brown-100">
                           <IconButton
                             icon="close"
                             onClick={(event) => {
@@ -276,7 +277,7 @@ export const IngredientsTable = ({ section }: Props) => {
                       placeholder={""}
                     />
                   </div>
-                  <div className="bg-grey-150 ml-0.5 rounded-md border-2 border-brown-600 hover:bg-brown-100">
+                  <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-grey-150 hover:bg-brown-100">
                     <IconButton
                       icon="close"
                       onClick={(event) => {

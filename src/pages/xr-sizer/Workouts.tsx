@@ -20,6 +20,7 @@ export const Workouts = ({ user, onWorkoutSelected }: Props) => {
   } = useQuery({
     queryKey: [WORKOUTS_QUERY_TAG + user],
     queryFn: getWorkouts,
+    refetchOnWindowFocus: false,
   });
 
   console.log("workouts", workouts);
@@ -38,7 +39,7 @@ export const Workouts = ({ user, onWorkoutSelected }: Props) => {
           <div
             key={workout.id}
             onClick={() => onWorkoutSelected(workout)}
-            className="mt-4 flex cursor-pointer rounded-lg bg-white p-4 shadow-md hover:bg-orange-50"
+            className="bg-white hover:bg-orange-50 mt-4 flex cursor-pointer rounded-lg p-4 shadow-md"
           >
             <div className="flex flex-1 flex-col">
               <h2 className="text-lg font-bold">{workout.name}</h2>
