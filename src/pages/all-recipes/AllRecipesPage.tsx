@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/store/AuthProvider";
 import { translations } from "@/i18n";
 import { useTranslation } from "react-i18next";
+import { RecipeItemSkeleton } from "./components/RecipeItemSkeleton";
 
 export const AllRecipesPage = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
@@ -24,6 +25,7 @@ export const AllRecipesPage = () => {
   } = useQuery({
     queryKey: [RECIPES_QUERY_TAG],
     queryFn: getAllRecipes,
+    refetchOnWindowFocus: false,
   });
 
   const initializeRecipes = useCallback(async () => {
@@ -88,7 +90,7 @@ export const AllRecipesPage = () => {
             className="fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors focus-visible:base-outline hover:bg-brown-500"
             onClick={() => setIsCreatingRecipe(true)}
           >
-            <AddIcon className="fill-grey-150 h-8 w-8" />
+            <AddIcon className="h-8 w-8 fill-grey-150" />
           </button>
           <CreateRecipeDialog
             isOpen={isCreatingRecipe}
@@ -98,11 +100,6 @@ export const AllRecipesPage = () => {
       )}
 
       <div>
-        {isLoadingRecipes && (
-          <p className="text-center text-xl">
-            {t(recipesTranslations.loadingRecipes)}
-          </p>
-        )}
         {isRecipesQueryError && (
           <p className="text-center text-xl">
             {t(recipesTranslations.loadError)}
@@ -114,6 +111,16 @@ export const AllRecipesPage = () => {
           </p>
         )}
         <div className="mx-1 flex flex-col gap-3 sm:grid sm:grid-cols-2 md:mx-12 lg:grid-cols-3">
+          {isLoadingRecipes && (
+            <>
+              <RecipeItemSkeleton />
+              <RecipeItemSkeleton />
+              <RecipeItemSkeleton />
+              <RecipeItemSkeleton />
+              <RecipeItemSkeleton />
+              <RecipeItemSkeleton />
+            </>
+          )}
           {filteredRecipes.map((recipe) => (
             <RecipeItem recipe={recipe} key={recipe.name} />
           ))}

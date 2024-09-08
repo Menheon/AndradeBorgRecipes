@@ -19,21 +19,23 @@ export const RecipeItem = ({ recipe }: Props) => {
 
   return (
     <button
-      className="bg-cream-100 hover:bg-cream-200 flex cursor-pointer flex-col items-center rounded-xl border-2 border-brown-600 shadow-lg transition focus-visible:base-outline active:scale-[98.75%]"
+      className="flex h-[460px] cursor-pointer flex-col items-center rounded-xl border-2 border-brown-600 bg-cream-100 shadow-lg transition focus-visible:base-outline hover:bg-cream-200 active:scale-[98.75%] md:h-[525px] lg:h-[560px] xl:h-[525px]"
       onClick={onRecipeItemClicked}
     >
-      <img
-        className="h-56 w-full rounded-t-lg border-b-2 border-brown-600 object-cover md:h-64"
-        src={recipe.imageUrl}
-        alt={recipe.name}
-        style={{
-          viewTransitionName: `recipe-img-${recipe.id}`,
-        }}
-      />
-      <h2 className="flex-1 p-2 text-center font-caveat text-4xl font-bold tracking-wider">
+      <div className="h-56 w-full flex-shrink rounded-t-lg border-b-2 border-brown-600 bg-grey-500 md:h-64">
+        <img
+          className="h-full w-full rounded-t-lg object-cover"
+          src={recipe.imageUrl}
+          alt={recipe.name}
+          style={{
+            viewTransitionName: `recipe-img-${recipe.id}`,
+          }}
+        />
+      </div>
+      <h2 className="flex-1 px-2 pt-2 text-center font-caveat text-4xl font-bold tracking-wider">
         {recipe.name}
       </h2>
-      <div className="flex w-full flex-col p-4 lg:p-6 ">
+      <div className="flex w-full flex-col px-4 pb-4 lg:px-6 lg:pb-4">
         <p className="line-clamp-3 h-20 text-justify text-lg md:line-clamp-4 md:h-28">
           {recipe.description}
         </p>
