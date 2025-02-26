@@ -65,16 +65,20 @@ export const RecipePage = () => {
   return (
     <div className="py-8 md:px-8 lg:px-32 xl:px-40 2xl:px-72">
       {isFetching && (
-        <p className="text-center text-xl">
-          {t(recipeTranslations.loadingRecipe)}
-        </p>
+        <div className="absolute inset-0 flex h-dvh items-center justify-center">
+          <p className="text-center font-caveat text-6xl font-bold tracking-wider">
+            {t(recipeTranslations.loadingRecipe)}
+          </p>
+        </div>
       )}
+
       {isError && !isFetching && (
         <p className="text-center text-xl">
           {t(recipeTranslations.errorLoadingRecipe)}
         </p>
       )}
-      {isSuccess && recipe && !isFetching && (
+
+      {isSuccess && recipe && (
         <div
           className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 bg-cream-200 shadow-lg"
           style={{
