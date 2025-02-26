@@ -170,7 +170,7 @@ export const translations: Translations = {
         },
       },
       recipe: {
-        loadingRecipe: "Indlæser opskrift...",
+        loadingRecipe: "Indlæser opskrift... 😋",
         errorLoadingRecipe:
           "Der opstod en fejl under indlæsningen af opskriften.",
         ingredients: "Ingredienser",
@@ -264,7 +264,7 @@ export const translations: Translations = {
         },
       },
       recipe: {
-        loadingRecipe: "Loading recipe...",
+        loadingRecipe: "Loading recipe... 😋",
         errorLoadingRecipe: "An error occurred whilst loading the recipe.",
         ingredients: "Ingredients",
         steps: "Steps",
