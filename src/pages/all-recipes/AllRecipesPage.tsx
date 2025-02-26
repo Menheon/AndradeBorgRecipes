@@ -83,11 +83,10 @@ export const AllRecipesPage = () => {
         </h1>
       </div>
 
-      {((storedUserData && storedUserData.isAdmin) ||
-        location.hostname === "localhost") && (
+      {(storedUserData?.isAdmin || location.hostname === "localhost") && (
         <>
           <button
-            className="fixed bottom-10 right-10 z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors focus-visible:base-outline hover:bg-brown-500"
+            className="fixed bottom-10 right-10 z-20 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors focus-visible:base-outline hover:bg-brown-500"
             onClick={() => setIsCreatingRecipe(true)}
           >
             <AddIcon className="h-8 w-8 fill-grey-150" />
@@ -110,7 +109,7 @@ export const AllRecipesPage = () => {
             {t(recipesTranslations.noMatchingRecipes)}
           </p>
         )}
-        <div className="mx-1 flex flex-col gap-3 sm:grid sm:grid-cols-2 md:mx-12 lg:grid-cols-3">
+        <div className="mx-1 flex flex-col gap-3 sm:grid sm:grid-cols-2 md:mx-12 lg:grid-cols-3 xl:grid-cols-4">
           {isLoadingRecipes && (
             <>
               <RecipeItemSkeleton />
