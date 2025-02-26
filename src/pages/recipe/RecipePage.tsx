@@ -63,7 +63,7 @@ export const RecipePage = () => {
   }, [recipe?.name, recipeTranslations.documentTitle, t]);
 
   return (
-    <div className="p-8 lg:px-32 xl:px-40 2xl:px-72">
+    <div className="py-8 md:px-8 lg:px-32 xl:px-40 2xl:px-72">
       {isFetching && (
         <p className="text-center text-xl">
           {t(recipeTranslations.loadingRecipe)}
@@ -76,7 +76,7 @@ export const RecipePage = () => {
       )}
       {isSuccess && recipe && !isFetching && (
         <div
-          className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 bg-brown-100 shadow-lg"
+          className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 bg-cream-200 shadow-lg"
           style={{
             viewTransitionName: `recipe-container-${recipe.id}`,
           }}
@@ -96,8 +96,7 @@ export const RecipePage = () => {
             </div>
             {recipe.name}
           </h1>
-          {((storedUserData && storedUserData.isAdmin) ||
-            location.hostname === "localhost") && (
+          {(storedUserData?.isAdmin || location.hostname === "localhost") && (
             <div className="absolute right-1 top-1 flex">
               <IconButton
                 icon="edit"
@@ -121,7 +120,7 @@ export const RecipePage = () => {
             </div>
           )}
           <hr
-            className="mx-40 mb-4 border-t-2 border-brown-600"
+            className="mb-4 w-3/4 self-center border-t-2 border-brown-600"
             style={{
               viewTransitionName: `recipe-title-bar-${recipe.id}`,
             }}
@@ -171,9 +170,12 @@ export const RecipePage = () => {
             </div>
           </div>
 
-          <div className="mt-6 h-full flex-1 rounded-xl bg-cream-100 py-2">
-            {recipe.sections.map((section, i) => (
-              <div className="grid grid-cols-1 gap-2 xs:grid-cols-2" key={i}>
+          <div className="mt-6 h-full flex-1 rounded-xl border border-t-2 border-brown-600 bg-cream-100 py-2">
+            {recipe.sections.map((section) => (
+              <div
+                className="grid grid-cols-1 gap-2 xs:grid-cols-2"
+                key={section.title}
+              >
                 <h3 className="col-span-2 px-5 text-center font-caveat text-2xl font-semibold">
                   {section.title}
                 </h3>

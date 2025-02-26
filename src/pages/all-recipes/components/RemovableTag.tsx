@@ -11,17 +11,17 @@ export const RemovableTag = ({ children, onRemoved, isRemovable }: Props) => {
   return (
     <div
       className="
-        text-grey-150
-        flex 
+        flex
         items-center 
         gap-2 
         rounded-md 
         bg-brown-300 
-        px-2
+        px-2 
         py-1
+        text-grey-150
         shadow-md"
     >
-      <span>{children}</span>
+      <span className="font-semibold tracking-wide">{children}</span>
       {isRemovable && onRemoved && (
         <button
           type="button"
