@@ -24,6 +24,10 @@ export const XR_SIZER = "/xr-sizer";
 // eslint-disable-next-line react-refresh/only-export-components
 export const routes: RouteObject[] = [
   {
+    path: ROOT_PATH,
+    element: <AllRecipesPage />,
+  },
+  {
     path: ALL_RECIPES_PATH,
     element: <AllRecipesPage />,
   },
