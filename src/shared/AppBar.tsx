@@ -4,7 +4,7 @@ import MenuIcon from "@/assets/menu.svg?react";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useMemo, useState } from "react";
 import CloseIcon from "@/assets/close.svg?react";
-import { matchPath, useLocation, useNavigate } from "react-router-dom";
+import { Link, matchPath, useLocation, useNavigate } from "react-router-dom";
 import {
   EMPTY_MY_FRIDGE_PATH,
   INSPIRATION_PATH,
@@ -173,13 +173,15 @@ export const AppBar = () => {
       </div>
       {isMin900WidthScreen && (
         <div className="absolute left-0 right-0 top-3 z-10 mx-auto w-56 border-4 border-brown-600 bg-brown-100 p-2 shadow-md">
-          <Logo
-            className="fill-current -ml-1 w-full text-brown-600"
-            onMouseDown={handleTouchStart}
-            onMouseUp={handleTouchEnd}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-          />
+          <Link to={ALL_RECIPES_PATH}>
+            <Logo
+              className="fill-current -ml-1 w-full text-brown-600"
+              onMouseDown={handleTouchStart}
+              onMouseUp={handleTouchEnd}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            />
+          </Link>
         </div>
       )}
     </nav>
