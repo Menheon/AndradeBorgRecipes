@@ -21,16 +21,17 @@ export const RecipeSearchField = ({ onChange }: Props) => {
         type="search"
         placeholder={t(recipesTranslations.searchPlaceholder)}
         className="
-          bg-grey-150
           h-9
           w-72
           rounded-l-lg
-          border-2 border-brown-600 
+          border-2
+          border-brown-600 bg-grey-150 
           px-2 
           py-1 
           placeholder-brown-600
           outline-none 
           search-cancel:cursor-pointer
+          search-cancel:p-0.5
           search-cancel:brightness-[25%]
           search-cancel:contrast-75
           search-cancel:hue-rotate-[165deg]
@@ -39,7 +40,7 @@ export const RecipeSearchField = ({ onChange }: Props) => {
         onChange={(event) => onChange(event.target.value)}
       />
       <div className="flex h-9 w-9 items-center justify-center rounded-r-lg bg-brown-600">
-        <SearchIcon className="fill-grey-150 h-7 w-7" />
+        <SearchIcon className="h-7 w-7 fill-grey-150" />
       </div>
     </div>
   );

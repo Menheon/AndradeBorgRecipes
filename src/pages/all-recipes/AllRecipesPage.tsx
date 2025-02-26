@@ -86,7 +86,7 @@ export const AllRecipesPage = () => {
       {(storedUserData?.isAdmin || location.hostname === "localhost") && (
         <>
           <button
-            className="fixed bottom-10 right-10 z-20 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-colors focus-visible:base-outline hover:bg-brown-500"
+            className="fixed bottom-10 right-10 z-20 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-all transition-colors focus-visible:base-outline hover:scale-105 hover:bg-brown-500 active:scale-95"
             onClick={() => setIsCreatingRecipe(true)}
           >
             <AddIcon className="h-8 w-8 fill-grey-150" />

@@ -74,7 +74,7 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(ALL_RECIPES_PATH);
             }}
-            className="flex w-fit items-center gap-2 rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors focus-visible:base-outline hover:text-brown-500"
+            className="flex w-fit items-center gap-2 rounded-lg p-2 text-xl font-semibold tracking-wider text-brown-600 transition-colors focus-visible:base-outline hover:scale-[102.5%] hover:text-brown-500"
           >
             {t(appBarTranslations.recipes)} <SkilletIcon className="size-7" />
           </button>
@@ -113,9 +113,9 @@ export const AppBar = () => {
                 setIsUsingMobileMenu(false);
                 navigate(ALL_RECIPES_PATH);
               }}
-              className="flex items-center gap-1 rounded-lg px-2 font-semibold tracking-wider text-brown-600 transition-colors focus-visible:base-outline hover:text-brown-500"
+              className="flex items-center gap-1 rounded-lg px-2 text-lg font-bold tracking-wider text-brown-600 transition-all focus-visible:base-outline hover:scale-[102.5%] hover:text-brown-500"
             >
-              {t(appBarTranslations.recipes)} <SkilletIcon className="size-6" />
+              {t(appBarTranslations.recipes)} <SkilletIcon className="size-7" />
             </button>
             <button
               onClick={() => {
