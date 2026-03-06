@@ -20,7 +20,7 @@ export const RecipeSearchField = ({ onChange }: Props) => {
       <input
         type="search"
         placeholder={t(recipesTranslations.searchPlaceholder)}
-        className="search-cancel:cursor-pointer h-12 w-64 bg-transparent px-5 text-neutral-800 placeholder-neutral-400 outline-none sm:w-80"
+        className="search-cancel:cursor-pointer search-cancel:scale-125 search-cancel:brightness-25 search-cancel:contrast-75 search-cancel:hue-rotate-165 search-cancel:filter search-cancel:p-0.5 h-12 w-64 px-5 text-neutral-800 placeholder-neutral-400 outline-none sm:w-80"
         onChange={(event) => onChange(event.target.value)}
       />
       <div className="bg-primary-500 flex h-12 w-12 items-center justify-center">
