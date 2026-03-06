@@ -64,12 +64,7 @@ export const RecipePage = () => {
       )}
 
       {isSuccess && recipe && (
-        <div
-          className="shadow-card relative flex min-h-187.5 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white"
-          style={{
-            viewTransitionName: `recipe-container-${recipe.id}`,
-          }}
-        >
+        <div className="shadow-card relative flex min-h-187.5 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white">
           {/* Header */}
           <div className="relative border-b border-neutral-100 bg-neutral-50 px-6 py-6">
             <div className="absolute top-1/2 left-2 -translate-y-1/2">
@@ -79,12 +74,7 @@ export const RecipePage = () => {
                 size="lg"
               />
             </div>
-            <h1
-              className="font-caveat text-center text-4xl font-bold tracking-wide text-neutral-800 sm:text-5xl"
-              style={{
-                viewTransitionName: `recipe-title-${recipe.id}`,
-              }}
-            >
+            <h1 className="font-caveat text-center text-4xl font-bold tracking-wide text-neutral-800 sm:text-5xl">
               {recipe.name}
             </h1>
             {(storedUserData?.isAdmin || location.hostname === "localhost") && (
@@ -117,9 +107,6 @@ export const RecipePage = () => {
             <img
               className="max-h-80 w-full object-cover"
               src={recipe.imageUrl}
-              style={{
-                viewTransitionName: `recipe-img-${recipe.id}`,
-              }}
               alt={recipe.name}
             />
           )}
@@ -130,27 +117,14 @@ export const RecipePage = () => {
               <img
                 className="h-auto w-1/2 object-cover"
                 src={recipe.imageUrl}
-                style={{
-                  viewTransitionName: `recipe-img-${recipe.id}`,
-                }}
                 alt={recipe.name}
               />
             )}
             <div className="flex flex-1 flex-col p-6">
-              <p
-                className="text-lg leading-relaxed text-neutral-700"
-                style={{
-                  viewTransitionName: `recipe-description-${recipe.id}`,
-                }}
-              >
+              <p className="text-lg leading-relaxed text-neutral-700">
                 {recipe.description}
               </p>
-              <div
-                className="mt-auto flex flex-wrap gap-2 pt-4"
-                style={{
-                  viewTransitionName: `recipe-tags-${recipe.id}`,
-                }}
-              >
+              <div className="mt-auto flex flex-wrap gap-2 pt-4">
                 {recipe.tags.map((tag) => (
                   <RemovableTag key={tag.id} isRemovable={false}>
                     {tag.name}

@@ -10,8 +10,7 @@ import { RecipePage } from "@/pages/recipe/RecipePage";
 import { ProfilePage } from "@/pages/profile/ProfilePage";
 
 export const ROOT_PATH = "/";
-const OLD_ALL_RECIPES_PATH = "/recipes";
-export const ALL_RECIPES_PATH = "/all-recipes";
+export const ALL_RECIPES_PATH = "/recipes";
 export const RECIPE_ITEM_PATH = "/recipes/:recipeId";
 export const INSPIRATION_PATH = "/inspiration";
 export const EMPTY_MY_FRIDGE_PATH = "/empty-my-fridge";
@@ -51,10 +50,7 @@ export const AppRoutes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (
-      location.pathname === ROOT_PATH ||
-      location.pathname === OLD_ALL_RECIPES_PATH
-    ) {
+    if (location.pathname === ROOT_PATH) {
       navigate(ALL_RECIPES_PATH);
     }
   }, [location.pathname, navigate]);
