@@ -57,8 +57,12 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  button {
+    cursor: pointer;
+  }
 }
 
-body {
+:root {
   font-family: "Nunito Sans";
 }
