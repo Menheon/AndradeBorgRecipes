@@ -5,11 +5,7 @@ import { useMediaQuery } from "@/util/useMediaQuery";
 import { useMemo, useState } from "react";
 import CloseIcon from "@/assets/close.svg?react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  EMPTY_MY_FRIDGE_PATH,
-  INSPIRATION_PATH,
-  ALL_RECIPES_PATH,
-} from "./AppRoutes";
+import { EMPTY_MY_FRIDGE_PATH, INSPIRATION_PATH, ROOT_PATH } from "./AppRoutes";
 import { AppBarProfileStatus } from "./profile/AppBarProfileStatus";
 import { translations } from "@/i18n";
 import { PlatformSupportedLanguages } from "@/types/models";
@@ -59,7 +55,7 @@ export const AppBar = () => {
           <button
             onClick={() => {
               setIsUsingMobileMenu(false);
-              navigate(ALL_RECIPES_PATH);
+              navigate(ROOT_PATH);
             }}
             className="focus-visible:base-outline hover:text-primary-600 flex w-fit items-center gap-2 rounded-lg p-3 text-lg font-semibold tracking-wide text-neutral-700 transition-colors hover:bg-neutral-100"
           >
@@ -97,7 +93,7 @@ export const AppBar = () => {
         {!isMinLargeScreen && (
           <div className="flex flex-1">
             <Link
-              to={ALL_RECIPES_PATH}
+              to={ROOT_PATH}
               className="rounded-lg p-1 transition-colors hover:bg-neutral-100"
             >
               <Logo className="text-primary-600 h-8 w-auto fill-current" />
@@ -124,7 +120,7 @@ export const AppBar = () => {
 
       {isMinLargeScreen && (
         <div className="absolute top-2 right-0 left-0 z-10 mx-auto w-48 rounded-xl border border-neutral-200 bg-white p-3 shadow-lg">
-          <Link to={ALL_RECIPES_PATH}>
+          <Link to={ROOT_PATH}>
             <Logo className="text-primary-600 hover:text-primary-500 -ml-0.5 w-full fill-current transition-colors" />
           </Link>
         </div>

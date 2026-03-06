@@ -14,7 +14,7 @@ import {
   getAllIngredients,
 } from "@/data/recipesService";
 import { Recipe, Section } from "@/types/models";
-import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
+import { ROOT_PATH } from "@/shared/AppRoutes";
 
 // ============ CACHE CONFIGURATION ============
 const FIVE_MINUTES = 5 * 60 * 1000;
@@ -119,7 +119,7 @@ export const useDeleteRecipe = () => {
       queryClient.removeQueries({
         queryKey: [RECIPE_QUERY_TAG, recipe.id],
       });
-      navigate(ALL_RECIPES_PATH);
+      navigate(ROOT_PATH);
     },
   });
 };

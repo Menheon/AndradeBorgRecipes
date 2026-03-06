@@ -240,7 +240,7 @@ const parseRecipeDocument = async (
     id: recipeSnapshot.id,
     name: recipeData.name,
     description: recipeData.description,
-    imageUrl: recipeData.imageUrl,
+    imageUrl: recipeData.imageUrl ?? "",
     creationDate,
     tags,
     sections,

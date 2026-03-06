@@ -1,4 +1,4 @@
-import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
+import { ROOT_PATH } from "@/shared/AppRoutes";
 import { FilledButton } from "@/shared/FilledButton";
 import { IconButton } from "@/shared/form-components/IconButton";
 import { useAuth } from "@/store/AuthProvider";
@@ -82,7 +82,7 @@ export const ProfilePage = () => {
             <div className="absolute top-1/2 left-4 -translate-y-1/2">
               <IconButton
                 icon="chevron-left"
-                onClick={() => navigate(ALL_RECIPES_PATH)}
+                onClick={() => navigate(ROOT_PATH)}
                 size="lg"
               />
             </div>

@@ -1,16 +1,10 @@
-import { Fragment, useEffect } from "react";
-import {
-  RouteObject,
-  useLocation,
-  useNavigate,
-  useRoutes,
-} from "react-router-dom";
+import { Fragment } from "react";
+import { RouteObject, useRoutes } from "react-router-dom";
 import { AllRecipesPage } from "@/pages/all-recipes/AllRecipesPage";
 import { RecipePage } from "@/pages/recipe/RecipePage";
 import { ProfilePage } from "@/pages/profile/ProfilePage";
 
 export const ROOT_PATH = "/";
-export const ALL_RECIPES_PATH = "/recipes";
 export const RECIPE_ITEM_PATH = "/recipes/:recipeId";
 export const INSPIRATION_PATH = "/inspiration";
 export const EMPTY_MY_FRIDGE_PATH = "/empty-my-fridge";
@@ -20,10 +14,6 @@ export const PROFILE = "/profile";
 export const routes: RouteObject[] = [
   {
     path: ROOT_PATH,
-    element: <AllRecipesPage />,
-  },
-  {
-    path: ALL_RECIPES_PATH,
     element: <AllRecipesPage />,
   },
   {
@@ -45,15 +35,7 @@ export const routes: RouteObject[] = [
 ];
 
 export const AppRoutes = () => {
-  const location = useLocation();
   const routeElement = useRoutes(routes);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (location.pathname === ROOT_PATH) {
-      navigate(ALL_RECIPES_PATH);
-    }
-  }, [location.pathname, navigate]);
 
   return <Fragment>{routeElement}</Fragment>;
 };
