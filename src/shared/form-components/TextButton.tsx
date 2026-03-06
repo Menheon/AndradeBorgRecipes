@@ -1,5 +1,6 @@
 import AddIcon from "@/assets/add.svg?react";
 import { ReactNode } from "react";
+import { cn } from "../helpers/cn";
 
 interface Props {
   onClicked: () => void;
@@ -17,7 +18,14 @@ export const TextButton = ({
   return (
     <button
       type="button"
-      className={`m-${size === "sm" ? 0 : 1} flex items-center gap-1.5 rounded-lg px-${size === "sm" ? 2 : 4} py-${size === "sm" ? 1 : 2} hover:text-primary-600 focus-visible:ring-primary-300 font-medium text-neutral-700 outline-hidden transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-inset`}
+      className={cn(
+        "hover:text-primary-600 focus-visible:ring-primary-300 font-medium text-neutral-700 outline-hidden transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-inset",
+        {
+          "m-0 flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm":
+            size === "sm",
+          "m-1 flex items-center gap-1.5 rounded-lg px-4 py-2": size === "md",
+        },
+      )}
       onClick={onClicked}
     >
       {children && <span>{children}</span>}

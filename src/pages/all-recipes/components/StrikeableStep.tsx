@@ -1,6 +1,7 @@
 import CheckBoxUnchecked from "@/assets/check_box_unchecked.svg?react";
 import CheckBoxChecked from "@/assets/check_box_checked.svg?react";
 import { useState } from "react";
+import { cn } from "@/shared";
 
 interface Props {
   step: string;
@@ -24,9 +25,9 @@ export const StrikeableStep = ({ step }: Props) => {
       </div>
 
       <span
-        className={`leading-relaxed ${
-          isStricken ? "text-neutral-400 line-through" : "text-neutral-700"
-        }`}
+        className={cn("leading-relaxed text-neutral-700", {
+          "text-neutral-400 line-through": isStricken,
+        })}
       >
         {step}
       </span>

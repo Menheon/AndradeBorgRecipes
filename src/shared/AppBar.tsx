@@ -14,6 +14,7 @@ import { AppBarProfileStatus } from "./profile/AppBarProfileStatus";
 import { translations } from "@/i18n";
 import { PlatformSupportedLanguages } from "@/types/models";
 import { useTranslation } from "react-i18next";
+import { cn } from "./helpers/cn";
 
 export const AppBar = () => {
   const isMinLargeScreen = useMediaQuery("minLg");
@@ -36,7 +37,13 @@ export const AppBar = () => {
     <nav className="fixed z-50 w-full border-b border-neutral-200 bg-white/95 shadow-sm backdrop-blur-md">
       {/* Open Mobile menu */}
       <div
-        className={`fixed inset-0 flex h-dvh w-full transform flex-col gap-8 bg-white transition-all duration-300 sm:hidden ${isUsingMobileMenu ? "translate-x-0" : "-translate-x-full"}`}
+        className={cn(
+          "fixed inset-0 flex h-dvh w-full transform flex-col gap-8 bg-white transition-all duration-300 sm:hidden",
+          {
+            "translate-x-0": isUsingMobileMenu,
+            "-translate-x-full": !isUsingMobileMenu,
+          },
+        )}
       >
         <div className="flex items-center justify-end px-4 py-3">
           <button

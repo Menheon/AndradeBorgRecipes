@@ -3,6 +3,7 @@ import AddIcon from "@/assets/add.svg?react";
 import EditIcon from "@/assets/edit.svg?react";
 import ChevronLeftIcon from "@/assets/chevron-left.svg?react";
 import CloseIcon from "@/assets/close.svg?react";
+import { cn } from "../helpers/cn";
 
 type IconName = "delete" | "add" | "edit" | "chevron-left" | "close";
 
@@ -45,7 +46,10 @@ export const IconButton = ({ onClick, icon, size = "md" }: Props) => {
   return (
     <button
       onClick={onClick}
-      className={`focus-visible:base-outline ${getSize()} hover:text-primary-500 m-1 flex items-center justify-center rounded-full text-neutral-600 transition`}
+      className={cn(
+        "focus-visible:base-outline hover:text-primary-500 m-1 flex items-center justify-center rounded-full text-neutral-600 transition",
+        getSize(),
+      )}
     >
       <IconNode className={getSize()} />
     </button>
