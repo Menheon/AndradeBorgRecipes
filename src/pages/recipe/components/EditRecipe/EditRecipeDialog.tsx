@@ -1,10 +1,3 @@
-import {
-  getAllRecipeTags,
-  RECIPE_QUERY_TAG,
-  RECIPES_QUERY_TAG,
-  TAGS_QUERY_TAG,
-  updateRecipeDocument,
-} from "@/data/recipesService";
 import { translations } from "@/i18n";
 import { CreateRecipeFormData } from "@/pages/all-recipes/components/CreateRecipeDialog";
 import { NewRecipeSections } from "@/pages/all-recipes/components/NewRecipeSections";
@@ -14,7 +7,6 @@ import { FileInputField } from "@/shared/form-components/FileInputField";
 import { TextAreaField } from "@/shared/form-components/TextAreaField";
 import { TextInputField } from "@/shared/form-components/TextInputField";
 import { PlatformSupportedLanguages, Recipe, Tag } from "@/types/models";
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import {
   Controller,
@@ -26,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { recipesStorage } from "@/firebase";
 import AutocompleteMultiSelectField from "@/shared/form-components/AutocompleteMultiSelectField";
+import { useTags, useUpdateRecipe } from "@/hooks/useRecipes";
 
 type Props = {
   isOpen: boolean;
@@ -50,18 +43,7 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
   });
   const { watch, control, handleSubmit, setValue } = methods;
 
-  const queryClient = useQueryClient();
-
-  const postUpdateRecipeMutation = useMutation({
-    mutationFn: updateRecipeDocument,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [RECIPES_QUERY_TAG] });
-      queryClient.invalidateQueries({
-        queryKey: [`${RECIPE_QUERY_TAG}-${recipe.id}`],
-      });
-    },
-  });
+  const updateRecipeMutation = useUpdateRecipe();
 
   const handleUpdateRecipe: SubmitHandler<CreateRecipeFormData> = async (
     data,
@@ -84,7 +66,11 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
       id: recipe.id,
       creationDate: recipe.creationDate,
     };
-    postUpdateRecipeMutation.mutate(updatedRecipe);
+    // Pass old sections for cleanup
+    updateRecipeMutation.mutate({
+      updatedRecipe,
+      oldSections: recipe.sections,
+    });
     closeDialog(updatedRecipe);
   };
 
@@ -114,11 +100,7 @@ export const EditRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
     );
   };
 
-  const { data: existingTags, isLoading: isTagsLoading } = useQuery({
-    queryKey: [TAGS_QUERY_TAG],
-    queryFn: getAllRecipeTags,
-    refetchOnWindowFocus: false,
-  });
+  const { data: existingTags, isLoading: isTagsLoading } = useTags();
 
   const onNewTagAdded = (newTag: Tag) => {
     const currentTags = watch("tags");

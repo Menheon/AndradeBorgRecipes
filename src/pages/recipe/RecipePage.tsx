@@ -1,10 +1,8 @@
-import { RECIPE_QUERY_TAG, getRecipeDocumentById } from "@/data/recipesService";
 import { useNavigate, useParams } from "react-router-dom";
 import { StrikeableStep } from "../all-recipes/components/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../all-recipes/components/RemovableTag";
 import { useMediaQuery } from "@/util/useMediaQuery";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog";
 import { useAuth } from "@/store/AuthProvider";
@@ -14,9 +12,10 @@ import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
 import { translations } from "@/i18n";
 import { PlatformSupportedLanguages } from "@/types/models";
 import { useTranslation } from "react-i18next";
+import { useRecipe } from "@/hooks/useRecipes";
 
 export const RecipePage = () => {
-  const { recipeId } = useParams();
+  const { recipeId = "" } = useParams();
   const isMinMediumScreen = useMediaQuery("minMd");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -30,22 +29,8 @@ export const RecipePage = () => {
     });
   }, []);
 
-  const getRecipeDocument = async () => {
-    const recipeDocument = await getRecipeDocumentById(recipeId ?? "");
-    return recipeDocument;
-  };
-
   // TODO - implement pretty skeleton loader for loading and fetching.
-  const {
-    data: recipe,
-    isSuccess,
-    isError,
-    isFetching,
-  } = useQuery({
-    queryKey: [`${RECIPE_QUERY_TAG}-${recipeId}`],
-    queryFn: getRecipeDocument,
-    refetchOnWindowFocus: false,
-  });
+  const { data: recipe, isSuccess, isError, isFetching } = useRecipe(recipeId);
 
   const { t, i18n } = useTranslation();
   const recipeTranslations = useMemo(

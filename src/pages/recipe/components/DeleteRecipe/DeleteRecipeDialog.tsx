@@ -1,12 +1,9 @@
-import { deleteRecipeDocument, RECIPES_QUERY_TAG } from "@/data/recipesService";
 import { translations } from "@/i18n";
-import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
 import { BaseDialog } from "@/shared/BaseDialog";
 import { PlatformSupportedLanguages, Recipe } from "@/types/models";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useDeleteRecipe } from "@/hooks/useRecipes";
 
 type Props = {
   isOpen: boolean;
@@ -15,20 +12,10 @@ type Props = {
 };
 
 export const DeleteRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
-  const postDeleteRecipeMutation = useMutation({
-    mutationFn: deleteRecipeDocument,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [RECIPES_QUERY_TAG] });
-    },
-  });
+  const deleteRecipeMutation = useDeleteRecipe();
 
   const handleDeleteRecipe = () => {
-    postDeleteRecipeMutation.mutate(recipe);
-    navigate(ALL_RECIPES_PATH);
+    deleteRecipeMutation.mutate(recipe);
     onClose();
   };
 

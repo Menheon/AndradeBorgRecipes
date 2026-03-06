@@ -8,6 +8,10 @@ interface Props {
   recipe: Recipe;
 }
 
+/**
+ * Recipe card component with hover prefetching for faster navigation.
+ * @param recipe - The recipe data to display
+ */
 export const RecipeItem = ({ recipe }: Props) => {
   const navigate = useNavigate();
 
@@ -19,7 +23,7 @@ export const RecipeItem = ({ recipe }: Props) => {
 
   return (
     <button
-      className="group shadow-card focus-visible:base-outline hover:shadow-card-hover flex h-full min-h-[420px] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:z-10 hover:scale-[1.02] active:scale-[0.98] md:min-h-[460px]"
+      className="group shadow-card focus-visible:base-outline hover:shadow-card-hover flex h-full min-h-105 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:z-10 hover:scale-[1.02] active:scale-[0.98] md:min-h-115"
       onClick={onRecipeItemClicked}
     >
       {/* Image Container */}

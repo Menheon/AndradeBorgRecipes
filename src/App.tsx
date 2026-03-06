@@ -12,7 +12,7 @@ const App = () => {
       <AuthContextProvider>
         <BrowserRouter>
           <AppBar />
-          <main className="pt-[60px]">
+          <main className="pt-15">
             <AppRoutes />
           </main>
           <footer className="mt-4 h-4 w-full" />

@@ -9,14 +9,7 @@ import {
 } from "react-hook-form";
 import { PlatformSupportedLanguages, Recipe, Tag } from "@/types/models";
 import { NewRecipeSections } from "./NewRecipeSections";
-import {
-  RECIPES_QUERY_TAG,
-  TAGS_QUERY_TAG,
-  createNewRecipeDocument,
-  getAllRecipeTags,
-} from "@/data/recipesService";
 import { RemovableTag } from "./RemovableTag";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { recipesStorage } from "@/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UploadedImage } from "@/pages/xr-sizer/types";
@@ -25,6 +18,7 @@ import { translations } from "@/i18n";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import AutocompleteMultiSelectField from "@/shared/form-components/AutocompleteMultiSelectField";
+import { useCreateRecipe, useTags } from "@/hooks/useRecipes";
 
 export interface CreateRecipeFormData extends Recipe {
   uploadedImage?: UploadedImage;
@@ -52,16 +46,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
   });
   const { watch, control, handleSubmit, setValue } = methods;
 
-  const queryClient = useQueryClient();
-
-  const postNewRecipeMutation = useMutation({
-    mutationFn: createNewRecipeDocument,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [RECIPES_QUERY_TAG] });
-      queryClient.invalidateQueries({ queryKey: [TAGS_QUERY_TAG] });
-    },
-  });
+  const createRecipeMutation = useCreateRecipe();
 
   const handleCreateNewRecipe: SubmitHandler<CreateRecipeFormData> = async (
     data,
@@ -79,7 +64,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
         console.log("error", error);
       }
     }
-    postNewRecipeMutation.mutate(data);
+    createRecipeMutation.mutate(data);
     closeDialog();
   };
 
@@ -109,11 +94,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
     );
   };
 
-  const { data: existingTags, isLoading: isTagsLoading } = useQuery({
-    queryKey: [TAGS_QUERY_TAG],
-    queryFn: getAllRecipeTags,
-    refetchOnWindowFocus: false,
-  });
+  const { data: existingTags, isLoading: isTagsLoading } = useTags();
 
   const onNewTagAdded = (newTag: Tag) => {
     const currentTags = watch("tags");

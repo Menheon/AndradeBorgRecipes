@@ -1,15 +1,14 @@
 import AddIcon from "@/assets/add.svg?react";
 import { RecipeItem } from "./components/RecipeItem";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { RECIPES_QUERY_TAG, getAllRecipes } from "@/data/recipesService";
 import { PlatformSupportedLanguages, Recipe } from "@/types/models";
 import { CreateRecipeDialog } from "./components/CreateRecipeDialog";
 import { RecipeSearchField } from "./components/RecipeSearchField";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/store/AuthProvider";
 import { translations } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { RecipeItemSkeleton } from "./components/RecipeItemSkeleton";
+import { useRecipes } from "@/hooks/useRecipes";
 
 export const AllRecipesPage = () => {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
@@ -22,15 +21,11 @@ export const AllRecipesPage = () => {
     isLoading: isLoadingRecipes,
     isSuccess: isRecipesQuerySuccess,
     isError: isRecipesQueryError,
-  } = useQuery({
-    queryKey: [RECIPES_QUERY_TAG],
-    queryFn: getAllRecipes,
-    refetchOnWindowFocus: false,
-  });
+  } = useRecipes();
 
-  const initializeRecipes = useCallback(async () => {
-    if (!isRecipesQuerySuccess) return;
-    const sortedRecipes = recipes.sort(
+  const initializeRecipes = useCallback(() => {
+    if (!isRecipesQuerySuccess || !recipes) return;
+    const sortedRecipes = [...recipes].sort(
       (a, b) => b.creationDate.getTime() - a.creationDate.getTime(),
     );
     setAllRecipes(sortedRecipes);

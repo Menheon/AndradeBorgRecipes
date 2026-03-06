@@ -16,11 +16,7 @@ import { translations } from "@/i18n";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import AutocompleteMultiSelectField from "./AutocompleteMultiSelectField";
-import { useQuery } from "@tanstack/react-query";
-import {
-  getAllIngredients,
-  INGREDIENTS_QUERY_TAG,
-} from "@/data/recipesService";
+import { useIngredients } from "@/hooks/useRecipes";
 
 interface Props {
   section: number;
@@ -84,11 +80,7 @@ export const IngredientsTable = ({ section }: Props) => {
     setValue("sections", sections);
   };
 
-  const { data: existingIngredients } = useQuery({
-    queryKey: [INGREDIENTS_QUERY_TAG],
-    queryFn: getAllIngredients,
-    refetchOnWindowFocus: false,
-  });
+  const { data: existingIngredients } = useIngredients();
   const sortedIngredients = useMemo(
     () =>
       existingIngredients?.sort((i1, i2) => i1.name.localeCompare(i2.name)) ??
