@@ -17,7 +17,7 @@ export const RecipeItem = ({ recipe }: Props) => {
       to={generatePath(RECIPE_ITEM_PATH, { recipeId: recipe.id ?? "" })}
       tabIndex={-1}
     >
-      <button className="group shadow-card focus-visible:base-outline hover:shadow-card-hover flex h-full min-h-105 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:z-10 hover:scale-[1.02] active:scale-[0.98] md:min-h-115">
+      <button className="group shadow-card focus-visible:base-outline hover:shadow-card-hover flex h-full min-h-105 w-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:z-10 hover:scale-[1.02] active:scale-[0.98] md:min-h-115">
         {/* Image Container */}
         <div className="relative h-48 w-full overflow-hidden bg-neutral-200 md:h-56">
           <img
