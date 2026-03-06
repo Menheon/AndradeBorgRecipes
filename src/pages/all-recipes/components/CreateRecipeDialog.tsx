@@ -7,12 +7,16 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { PlatformSupportedLanguages, Recipe, Tag } from "@/types/models";
+import {
+  PlatformSupportedLanguages,
+  Recipe,
+  Tag,
+  UploadedImage,
+} from "@/types/models";
 import { NewRecipeSections } from "./NewRecipeSections";
 import { RemovableTag } from "./RemovableTag";
 import { recipesStorage } from "@/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { UploadedImage } from "@/pages/xr-sizer/types";
 import { FileInputField } from "@/shared/form-components/FileInputField";
 import { translations } from "@/i18n";
 import { useMemo } from "react";

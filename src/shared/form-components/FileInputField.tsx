@@ -1,4 +1,4 @@
-import { UploadedImage } from "@/pages/xr-sizer/types";
+import { UploadedImage } from "@/types/models";
 import { forwardRef, useEffect, useState } from "react";
 
 type Props = {

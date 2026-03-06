@@ -4,12 +4,11 @@ import MenuIcon from "@/assets/menu.svg?react";
 import { useMediaQuery } from "@/util/useMediaQuery";
 import { useMemo, useState } from "react";
 import CloseIcon from "@/assets/close.svg?react";
-import { Link, matchPath, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   EMPTY_MY_FRIDGE_PATH,
   INSPIRATION_PATH,
   ALL_RECIPES_PATH,
-  XR_SIZER,
 } from "./AppRoutes";
 import { AppBarProfileStatus } from "./profile/AppBarProfileStatus";
 import { translations } from "@/i18n";
@@ -20,7 +19,6 @@ export const AppBar = () => {
   const isMinLargeScreen = useMediaQuery("minLg");
   const isMinSmallScreen = useMediaQuery("minSm");
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [isUsingMobileMenu, setIsUsingMobileMenu] = useState(false);
 
@@ -28,26 +26,11 @@ export const AppBar = () => {
     setIsUsingMobileMenu(true);
   };
 
-  const [pressTimer, setPressTimer] = useState<NodeJS.Timeout>();
-  const handleTouchStart = () => {
-    setPressTimer(setTimeout(() => navigate(XR_SIZER), 3000));
-  };
-
-  const handleTouchEnd = () => {
-    clearTimeout(pressTimer);
-  };
-
   const { t, i18n } = useTranslation();
   const appBarTranslations = useMemo(
     () => translations[i18n.language as PlatformSupportedLanguages].navigation,
     [i18n.language],
   );
-
-  const isXrSizer = matchPath(location.pathname, XR_SIZER);
-
-  if (isXrSizer) {
-    return <div />;
-  }
 
   return (
     <nav className="fixed z-50 w-full border-b border-neutral-200 bg-white/95 shadow-sm backdrop-blur-md">
@@ -110,13 +93,7 @@ export const AppBar = () => {
               to={ALL_RECIPES_PATH}
               className="rounded-lg p-1 transition-colors hover:bg-neutral-100"
             >
-              <Logo
-                className="text-primary-600 h-8 w-auto fill-current"
-                onMouseDown={handleTouchStart}
-                onMouseUp={handleTouchEnd}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-              />
+              <Logo className="text-primary-600 h-8 w-auto fill-current" />
             </Link>
           </div>
         )}
@@ -141,13 +118,7 @@ export const AppBar = () => {
       {isMinLargeScreen && (
         <div className="absolute top-2 right-0 left-0 z-10 mx-auto w-48 rounded-xl border border-neutral-200 bg-white p-3 shadow-lg">
           <Link to={ALL_RECIPES_PATH}>
-            <Logo
-              className="text-primary-600 hover:text-primary-500 -ml-0.5 w-full fill-current transition-colors"
-              onMouseDown={handleTouchStart}
-              onMouseUp={handleTouchEnd}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-            />
+            <Logo className="text-primary-600 hover:text-primary-500 -ml-0.5 w-full fill-current transition-colors" />
           </Link>
         </div>
       )}

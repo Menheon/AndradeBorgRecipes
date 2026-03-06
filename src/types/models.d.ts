@@ -52,3 +52,8 @@ export type User = {
   email: string;
   preferredLanguage: PlatformSupportedLanguages;
 };
+
+export type UploadedImage = {
+  value: string;
+  file: File | undefined;
+};
