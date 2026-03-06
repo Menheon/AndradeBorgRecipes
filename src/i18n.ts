@@ -210,7 +210,7 @@ export const translations: Translations = {
     pages: {
       recipes: {
         documentTitle: "Andrade & Borg Recipes",
-        allRecipes: "All recipes",
+        allRecipes: "Our recipes",
         loadingRecipes: "Loading recipes...",
         loadError: "Failed to load recipes",
         noMatchingRecipes: "Whoops! No recipes matching your search...",
