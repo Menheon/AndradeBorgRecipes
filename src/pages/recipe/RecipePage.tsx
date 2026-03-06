@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 
 export const RecipePage = () => {
   const { recipeId } = useParams();
-  const isMinMediumScreen = useMediaQuery("md");
+  const isMinMediumScreen = useMediaQuery("minMd");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { storedUserData } = useAuth();
@@ -66,7 +66,7 @@ export const RecipePage = () => {
     <div className="py-8 md:px-8 lg:px-32 xl:px-40 2xl:px-72">
       {isFetching && (
         <div className="absolute inset-0 flex h-dvh items-center justify-center">
-          <p className="text-center font-caveat text-6xl font-bold tracking-wider">
+          <p className="font-caveat text-center text-6xl font-bold tracking-wider">
             {t(recipeTranslations.loadingRecipe)}
           </p>
         </div>
@@ -80,18 +80,18 @@ export const RecipePage = () => {
 
       {isSuccess && recipe && (
         <div
-          className="relative flex min-h-[750px] flex-col overflow-auto rounded-xl border-2 border-brown-600 bg-cream-200 shadow-lg"
+          className="border-brown-600 bg-cream-200 relative flex min-h-187.5 flex-col overflow-auto rounded-xl border-2 shadow-lg"
           style={{
             viewTransitionName: `recipe-container-${recipe.id}`,
           }}
         >
           <h1
-            className="text-darkGreen mt-2 p-4 text-center font-caveat text-5xl font-bold tracking-wider"
+            className="text-darkGreen font-caveat mt-2 p-4 text-center text-5xl font-bold tracking-wider"
             style={{
               viewTransitionName: `recipe-title-${recipe.id}`,
             }}
           >
-            <div className="absolute left-0 top-0">
+            <div className="absolute top-0 left-0">
               <IconButton
                 icon="chevron-left"
                 onClick={() => navigate(ALL_RECIPES_PATH)}
@@ -101,7 +101,7 @@ export const RecipePage = () => {
             {recipe.name}
           </h1>
           {(storedUserData?.isAdmin || location.hostname === "localhost") && (
-            <div className="absolute right-1 top-1 flex">
+            <div className="absolute top-1 right-1 flex">
               <IconButton
                 icon="edit"
                 onClick={() => setIsEditDialogOpen(true)}
@@ -124,14 +124,14 @@ export const RecipePage = () => {
             </div>
           )}
           <hr
-            className="mb-4 w-3/4 self-center border-t-2 border-brown-600"
+            className="border-brown-600 mb-4 w-3/4 self-center border-t-2"
             style={{
               viewTransitionName: `recipe-title-bar-${recipe.id}`,
             }}
           />
           {!isMinMediumScreen && (
             <img
-              className="max-h-80 w-full border-y-2 border-brown-600 object-cover"
+              className="border-brown-600 max-h-80 w-full border-y-2 object-cover"
               src={recipe.imageUrl}
               style={{
                 viewTransitionName: `recipe-img-${recipe.id}`,
@@ -142,7 +142,7 @@ export const RecipePage = () => {
           <div className="flex">
             {isMinMediumScreen && (
               <img
-                className="h-full w-1/2 rounded-r-xl border-y-2 border-r-2 border-brown-600 object-cover"
+                className="border-brown-600 h-full w-1/2 rounded-r-xl border-y-2 border-r-2 object-cover"
                 src={recipe.imageUrl}
                 style={{
                   viewTransitionName: `recipe-img-${recipe.id}`,
@@ -160,7 +160,7 @@ export const RecipePage = () => {
                 {recipe.description}
               </p>
               <div
-                className="mb-0 mt-auto flex gap-1"
+                className="mt-auto mb-0 flex gap-1"
                 style={{
                   viewTransitionName: `recipe-tags-${recipe.id}`,
                 }}
@@ -174,17 +174,17 @@ export const RecipePage = () => {
             </div>
           </div>
 
-          <div className="mt-6 h-full flex-1 rounded-xl border border-t-2 border-brown-600 bg-cream-100 py-2">
+          <div className="border-brown-600 bg-cream-100 mt-6 h-full flex-1 rounded-xl border border-t-2 py-2">
             {recipe.sections.map((section) => (
               <div
-                className="grid grid-cols-1 gap-2 xs:grid-cols-2"
+                className="xs:grid-cols-2 grid grid-cols-1 gap-2"
                 key={section.title}
               >
-                <h3 className="col-span-2 px-5 text-center font-caveat text-2xl font-semibold">
+                <h3 className="font-caveat col-span-2 px-5 text-center text-2xl font-semibold">
                   {section.title}
                 </h3>
-                <div className="col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
-                  <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
+                <div className="xs:col-span-1 col-span-2 rounded-lg px-5 pb-2">
+                  <h4 className="text-md text-darkGreen pb-2 font-semibold tracking-wider uppercase">
                     {t(recipeTranslations.ingredients)}
                   </h4>
                   <ul className="list-inside list-disc">
@@ -203,8 +203,8 @@ export const RecipePage = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="col-span-2 rounded-lg px-5 pb-2 xs:col-span-1">
-                  <h4 className="text-md text-darkGreen pb-2 font-semibold uppercase tracking-wider">
+                <div className="xs:col-span-1 col-span-2 rounded-lg px-5 pb-2">
+                  <h4 className="text-md text-darkGreen pb-2 font-semibold tracking-wider uppercase">
                     {t(recipeTranslations.steps)}
                   </h4>
                   <div>

@@ -56,44 +56,10 @@ export const FileInputField = forwardRef(
         <label htmlFor="image_upload" className="text-md font-semibold">
           {label}
         </label>
-        <div
-          className="flex
-            h-9
-            w-full
-            items-center
-            gap-2
-            rounded-md
-            border-2
-            border-brown-600
-            bg-grey-150
-            shadow-sm
-            outline-none"
-        >
+        <div className="border-brown-600 bg-grey-150 flex h-9 w-full items-center gap-2 rounded-md border-2 shadow-xs outline-hidden">
           <button
             onClick={onFakeUploadButtonClick}
-            className="
-            h-full
-            w-fit
-            rounded-l-sm
-            rounded-r-md
-            border-2
-            border-none
-            border-brown-600 
-            bg-brown-500
-            px-3 
-            py-1 
-            text-grey-150
-            outline-none
-            ring-2
-            ring-inset
-            ring-brown-500
-            hover:cursor-pointer
-            hover:bg-brown-600
-            hover:ring-brown-600
-            focus-visible:outline-none 
-            focus-visible:ring-2
-            focus-visible:ring-inset
-            focus-visible:ring-brown-300"
+            className="border-brown-600 bg-brown-500 text-grey-150 ring-brown-500 hover:bg-brown-600 hover:ring-brown-600 focus-visible:ring-brown-300 h-full w-fit rounded-l-sm rounded-r-md border-2 border-none px-3 py-1 ring-2 outline-hidden ring-inset hover:cursor-pointer focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset"
           >
             {buttonTitle}
           </button>

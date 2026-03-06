@@ -47,7 +47,7 @@ const Countdown = () => {
   }, [isActive, count]);
 
   return (
-    <div className="flex select-none items-center gap-2">
+    <div className="flex items-center gap-2 select-none">
       <button
         onClick={() => regulateTimer("subtract")}
         className="h-10 w-10 rounded-lg text-xl ring-2 ring-orange-500 transition-colors hover:ring-orange-600"
@@ -56,11 +56,7 @@ const Countdown = () => {
       </button>
       <button
         onClick={() => setIsActive((currentState) => !currentState)}
-        className="
-          rounded-lg
-          focus-visible:outline-none
-          focus-visible:ring-2 
-          focus-visible:ring-orange-600"
+        className="rounded-lg focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:outline-hidden"
       >
         {isActive ? (
           <PauseIcon className="h-12 w-12 fill-orange-500 transition-colors hover:fill-orange-600" />
@@ -69,17 +65,13 @@ const Countdown = () => {
         )}
       </button>
       <p
-        className={`w-24 text-center  text-5xl font-bold ${count === 0 ? "text-red-600 animate-bounce" : "text-orange-600"}`}
+        className={`w-24 text-center text-5xl font-bold ${count === 0 ? "animate-bounce text-red-600" : "text-orange-600"}`}
       >
         {count}
       </p>
       <button
         onClick={resetTimer}
-        className="
-          rounded-lg
-          focus-visible:outline-none
-          focus-visible:ring-2 
-          focus-visible:ring-orange-600"
+        className="rounded-lg focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:outline-hidden"
       >
         <TimerResetIcon className="h-12 w-12 fill-orange-500 transition-colors hover:fill-orange-600" />
       </button>

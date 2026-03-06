@@ -1,7 +1,64 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-grey-100: #ffffff;
+  --color-grey-150: #f2f2f2;
+  --color-grey-200: #dadce4;
+  --color-grey-500: #abadb4;
+  --color-grey-600: #87888d;
+  --color-grey-700: #6e6f74;
+  --color-grey-900: #131414;
+  --color-brown-100: #d1ccc8;
+  --color-brown-200: #bfbab6;
+  --color-brown-300: #a29c98;
+  --color-brown-500: #49433e;
+  --color-brown-600: #36312d;
+  --color-orange-100: #fff0b5;
+  --color-orange-500: #feb743;
+  --color-orange-600: #fd8306;
+  --color-cream-100: #fefaef;
+  --color-cream-200: #e3e0d6;
+
+  /* Font families */
+  --font-caveat: "Caveat", ui-sans-serif, system-ui, sans-serif;
+  --font-nunito: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-russo-one: "Russo One", ui-sans-serif, system-ui, sans-serif;
+
+  /* Custom breakpoints */
+  --breakpoint-2xs: 300px;
+  --breakpoint-xs: 540px;
+}
+
+/* Custom variant for search cancel button */
+@variant search-cancel (&::-webkit-search-cancel-button);
+
+/* Custom component */
+@utility base-outline {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 2px;
+  outline-color: #36312d;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 body {
-  font-family: "Nunito sans";
+  font-family: "Nunito Sans";
 }

@@ -10,20 +10,20 @@ export const Exercises = ({ workout }: Props) => {
       {workout.exercises.map((userExercise) => (
         <div
           key={userExercise.id}
-          className="my-2 flex items-center justify-center rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 p-1 shadow-md"
+          className="my-2 flex items-center justify-center rounded-lg bg-linear-to-r from-orange-500 to-orange-600 p-1 shadow-md"
         >
-          <div className="bg-white flex h-36 w-full items-center gap-4 rounded-md px-2">
+          <div className="flex h-36 w-full items-center gap-4 rounded-md bg-white px-2">
             <img
               src={userExercise.exercise.image}
               alt={userExercise.exercise.name}
-              className="h-32 w-32 rounded-md shadow"
+              className="h-32 w-32 rounded-md shadow-sm"
             />
             <div className="flex flex-1 flex-col py-1">
-              <h2 className="text-2xl font-bold ">
+              <h2 className="text-2xl font-bold">
                 {userExercise.exercise.name}
               </h2>
               <div className="flex gap-1">
-                <p className="text-md text-slate-400 pl-2 font-bold italic">
+                <p className="text-md pl-2 font-bold text-slate-400 italic">
                   {userExercise.minReps} - {userExercise.maxReps} reps of{" "}
                   {userExercise.sets} sets
                 </p>

@@ -28,7 +28,7 @@ interface Props {
 }
 
 export const IngredientsTable = ({ section }: Props) => {
-  const isScreenMinExtraSmall = useMediaQuery("xs");
+  const isScreenMinExtraSmall = useMediaQuery("minXs");
   const methods = useFormContext<CreateRecipeFormData>();
   const { watch, setValue } = methods;
   const sections = watch("sections");
@@ -137,27 +137,15 @@ export const IngredientsTable = ({ section }: Props) => {
                 <td className="p-0 pr-1">
                   <button
                     type="button"
-                    className="
-                      mb-1 
-                      flex 
-                      h-12 
-                      cursor-pointer 
-                      items-center 
-                      rounded-l 
-                      bg-brown-300 
-                      p-2
-                      focus-visible:outline-none
-                      focus-visible:ring
-                      focus-visible:ring-inset 
-                      focus-visible:ring-brown-100"
+                    className="bg-brown-300 focus-visible:ring-brown-100 mb-1 flex h-12 cursor-pointer items-center rounded-l p-2 focus-visible:ring-3 focus-visible:outline-hidden focus-visible:ring-inset"
                     onClick={() => removeIngredientLine(index)}
                   >
-                    <CloseIcon className="h-7 w-7 fill-brown-600 transition-colors hover:fill-brown-500" />
+                    <CloseIcon className="fill-brown-600 hover:fill-brown-500 h-7 w-7 transition-colors" />
                   </button>
                 </td>
 
                 <td className="p-0">
-                  <div className="mb-1 flex h-12 items-center bg-brown-300 px-1.5">
+                  <div className="bg-brown-300 mb-1 flex h-12 items-center px-1.5">
                     {value.ingredient.name ? (
                       <>
                         <div className="flex-1">
@@ -168,7 +156,7 @@ export const IngredientsTable = ({ section }: Props) => {
                             placeholder={""}
                           />
                         </div>
-                        <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-grey-150 shadow-sm hover:bg-brown-100">
+                        <div className="border-brown-600 bg-grey-150 hover:bg-brown-100 ml-0.5 rounded-md border-2 shadow-xs">
                           <IconButton
                             icon="close"
                             onClick={(event) => {
@@ -204,7 +192,7 @@ export const IngredientsTable = ({ section }: Props) => {
                 </td>
 
                 <td className="p-0">
-                  <div className="mb-1 flex h-12 items-center bg-brown-300 px-1.5">
+                  <div className="bg-brown-300 mb-1 flex h-12 items-center px-1.5">
                     <FloatInputField
                       value={value.amount?.toString() ?? ""}
                       onChange={(value) =>
@@ -216,7 +204,7 @@ export const IngredientsTable = ({ section }: Props) => {
                 </td>
 
                 <td className="p-0">
-                  <div className="mb-1 flex h-12 items-center rounded-r bg-brown-300 px-1.5">
+                  <div className="bg-brown-300 mb-1 flex h-12 items-center rounded-r px-1.5">
                     <SelectField
                       placeholder={t(ingredientsTranslations.selectUnit)}
                       options={getAllUnits()}
@@ -237,32 +225,14 @@ export const IngredientsTable = ({ section }: Props) => {
         sections[section].ingredients.map((value, index) => (
           <div
             key={value.id ?? index}
-            className="
-              relative
-              mb-2
-              mt-1
-              flex
-              w-full
-              flex-col
-              gap-1
-              rounded-md
-              bg-brown-300
-              p-2"
+            className="bg-brown-300 relative mt-1 mb-2 flex w-full flex-col gap-1 rounded-md p-2"
           >
             <button
               type="button"
               onClick={() => removeIngredientLine(index)}
-              className="
-                absolute
-                right-1
-                top-1
-                rounded-full
-                transition-colors 
-                focus-visible:outline-none 
-                focus-visible:ring-2 
-                focus-visible:ring-brown-600"
+              className="focus-visible:ring-brown-600 absolute top-1 right-1 rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-hidden"
             >
-              <CloseIcon className="h-6 w-6 fill-brown-600 hover:fill-brown-500" />
+              <CloseIcon className="fill-brown-600 hover:fill-brown-500 h-6 w-6" />
             </button>
 
             <label>{t(ingredientsTranslations.name)}</label>
@@ -277,7 +247,7 @@ export const IngredientsTable = ({ section }: Props) => {
                       placeholder={""}
                     />
                   </div>
-                  <div className="ml-0.5 rounded-md border-2 border-brown-600 bg-grey-150 hover:bg-brown-100">
+                  <div className="border-brown-600 bg-grey-150 hover:bg-brown-100 ml-0.5 rounded-md border-2">
                     <IconButton
                       icon="close"
                       onClick={(event) => {

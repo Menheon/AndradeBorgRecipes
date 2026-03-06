@@ -45,15 +45,15 @@ export const BaseDialog = ({
 
   return (
     <dialog
-      className="shadow-3xl my-8 w-2/3 min-w-fit max-w-full rounded-xl bg-grey-100 backdrop:bg-grey-900/50 backdrop:backdrop-blur-sm"
+      className="shadow-3xl bg-grey-100 backdrop:bg-grey-900/50 w-full max-w-full min-w-fit justify-self-center rounded-xl backdrop:backdrop-blur-xs md:mx-10 md:my-8 md:w-2/3"
       ref={dialogRef}
       onClose={onClose}
     >
       <form method="dialog" className="p-6">
         <div className="mb-1">
           {/* TODO implement Typography component*/}
-          <h1 className="font-[system-ui] text-2xl  font-bold">{title}</h1>
-          <div className="absolute right-1 top-1">
+          <h1 className="font-[system-ui] text-2xl font-bold">{title}</h1>
+          <div className="absolute top-1 right-1">
             <IconButton icon="close" onClick={onClose} />
           </div>
           <p>{description}</p>

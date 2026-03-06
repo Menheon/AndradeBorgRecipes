@@ -24,19 +24,7 @@ export const SelectField = <T,>({
     <select
       value={selectedOption ? getValue(selectedOption) : ""}
       onChange={handleValueSelected}
-      className="
-        w-full
-        cursor-pointer
-        rounded-md
-        border-2 
-        border-brown-600 
-        bg-grey-150 
-        px-2
-        py-1
-        outline-none
-        focus-visible:ring
-        focus-visible:ring-brown-100
-      "
+      className="border-brown-600 bg-grey-150 focus-visible:ring-brown-100 w-full cursor-pointer rounded-md border-2 px-2 py-1 outline-hidden focus-visible:ring-3"
     >
       <option value="" disabled>
         {placeholder}

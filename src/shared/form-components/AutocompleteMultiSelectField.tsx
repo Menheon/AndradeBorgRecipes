@@ -123,41 +123,17 @@ export const AutocompleteMultiSelectField = <T,>({
           ref={refs.setFloating}
           style={floatingStyles}
           {...getFloatingProps()}
-          className="
-            shadow-black/50
-            z-10
-            mb-2 
-            max-h-80
-            overflow-y-auto
-            rounded-md
-            bg-brown-300
-            shadow-md"
+          className="bg-brown-300 z-10 mb-2 max-h-80 overflow-y-auto rounded-md shadow-md shadow-black/50"
         >
           {filteredOptions.map((option) => (
             <li
               key={getOptionId(option)}
-              className="
-                  overflow-clip
-                  first:rounded-t-md
-                  last:rounded-b-md"
+              className="overflow-clip first:rounded-t-md last:rounded-b-md"
             >
               <button
                 id={keyPrefix + getOptionValue(option)}
                 onClick={() => handleOptionSelected(option)}
-                className="
-                  text-white
-                  w-full
-                  cursor-pointer
-                  rounded-md
-                  bg-brown-300
-                  p-2
-                  text-left
-                  hover:bg-brown-100
-                  hover:text-brown-600
-                  focus-visible:outline
-                  focus-visible:outline-2
-                  focus-visible:-outline-offset-2
-                  focus-visible:outline-brown-100"
+                className="bg-brown-300 hover:bg-brown-100 hover:text-brown-600 focus-visible:outline-brown-100 w-full cursor-pointer rounded-md p-2 text-left text-white focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-solid"
               >
                 {getOptionValue(option)}
               </button>
@@ -165,29 +141,11 @@ export const AutocompleteMultiSelectField = <T,>({
           ))}
 
           {!isCreateButtonDisabled() && (
-            <li
-              className="
-                  overflow-clip
-                  rounded-b-md
-                  first:rounded-t-md"
-            >
+            <li className="overflow-clip rounded-b-md first:rounded-t-md">
               <button
                 id={`${keyPrefix}create`}
                 onClick={handleOptionAdded}
-                className="
-                    text-white
-                    w-full
-                    cursor-pointer
-                    rounded-md
-                    bg-brown-300
-                    p-2
-                    text-left
-                    hover:bg-brown-100
-                    hover:text-brown-600
-                    focus-visible:outline
-                    focus-visible:outline-2
-                    focus-visible:-outline-offset-2
-                    focus-visible:outline-brown-100"
+                className="bg-brown-300 hover:bg-brown-100 hover:text-brown-600 focus-visible:outline-brown-100 w-full cursor-pointer rounded-md p-2 text-left text-white focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-solid"
               >
                 {createNewOptionLabel} "<i>{inputValue}</i>"
               </button>
