@@ -69,7 +69,7 @@ const Countdown = () => {
         )}
       </button>
       <p
-        className={`w-24 text-center  text-5xl font-bold ${count === 0 ? "animate-bounce text-red-600" : "text-orange-600"}`}
+        className={`w-24 text-center  text-5xl font-bold ${count === 0 ? "text-red-600 animate-bounce" : "text-orange-600"}`}
       >
         {count}
       </p>

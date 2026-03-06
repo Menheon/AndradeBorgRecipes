@@ -12,7 +12,7 @@ export const Exercises = ({ workout }: Props) => {
           key={userExercise.id}
           className="my-2 flex items-center justify-center rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 p-1 shadow-md"
         >
-          <div className="flex h-36 w-full items-center gap-4 rounded-md bg-white px-2">
+          <div className="bg-white flex h-36 w-full items-center gap-4 rounded-md px-2">
             <img
               src={userExercise.exercise.image}
               alt={userExercise.exercise.name}
@@ -23,7 +23,7 @@ export const Exercises = ({ workout }: Props) => {
                 {userExercise.exercise.name}
               </h2>
               <div className="flex gap-1">
-                <p className="text-md pl-2 font-bold italic text-slate-400">
+                <p className="text-md text-slate-400 pl-2 font-bold italic">
                   {userExercise.minReps} - {userExercise.maxReps} reps of{" "}
                   {userExercise.sets} sets
                 </p>

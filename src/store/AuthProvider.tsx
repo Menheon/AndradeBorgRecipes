@@ -1,6 +1,12 @@
 import { auth, createAndRetrieveNewUserDocument } from "@/data/authService";
 import { GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { User as UserModel } from "@/types/models";
 import { useTranslation } from "react-i18next";
 
@@ -80,38 +86,41 @@ export const AuthContextProvider = ({ children }: Props) => {
     }
   };
 
-  const initializeUser = async (user: User) => {
-    const userData = getUserSessionData(user.uid);
+  const initializeUser = useCallback(
+    async (user: User) => {
+      const userData = getUserSessionData(user.uid);
 
-    if (!userData) {
-      const userDocData = await createAndRetrieveNewUserDocument({
-        id: user.uid,
-        isAdmin: false,
-        email: user.email ?? "",
-        preferredLanguage: navigator.language === "da" ? "da" : "en",
-      });
-      i18n.changeLanguage(userDocData.preferredLanguage);
+      if (!userData) {
+        const userDocData = await createAndRetrieveNewUserDocument({
+          id: user.uid,
+          isAdmin: false,
+          email: user.email ?? "",
+          preferredLanguage: navigator.language === "da" ? "da" : "en",
+        });
+        i18n.changeLanguage(userDocData.preferredLanguage);
 
-      setUserSessionData({
-        ...userDocData,
-        id: user.uid,
-      });
-      setCurrentUser(({ googleUserData: googleData }) => ({
-        googleUserData: googleData,
-        storedUserData: {
+        setUserSessionData({
           ...userDocData,
-        },
-      }));
-    } else {
-      setCurrentUser(({ googleUserData: googleData }) => ({
-        googleUserData: googleData,
-        storedUserData: {
-          ...userData,
-        },
-      }));
-      i18n.changeLanguage(userData.preferredLanguage);
-    }
-  };
+          id: user.uid,
+        });
+        setCurrentUser(({ googleUserData: googleData }) => ({
+          googleUserData: googleData,
+          storedUserData: {
+            ...userDocData,
+          },
+        }));
+      } else {
+        setCurrentUser(({ googleUserData: googleData }) => ({
+          googleUserData: googleData,
+          storedUserData: {
+            ...userData,
+          },
+        }));
+        i18n.changeLanguage(userData.preferredLanguage);
+      }
+    },
+    [i18n],
+  );
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -130,7 +139,7 @@ export const AuthContextProvider = ({ children }: Props) => {
     return () => {
       unsubscribe();
     };
-  }, [isInitLoading]);
+  }, [initializeUser, isInitLoading]);
 
   const handleRegisterOrLogIn = async () => {
     const provider = new GoogleAuthProvider();

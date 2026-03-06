@@ -25,12 +25,12 @@ export const SelectField = <T,>({
       value={selectedOption ? getValue(selectedOption) : ""}
       onChange={handleValueSelected}
       className="
-        bg-grey-150
         w-full
         cursor-pointer
-        rounded-md 
+        rounded-md
         border-2 
         border-brown-600 
+        bg-grey-150 
         px-2
         py-1
         outline-none

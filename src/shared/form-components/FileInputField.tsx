@@ -57,8 +57,7 @@ export const FileInputField = forwardRef(
           {label}
         </label>
         <div
-          className="bg-grey-150
-            flex
+          className="flex
             h-9
             w-full
             items-center
@@ -66,23 +65,24 @@ export const FileInputField = forwardRef(
             rounded-md
             border-2
             border-brown-600
+            bg-grey-150
             shadow-sm
             outline-none"
         >
           <button
             onClick={onFakeUploadButtonClick}
             className="
-            text-grey-150
             h-full
             w-fit
             rounded-l-sm
             rounded-r-md
             border-2
-            border-none 
-            border-brown-600
-            bg-brown-500 
+            border-none
+            border-brown-600 
+            bg-brown-500
             px-3 
-            py-1
+            py-1 
+            text-grey-150
             outline-none
             ring-2
             ring-inset

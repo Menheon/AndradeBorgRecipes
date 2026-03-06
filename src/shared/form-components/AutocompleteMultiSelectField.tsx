@@ -124,14 +124,14 @@ export const AutocompleteMultiSelectField = <T,>({
           style={floatingStyles}
           {...getFloatingProps()}
           className="
+            shadow-black/50
             z-10
-            mb-2
-            max-h-80 
+            mb-2 
+            max-h-80
             overflow-y-auto
             rounded-md
             bg-brown-300
-            shadow-md
-            shadow-black/50"
+            shadow-md"
         >
           {filteredOptions.map((option) => (
             <li
@@ -145,13 +145,13 @@ export const AutocompleteMultiSelectField = <T,>({
                 id={keyPrefix + getOptionValue(option)}
                 onClick={() => handleOptionSelected(option)}
                 className="
+                  text-white
                   w-full
                   cursor-pointer
                   rounded-md
                   bg-brown-300
                   p-2
                   text-left
-                  text-white
                   hover:bg-brown-100
                   hover:text-brown-600
                   focus-visible:outline
@@ -175,13 +175,13 @@ export const AutocompleteMultiSelectField = <T,>({
                 id={`${keyPrefix}create`}
                 onClick={handleOptionAdded}
                 className="
+                    text-white
                     w-full
                     cursor-pointer
                     rounded-md
                     bg-brown-300
                     p-2
                     text-left
-                    text-white
                     hover:bg-brown-100
                     hover:text-brown-600
                     focus-visible:outline
