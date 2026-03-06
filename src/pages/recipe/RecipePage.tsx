@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { StrikeableStep } from "../all-recipes/components/StrikeableStep";
 import { mapUnitToStringFormat } from "@/util/util";
 import { RemovableTag } from "../all-recipes/components/RemovableTag";
@@ -8,19 +8,20 @@ import { DeleteRecipeDialog } from "./components/DeleteRecipe/DeleteRecipeDialog
 import { useAuth } from "@/store/AuthProvider";
 import { IconButton } from "@/shared/form-components/IconButton";
 import { EditRecipeDialog } from "./components/EditRecipe/EditRecipeDialog";
-import { ALL_RECIPES_PATH } from "@/shared/AppRoutes";
 import { translations } from "@/i18n";
 import { PlatformSupportedLanguages } from "@/types/models";
 import { useTranslation } from "react-i18next";
 import { useRecipe } from "@/hooks/useRecipes";
 
+type PageParams = {
+  recipeId: string;
+};
 export const RecipePage = () => {
-  const { recipeId = "" } = useParams();
+  const { recipeId = "" } = useParams<PageParams>();
   const isMinMediumScreen = useMediaQuery("minMd");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { storedUserData } = useAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo({
@@ -66,41 +67,51 @@ export const RecipePage = () => {
       {isSuccess && recipe && (
         <div className="shadow-card relative flex min-h-187.5 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white">
           {/* Header */}
-          <div className="relative border-b border-neutral-100 bg-neutral-50 px-6 py-6">
-            <div className="absolute top-1/2 left-2 -translate-y-1/2">
-              <IconButton
-                icon="chevron-left"
-                onClick={() => navigate(ALL_RECIPES_PATH)}
-                size="lg"
-              />
+          <div className="border-b border-neutral-100 bg-neutral-50 px-4 py-4 sm:px-6 sm:py-5">
+            <div className="flex items-center justify-between gap-3">
+              {/* Title - centered with flex-1 */}
+              <h1 className="font-caveat min-w-0 flex-1 text-3xl font-bold tracking-wide text-neutral-800 sm:text-4xl md:text-5xl">
+                {recipe.name}
+              </h1>
+
+              {/* Action Buttons */}
+              {(storedUserData?.isAdmin ||
+                location.hostname === "localhost") && (
+                <div className="flex flex-col items-center gap-1">
+                  <IconButton
+                    icon="edit"
+                    onClick={() => setIsEditDialogOpen(true)}
+                  />
+                  <IconButton
+                    icon="delete"
+                    onClick={() => setIsDeleteDialogOpen(true)}
+                  />
+                </div>
+              )}
+
+              {/* Spacer when no action buttons - keeps title centered */}
+              {!(
+                storedUserData?.isAdmin || location.hostname === "localhost"
+              ) && <div className="h-10 w-10" />}
             </div>
-            <h1 className="font-caveat text-center text-4xl font-bold tracking-wide text-neutral-800 sm:text-5xl">
-              {recipe.name}
-            </h1>
-            {(storedUserData?.isAdmin || location.hostname === "localhost") && (
-              <div className="absolute top-1/2 right-2 flex -translate-y-1/2 gap-1">
-                <IconButton
-                  icon="edit"
-                  onClick={() => setIsEditDialogOpen(true)}
-                />
-                <EditRecipeDialog
-                  key={new Date().getTime()}
-                  isOpen={isEditDialogOpen}
-                  recipe={recipe}
-                  onClose={() => setIsEditDialogOpen(false)}
-                />
-                <IconButton
-                  icon="delete"
-                  onClick={() => setIsDeleteDialogOpen(true)}
-                />
-                <DeleteRecipeDialog
-                  isOpen={isDeleteDialogOpen}
-                  recipe={recipe}
-                  onClose={() => setIsDeleteDialogOpen(false)}
-                />
-              </div>
-            )}
           </div>
+
+          {/* Dialogs - moved outside header for cleaner code */}
+          {(storedUserData?.isAdmin || location.hostname === "localhost") && (
+            <>
+              <EditRecipeDialog
+                key={new Date().getTime()}
+                isOpen={isEditDialogOpen}
+                recipe={recipe}
+                onClose={() => setIsEditDialogOpen(false)}
+              />
+              <DeleteRecipeDialog
+                isOpen={isDeleteDialogOpen}
+                recipe={recipe}
+                onClose={() => setIsDeleteDialogOpen(false)}
+              />
+            </>
+          )}
 
           {/* Mobile Image */}
           {!isMinMediumScreen && (
