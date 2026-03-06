@@ -22,7 +22,7 @@ export const AppBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isUsingMobileMenu, setIsUsingMobileMenu] = useState(true);
+  const [isUsingMobileMenu, setIsUsingMobileMenu] = useState(false);
 
   const onHamburgerMenuClicked = () => {
     setIsUsingMobileMenu(true);
