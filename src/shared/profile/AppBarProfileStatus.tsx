@@ -37,16 +37,16 @@ export const AppBarProfileStatus = ({ onNavigateToProfile }: Props) => {
           googleUserData?.photoURL ? (
             <div className="relative">
               {storedUserData?.isAdmin && (
-                <CrownIcon className="absolute -right-3 -top-3 size-5 rotate-45" />
+                <CrownIcon className="fill-accent-500 absolute -top-3 -right-3 size-5 rotate-45" />
               )}
               <img
                 src={googleUserData.photoURL}
                 alt="profile-pic"
-                className="ml-0.5 size-7 rounded-full border-2 border-brown-600"
+                className="border-primary-400 ml-0.5 size-7 rounded-full border-2"
               />
             </div>
           ) : (
-            <AccountIcon className="ml-0.5 size-7" />
+            <AccountIcon className="ml-0.5 size-7 fill-neutral-600" />
           )
         }
       >

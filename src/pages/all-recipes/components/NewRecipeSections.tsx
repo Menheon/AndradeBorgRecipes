@@ -59,45 +59,49 @@ export const NewRecipeSections = () => {
   );
 
   return (
-    <div id="recipe-dialog-sections" className="flex flex-col gap-1">
+    <div id="recipe-dialog-sections" className="flex flex-col gap-3">
       {sections.map((section, index) => (
         <div
           key={section.id ?? index}
-          className="relative m-1 flex flex-col gap-1 rounded-md bg-grey-200 p-3 shadow-md"
+          className="relative rounded-xl border border-neutral-200 bg-neutral-50 p-4 shadow-sm"
         >
           <button
             type="button"
             onClick={() => removeSection(index)}
-            className="
-              absolute 
-              right-1
-              top-1 
-              m-1
-              rounded-full
-              transition
-              focus-visible:base-outline"
+            className="focus-visible:base-outline absolute top-2 right-2 rounded-full p-1 transition-colors hover:bg-neutral-200"
           >
-            <CloseIcon className="h-6 w-6 cursor-pointer fill-brown-600 hover:fill-brown-500" />
+            <CloseIcon className="h-5 w-5 fill-neutral-500 transition-colors hover:fill-neutral-700" />
           </button>
-          <div>
-            <h4>{t(createRecipeSectionsTranslations.sectionTitle)}</h4>
-            <TextInputField
-              value={section.title}
-              onChange={(title) => updateSection("title", title, index)}
-              placeholder={t(
-                createRecipeSectionsTranslations.writeSectionTitle,
-              )}
-            />
-          </div>
-          <div>
-            <h4>{t(createRecipeSectionsTranslations.stepsTitle)}</h4>
-            <StepTable sectionIndex={index} />
-          </div>
-          <div>
-            <h4>
-              {t(createRecipeSectionsTranslations.ingredients.ingredientsTitle)}
-            </h4>
-            <IngredientsTable section={index} />
+
+          <div className="space-y-4">
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+                {t(createRecipeSectionsTranslations.sectionTitle)}
+              </label>
+              <TextInputField
+                value={section.title}
+                onChange={(title) => updateSection("title", title, index)}
+                placeholder={t(
+                  createRecipeSectionsTranslations.writeSectionTitle,
+                )}
+              />
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+                {t(createRecipeSectionsTranslations.stepsTitle)}
+              </label>
+              <StepTable sectionIndex={index} />
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+                {t(
+                  createRecipeSectionsTranslations.ingredients.ingredientsTitle,
+                )}
+              </label>
+              <IngredientsTable section={index} />
+            </div>
           </div>
         </div>
       ))}

@@ -24,7 +24,7 @@ export const SelectField = <T,>({
     <select
       value={selectedOption ? getValue(selectedOption) : ""}
       onChange={handleValueSelected}
-      className="border-brown-600 bg-grey-150 focus-visible:ring-brown-100 w-full cursor-pointer rounded-md border-2 px-2 py-1 outline-hidden focus-visible:ring-3"
+      className="focus:border-primary-400 focus:ring-primary-100 w-full cursor-pointer rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-neutral-700 outline-hidden transition-colors focus:ring-2"
     >
       <option value="" disabled>
         {placeholder}

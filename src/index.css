@@ -1,24 +1,70 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
+  /* Modern Warm Palette */
+
+  /* Neutrals - Warm grays */
+  --color-neutral-50: #fafaf9;
+  --color-neutral-100: #f5f5f4;
+  --color-neutral-200: #e7e5e4;
+  --color-neutral-300: #d6d3d1;
+  --color-neutral-400: #a8a29e;
+  --color-neutral-500: #78716c;
+  --color-neutral-600: #57534e;
+  --color-neutral-700: #44403c;
+  --color-neutral-800: #292524;
+  --color-neutral-900: #1c1917;
+
+  /* Primary - Terracotta/Rust */
+  --color-primary-50: #fef3f0;
+  --color-primary-100: #fde5de;
+  --color-primary-200: #fcc9b8;
+  --color-primary-300: #f9a588;
+  --color-primary-400: #f47853;
+  --color-primary-500: #e85a30;
+  --color-primary-600: #d04422;
+  --color-primary-700: #ac361c;
+  --color-primary-800: #8c2f1c;
+  --color-primary-900: #742b1c;
+
+  /* Accent - Golden Amber */
+  --color-accent-50: #fffbeb;
+  --color-accent-100: #fef3c7;
+  --color-accent-200: #fde68a;
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+
+  /* Sage - Complementary green */
+  --color-sage-50: #f6f7f4;
+  --color-sage-100: #e8ebe2;
+  --color-sage-200: #d2d8c6;
+  --color-sage-300: #b4bfa2;
+  --color-sage-400: #96a47d;
+  --color-sage-500: #798761;
+  --color-sage-600: #5e6b4c;
+  --color-sage-700: #4a543d;
+
+  /* Legacy color aliases for backward compatibility */
   --color-grey-100: #ffffff;
-  --color-grey-150: #f2f2f2;
-  --color-grey-200: #dadce4;
-  --color-grey-500: #abadb4;
-  --color-grey-600: #87888d;
-  --color-grey-700: #6e6f74;
-  --color-grey-900: #131414;
-  --color-brown-100: #d1ccc8;
-  --color-brown-200: #bfbab6;
-  --color-brown-300: #a29c98;
-  --color-brown-500: #49433e;
-  --color-brown-600: #36312d;
-  --color-orange-100: #fff0b5;
-  --color-orange-500: #feb743;
-  --color-orange-600: #fd8306;
-  --color-cream-100: #fefaef;
-  --color-cream-200: #e3e0d6;
+  --color-grey-150: #f5f5f4;
+  --color-grey-200: #e7e5e4;
+  --color-grey-500: #a8a29e;
+  --color-grey-600: #78716c;
+  --color-grey-700: #57534e;
+  --color-grey-900: #1c1917;
+  --color-brown-100: #d6d3d1;
+  --color-brown-200: #a8a29e;
+  --color-brown-300: #78716c;
+  --color-brown-500: #44403c;
+  --color-brown-600: #292524;
+  --color-orange-100: #fef3c7;
+  --color-orange-500: #f59e0b;
+  --color-orange-600: #d97706;
+  --color-cream-100: #fafaf9;
+  --color-cream-200: #f5f5f4;
 
   /* Font families */
   --font-caveat: "Caveat", ui-sans-serif, system-ui, sans-serif;
@@ -28,17 +74,35 @@
   /* Custom breakpoints */
   --breakpoint-2xs: 300px;
   --breakpoint-xs: 540px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-fab: 0 4px 14px 0 rgb(0 0 0 / 0.25);
 }
 
 /* Custom variant for search cancel button */
 @variant search-cancel (&::-webkit-search-cancel-button);
 
-/* Custom component */
+/* Custom utilities */
 @utility base-outline {
   outline-style: solid;
   outline-width: 2px;
   outline-offset: 2px;
-  outline-color: #36312d;
+  outline-color: var(--color-primary-500);
+}
+
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+@utility shadow-card-hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+@utility shadow-fab {
+  box-shadow: var(--shadow-fab);
 }
 
 /*
@@ -55,14 +119,27 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-neutral-200, currentcolor);
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
   }
 
   button {
     cursor: pointer;
   }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
 }
 
 :root {
   font-family: "Nunito Sans";
+  background-color: var(--color-neutral-50);
 }

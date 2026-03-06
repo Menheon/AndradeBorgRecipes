@@ -21,7 +21,6 @@ import {
   getAllIngredients,
   INGREDIENTS_QUERY_TAG,
 } from "@/data/recipesService";
-import { IconButton } from "./IconButton";
 
 interface Props {
   section: number;
@@ -119,80 +118,155 @@ export const IngredientsTable = ({ section }: Props) => {
   return (
     <>
       {isScreenMinExtraSmall ? (
-        <table className="w-full">
-          <thead>
-            {sections[section].ingredients.length > 0 && (
-              <tr>
-                <td className="w-12 pl-3" />
-                <td className="pl-3">{t(ingredientsTranslations.name)}</td>
-                <td className="pl-3">{t(ingredientsTranslations.amount)}</td>
-                <td className="pl-3">{t(ingredientsTranslations.unit)}</td>
-              </tr>
-            )}
-          </thead>
+        <div className="space-y-2">
+          {sections[section].ingredients.map((value, index) => (
+            <div key={value.id ?? index} className="flex items-center gap-2">
+              <button
+                type="button"
+                className="focus-visible:ring-primary-300 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-neutral-200 transition-colors hover:bg-neutral-300 focus-visible:ring-2 focus-visible:outline-hidden"
+                onClick={() => removeIngredientLine(index)}
+              >
+                <CloseIcon className="h-5 w-5 fill-neutral-600 hover:fill-neutral-800" />
+              </button>
 
-          <tbody>
-            {sections[section].ingredients.map((value, index) => (
-              <tr key={value.id ?? index}>
-                <td className="p-0 pr-1">
-                  <button
-                    type="button"
-                    className="bg-brown-300 focus-visible:ring-brown-100 mb-1 flex h-12 cursor-pointer items-center rounded-l p-2 focus-visible:ring-3 focus-visible:outline-hidden focus-visible:ring-inset"
-                    onClick={() => removeIngredientLine(index)}
-                  >
-                    <CloseIcon className="fill-brown-600 hover:fill-brown-500 h-7 w-7 transition-colors" />
-                  </button>
-                </td>
-
-                <td className="p-0">
-                  <div className="bg-brown-300 mb-1 flex h-12 items-center px-1.5">
-                    {value.ingredient.name ? (
-                      <>
-                        <div className="flex-1">
-                          <TextInputField
-                            disabled
-                            value={value.ingredient.name}
-                            onChange={() => undefined}
-                            placeholder={""}
-                          />
-                        </div>
-                        <div className="border-brown-600 bg-grey-150 hover:bg-brown-100 ml-0.5 rounded-md border-2 shadow-xs">
-                          <IconButton
-                            icon="close"
-                            onClick={(event) => {
-                              event.preventDefault();
-                              handleIngredientCleared(index);
-                            }}
-                          />
-                        </div>
-                      </>
-                    ) : (
+              <div className="grid flex-1 grid-cols-3 gap-2">
+                {/* Ingredient Name */}
+                <div className="col-span-1">
+                  {value.ingredient.name ? (
+                    <div className="flex gap-1">
                       <div className="flex-1">
-                        <AutocompleteMultiSelectField
-                          key={new Date().getTime()}
-                          existingOptions={sortedIngredients}
-                          onOptionSelected={(ingredient) =>
-                            onNewIngredientAdded(ingredient, index)
-                          }
-                          addedOptions={[value.ingredient]}
-                          getOptionId={(ingredient) => ingredient.id ?? ""}
-                          createNewOption={(name, id) => ({ id, name })}
-                          getOptionValue={(ingredient) => ingredient.name}
-                          keyPrefix="ingredient-option-"
-                          createNewOptionLabel={
-                            ingredientsTranslations.addNewIngredient
-                          }
-                          inputOptionLabel={
-                            ingredientsTranslations.writeIngredient
-                          }
+                        <TextInputField
+                          disabled
+                          value={value.ingredient.name}
+                          onChange={() => undefined}
+                          placeholder={""}
                         />
                       </div>
-                    )}
-                  </div>
-                </td>
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          handleIngredientCleared(index);
+                        }}
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-neutral-300 bg-white transition-colors hover:bg-neutral-100"
+                      >
+                        <CloseIcon className="h-4 w-4 fill-neutral-500" />
+                      </button>
+                    </div>
+                  ) : (
+                    <AutocompleteMultiSelectField
+                      key={new Date().getTime()}
+                      existingOptions={sortedIngredients}
+                      onOptionSelected={(ingredient) =>
+                        onNewIngredientAdded(ingredient, index)
+                      }
+                      addedOptions={[value.ingredient]}
+                      getOptionId={(ingredient) => ingredient.id ?? ""}
+                      createNewOption={(name, id) => ({ id, name })}
+                      getOptionValue={(ingredient) => ingredient.name}
+                      keyPrefix="ingredient-option-"
+                      createNewOptionLabel={
+                        ingredientsTranslations.addNewIngredient
+                      }
+                      inputOptionLabel={ingredientsTranslations.writeIngredient}
+                    />
+                  )}
+                </div>
 
-                <td className="p-0">
-                  <div className="bg-brown-300 mb-1 flex h-12 items-center px-1.5">
+                {/* Amount */}
+                <div className="col-span-1">
+                  <FloatInputField
+                    value={value.amount?.toString() ?? ""}
+                    onChange={(value) =>
+                      updateIngredientLine("amount", value, index)
+                    }
+                    placeholder={t(ingredientsTranslations.writeAmount)}
+                  />
+                </div>
+
+                {/* Unit */}
+                <div className="col-span-1">
+                  <SelectField
+                    placeholder={t(ingredientsTranslations.selectUnit)}
+                    options={getAllUnits()}
+                    getDisplayValue={mapUnitToStringFormat}
+                    getValue={(unit) => unit}
+                    onValueSelected={(value) =>
+                      updateIngredientLine("unit", value, index)
+                    }
+                    selectedOption={sections[section].ingredients[index].unit}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {sections[section].ingredients.map((value, index) => (
+            <div
+              key={value.id ?? index}
+              className="relative rounded-xl border border-neutral-200 bg-white p-4 shadow-sm"
+            >
+              <button
+                type="button"
+                onClick={() => removeIngredientLine(index)}
+                className="focus-visible:ring-primary-300 absolute top-2 right-2 rounded-full p-1 transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:outline-hidden"
+              >
+                <CloseIcon className="h-5 w-5 fill-neutral-500 hover:fill-neutral-700" />
+              </button>
+
+              <div className="space-y-3">
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+                    {t(ingredientsTranslations.name)}
+                  </label>
+                  {value.ingredient.name ? (
+                    <div className="flex gap-2">
+                      <div className="flex-1">
+                        <TextInputField
+                          disabled
+                          value={value.ingredient.name}
+                          onChange={() => undefined}
+                          placeholder={""}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          handleIngredientCleared(index);
+                        }}
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-neutral-300 bg-white transition-colors hover:bg-neutral-100"
+                      >
+                        <CloseIcon className="h-4 w-4 fill-neutral-500" />
+                      </button>
+                    </div>
+                  ) : (
+                    <AutocompleteMultiSelectField
+                      key={new Date().getTime()}
+                      existingOptions={sortedIngredients}
+                      onOptionSelected={(ingredient) =>
+                        onNewIngredientAdded(ingredient, index)
+                      }
+                      addedOptions={[value.ingredient]}
+                      getOptionId={(ingredient) => ingredient.id ?? ""}
+                      createNewOption={(name, id) => ({ id, name })}
+                      getOptionValue={(ingredient) => ingredient.name}
+                      keyPrefix="ingredient-option-"
+                      createNewOptionLabel={
+                        ingredientsTranslations.addNewIngredient
+                      }
+                      inputOptionLabel={ingredientsTranslations.writeIngredient}
+                    />
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+                      {t(ingredientsTranslations.amount)}
+                    </label>
                     <FloatInputField
                       value={value.amount?.toString() ?? ""}
                       onChange={(value) =>
@@ -201,10 +275,11 @@ export const IngredientsTable = ({ section }: Props) => {
                       placeholder={t(ingredientsTranslations.writeAmount)}
                     />
                   </div>
-                </td>
 
-                <td className="p-0">
-                  <div className="bg-brown-300 mb-1 flex h-12 items-center rounded-r px-1.5">
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+                      {t(ingredientsTranslations.unit)}
+                    </label>
                     <SelectField
                       placeholder={t(ingredientsTranslations.selectUnit)}
                       options={getAllUnits()}
@@ -216,95 +291,11 @@ export const IngredientsTable = ({ section }: Props) => {
                       selectedOption={sections[section].ingredients[index].unit}
                     />
                   </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        sections[section].ingredients.map((value, index) => (
-          <div
-            key={value.id ?? index}
-            className="bg-brown-300 relative mt-1 mb-2 flex w-full flex-col gap-1 rounded-md p-2"
-          >
-            <button
-              type="button"
-              onClick={() => removeIngredientLine(index)}
-              className="focus-visible:ring-brown-600 absolute top-1 right-1 rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-hidden"
-            >
-              <CloseIcon className="fill-brown-600 hover:fill-brown-500 h-6 w-6" />
-            </button>
-
-            <label>{t(ingredientsTranslations.name)}</label>
-            <div className="flex">
-              {value.ingredient.name ? (
-                <>
-                  <div className="flex-1">
-                    <TextInputField
-                      disabled
-                      value={value.ingredient.name}
-                      onChange={() => undefined}
-                      placeholder={""}
-                    />
-                  </div>
-                  <div className="border-brown-600 bg-grey-150 hover:bg-brown-100 ml-0.5 rounded-md border-2">
-                    <IconButton
-                      icon="close"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        handleIngredientCleared(index);
-                      }}
-                    />
-                  </div>
-                </>
-              ) : (
-                <div className="w-full">
-                  <AutocompleteMultiSelectField
-                    key={new Date().getTime()}
-                    existingOptions={sortedIngredients}
-                    onOptionSelected={(ingredient) =>
-                      onNewIngredientAdded(ingredient, index)
-                    }
-                    addedOptions={[value.ingredient]}
-                    getOptionId={(ingredient) => ingredient.id ?? ""}
-                    createNewOption={(name, id) => ({ id, name })}
-                    getOptionValue={(ingredient) => ingredient.name}
-                    keyPrefix="ingredient-option-"
-                    createNewOptionLabel={
-                      ingredientsTranslations.addNewIngredient
-                    }
-                    inputOptionLabel={ingredientsTranslations.writeIngredient}
-                  />
                 </div>
-              )}
+              </div>
             </div>
-
-            <div>
-              <label>{t(ingredientsTranslations.amount)}</label>
-              <FloatInputField
-                value={value.amount?.toString() ?? ""}
-                onChange={(value) =>
-                  updateIngredientLine("amount", value, index)
-                }
-                placeholder={t(ingredientsTranslations.writeAmount)}
-              />
-            </div>
-
-            <div>
-              <label>{t(ingredientsTranslations.unit)}</label>
-              <SelectField
-                placeholder={t(ingredientsTranslations.selectUnit)}
-                options={getAllUnits()}
-                getDisplayValue={mapUnitToStringFormat}
-                getValue={(unit) => unit}
-                onValueSelected={(value) =>
-                  updateIngredientLine("unit", value, index)
-                }
-                selectedOption={sections[section].ingredients[index].unit}
-              />
-            </div>
-          </div>
-        ))
+          ))}
+        </div>
       )}
       <TextButton onClicked={addIngredientLine}>
         {t(ingredientsTranslations.addNewIngredient)}

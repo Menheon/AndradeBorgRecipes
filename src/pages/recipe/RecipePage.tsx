@@ -63,75 +63,74 @@ export const RecipePage = () => {
   }, [recipe?.name, recipeTranslations.documentTitle, t]);
 
   return (
-    <div className="py-8 md:px-8 lg:px-32 xl:px-40 2xl:px-72">
+    <div className="px-4 py-8 sm:px-6 md:px-8 lg:px-32 xl:px-40 2xl:px-72">
       {isFetching && (
         <div className="absolute inset-0 flex h-dvh items-center justify-center">
-          <p className="font-caveat text-center text-6xl font-bold tracking-wider">
+          <p className="font-caveat text-center text-5xl font-bold tracking-wide text-neutral-600">
             {t(recipeTranslations.loadingRecipe)}
           </p>
         </div>
       )}
 
       {isError && !isFetching && (
-        <p className="text-center text-xl">
+        <p className="py-12 text-center text-xl text-neutral-600">
           {t(recipeTranslations.errorLoadingRecipe)}
         </p>
       )}
 
       {isSuccess && recipe && (
         <div
-          className="border-brown-600 bg-cream-200 relative flex min-h-187.5 flex-col overflow-auto rounded-xl border-2 shadow-lg"
+          className="shadow-card relative flex min-h-187.5 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white"
           style={{
             viewTransitionName: `recipe-container-${recipe.id}`,
           }}
         >
-          <h1
-            className="text-darkGreen font-caveat mt-2 p-4 text-center text-5xl font-bold tracking-wider"
-            style={{
-              viewTransitionName: `recipe-title-${recipe.id}`,
-            }}
-          >
-            <div className="absolute top-0 left-0">
+          {/* Header */}
+          <div className="relative border-b border-neutral-100 bg-neutral-50 px-6 py-6">
+            <div className="absolute top-1/2 left-2 -translate-y-1/2">
               <IconButton
                 icon="chevron-left"
                 onClick={() => navigate(ALL_RECIPES_PATH)}
                 size="lg"
               />
             </div>
-            {recipe.name}
-          </h1>
-          {(storedUserData?.isAdmin || location.hostname === "localhost") && (
-            <div className="absolute top-1 right-1 flex">
-              <IconButton
-                icon="edit"
-                onClick={() => setIsEditDialogOpen(true)}
-              />
-              <EditRecipeDialog
-                key={new Date().getTime()}
-                isOpen={isEditDialogOpen}
-                recipe={recipe}
-                onClose={() => setIsEditDialogOpen(false)}
-              />
-              <IconButton
-                icon="delete"
-                onClick={() => setIsDeleteDialogOpen(true)}
-              />
-              <DeleteRecipeDialog
-                isOpen={isDeleteDialogOpen}
-                recipe={recipe}
-                onClose={() => setIsDeleteDialogOpen(false)}
-              />
-            </div>
-          )}
-          <hr
-            className="border-brown-600 mb-4 w-3/4 self-center border-t-2"
-            style={{
-              viewTransitionName: `recipe-title-bar-${recipe.id}`,
-            }}
-          />
+            <h1
+              className="font-caveat text-center text-4xl font-bold tracking-wide text-neutral-800 sm:text-5xl"
+              style={{
+                viewTransitionName: `recipe-title-${recipe.id}`,
+              }}
+            >
+              {recipe.name}
+            </h1>
+            {(storedUserData?.isAdmin || location.hostname === "localhost") && (
+              <div className="absolute top-1/2 right-2 flex -translate-y-1/2 gap-1">
+                <IconButton
+                  icon="edit"
+                  onClick={() => setIsEditDialogOpen(true)}
+                />
+                <EditRecipeDialog
+                  key={new Date().getTime()}
+                  isOpen={isEditDialogOpen}
+                  recipe={recipe}
+                  onClose={() => setIsEditDialogOpen(false)}
+                />
+                <IconButton
+                  icon="delete"
+                  onClick={() => setIsDeleteDialogOpen(true)}
+                />
+                <DeleteRecipeDialog
+                  isOpen={isDeleteDialogOpen}
+                  recipe={recipe}
+                  onClose={() => setIsDeleteDialogOpen(false)}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Image */}
           {!isMinMediumScreen && (
             <img
-              className="border-brown-600 max-h-80 w-full border-y-2 object-cover"
+              className="max-h-80 w-full object-cover"
               src={recipe.imageUrl}
               style={{
                 viewTransitionName: `recipe-img-${recipe.id}`,
@@ -139,10 +138,12 @@ export const RecipePage = () => {
               alt={recipe.name}
             />
           )}
-          <div className="flex">
+
+          {/* Content with Side Image */}
+          <div className="flex flex-1">
             {isMinMediumScreen && (
               <img
-                className="border-brown-600 h-full w-1/2 rounded-r-xl border-y-2 border-r-2 object-cover"
+                className="h-auto w-1/2 object-cover"
                 src={recipe.imageUrl}
                 style={{
                   viewTransitionName: `recipe-img-${recipe.id}`,
@@ -150,9 +151,9 @@ export const RecipePage = () => {
                 alt={recipe.name}
               />
             )}
-            <div className="col-span-5 flex flex-col px-8 pt-2">
+            <div className="flex flex-1 flex-col p-6">
               <p
-                className="text-justify text-lg"
+                className="text-lg leading-relaxed text-neutral-700"
                 style={{
                   viewTransitionName: `recipe-description-${recipe.id}`,
                 }}
@@ -160,7 +161,7 @@ export const RecipePage = () => {
                 {recipe.description}
               </p>
               <div
-                className="mt-auto mb-0 flex gap-1"
+                className="mt-auto flex flex-wrap gap-2 pt-4"
                 style={{
                   viewTransitionName: `recipe-tags-${recipe.id}`,
                 }}
@@ -174,26 +175,30 @@ export const RecipePage = () => {
             </div>
           </div>
 
-          <div className="border-brown-600 bg-cream-100 mt-6 h-full flex-1 rounded-xl border border-t-2 py-2">
+          {/* Sections */}
+          <div className="mt-auto border-t border-neutral-200 bg-neutral-50 p-6">
             {recipe.sections.map((section) => (
               <div
-                className="xs:grid-cols-2 grid grid-cols-1 gap-2"
+                className="xs:grid-cols-2 grid grid-cols-1 gap-6"
                 key={section.title}
               >
-                <h3 className="font-caveat col-span-2 px-5 text-center text-2xl font-semibold">
+                <h3 className="font-caveat xs:col-span-2 col-span-1 text-center text-2xl font-bold text-neutral-800">
                   {section.title}
                 </h3>
-                <div className="xs:col-span-1 col-span-2 rounded-lg px-5 pb-2">
-                  <h4 className="text-md text-darkGreen pb-2 font-semibold tracking-wider uppercase">
+
+                {/* Ingredients */}
+                <div className="shadow-card rounded-xl bg-white p-5">
+                  <h4 className="text-primary-600 mb-3 text-xs font-semibold tracking-wider uppercase">
                     {t(recipeTranslations.ingredients)}
                   </h4>
-                  <ul className="list-inside list-disc">
+                  <ul className="space-y-2">
                     {section.ingredients.map((ingredientLine, i) => (
                       <li
-                        className="text-darkGreen list-item pb-2"
+                        className="flex items-center gap-2 text-neutral-700"
                         key={ingredientLine.id ?? i}
                       >
-                        <span className="text-black">
+                        <span className="bg-primary-400 h-1.5 w-1.5 shrink-0 rounded-full" />
+                        <span>
                           {ingredientLine.unit &&
                             `${ingredientLine.amount} ${mapUnitToStringFormat(
                               ingredientLine.unit,
@@ -203,11 +208,13 @@ export const RecipePage = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="xs:col-span-1 col-span-2 rounded-lg px-5 pb-2">
-                  <h4 className="text-md text-darkGreen pb-2 font-semibold tracking-wider uppercase">
+
+                {/* Steps */}
+                <div className="shadow-card rounded-xl bg-white p-5">
+                  <h4 className="text-primary-600 mb-3 text-xs font-semibold tracking-wider uppercase">
                     {t(recipeTranslations.steps)}
                   </h4>
-                  <div>
+                  <div className="space-y-1">
                     {section.steps.map((step, i) => (
                       <StrikeableStep key={`step-${i}`} step={step} />
                     ))}

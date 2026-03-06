@@ -74,85 +74,93 @@ export const ProfilePage = () => {
   document.title = t(profilePageTranslations.documentTitle);
 
   return (
-    <div className="mx-auto flex flex-col items-center justify-center p-6">
-      <div className="flex h-full min-h-80 w-full flex-col items-center rounded-md bg-cream-100 p-4 shadow-md sm:w-3/4 lg:w-2/3 xl:w-1/2">
-        <h1 className="w-full self-start px-2 pb-4 text-center font-caveat text-5xl font-bold tracking-wider">
-          <div className="absolute">
-            <IconButton
-              icon="chevron-left"
-              onClick={() => navigate(ALL_RECIPES_PATH)}
-              size="lg"
-            />
+    <div className="px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-lg">
+        <div className="shadow-card overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+          {/* Header */}
+          <div className="relative border-b border-neutral-100 bg-neutral-50 px-6 py-6">
+            <div className="absolute top-1/2 left-4 -translate-y-1/2">
+              <IconButton
+                icon="chevron-left"
+                onClick={() => navigate(ALL_RECIPES_PATH)}
+                size="lg"
+              />
+            </div>
+            <h1 className="font-caveat text-center text-4xl font-bold tracking-wide text-neutral-800">
+              {t(profilePageTranslations.myProfile)}
+            </h1>
           </div>
-          {t(profilePageTranslations.myProfile)}
-        </h1>
 
-        <div className="flex h-full flex-1 flex-col items-center">
-          {isLoadingSignIn && (
-            <p className="flex-1 text-center text-xl tracking-wide">
-              {t(profilePageTranslations.loadingProfileData)}
-            </p>
-          )}
+          {/* Content */}
+          <div className="flex flex-col items-center p-6">
+            {isLoadingSignIn && (
+              <p className="py-8 text-center text-lg text-neutral-500">
+                {t(profilePageTranslations.loadingProfileData)}
+              </p>
+            )}
 
-          {authError && (
-            <p className="flex-1 text-center text-xl tracking-wide">
-              {authError}
-            </p>
-          )}
+            {authError && (
+              <p className="text-primary-600 py-8 text-center text-lg">
+                {authError}
+              </p>
+            )}
 
-          {!isLoadingSignIn && (
-            <>
-              <div className="flex flex-1 flex-col items-center pb-4 text-center text-xl tracking-wide">
-                <p className="text-center text-xl tracking-wide">
-                  {welcomeMessage}
-                </p>
-                {!googleUserData && (
-                  <p className="pt-3 text-center text-lg tracking-wide">
-                    {t(profilePageTranslations.notLoggedIn)}
+            {!isLoadingSignIn && (
+              <>
+                <div className="mb-6 flex flex-col items-center text-center">
+                  <p className="text-xl font-medium text-neutral-700">
+                    {welcomeMessage}
                   </p>
-                )}
-                {googleUserData && storedUserData && (
-                  <div className="mt-2 w-48 flex-1">
-                    <h2 className="text-lg">
-                      {t(profilePageTranslations.preferredLanguage.title)}
-                    </h2>
-                    <Controller
-                      control={control}
-                      name="preferredLanguage"
-                      render={({ field }) => (
-                        <SelectField
-                          placeholder={t(
-                            profilePageTranslations.preferredLanguage.title,
-                          )}
-                          options={languages}
-                          getDisplayValue={({ label }) => label}
-                          getValue={({ code }) => code}
-                          onValueSelected={(value) => {
-                            setValue(
-                              "preferredLanguage",
-                              value as PlatformSupportedLanguages,
-                            );
-                            handleSubmit(handleUpdateLanguagePreference)();
-                          }}
-                          selectedOption={languages.find(
-                            ({ code }) => code === field.value,
-                          )}
-                        />
-                      )}
-                    />
-                  </div>
-                )}
-              </div>
-              <FilledButton
-                onClick={googleUserData ? handleSignOut : handleRegisterOrLogIn}
-                type="primary"
-              >
-                {googleUserData
-                  ? t(profilePageTranslations.signOut)
-                  : t(profilePageTranslations.signInWithGoogle)}
-              </FilledButton>
-            </>
-          )}
+                  {!googleUserData && (
+                    <p className="mt-3 text-base text-neutral-500">
+                      {t(profilePageTranslations.notLoggedIn)}
+                    </p>
+                  )}
+                  {googleUserData && storedUserData && (
+                    <div className="mt-6 w-full max-w-xs">
+                      <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase">
+                        {t(profilePageTranslations.preferredLanguage.title)}
+                      </h2>
+                      <Controller
+                        control={control}
+                        name="preferredLanguage"
+                        render={({ field }) => (
+                          <SelectField
+                            placeholder={t(
+                              profilePageTranslations.preferredLanguage.title,
+                            )}
+                            options={languages}
+                            getDisplayValue={({ label }) => label}
+                            getValue={({ code }) => code}
+                            onValueSelected={(value) => {
+                              setValue(
+                                "preferredLanguage",
+                                value as PlatformSupportedLanguages,
+                              );
+                              handleSubmit(handleUpdateLanguagePreference)();
+                            }}
+                            selectedOption={languages.find(
+                              ({ code }) => code === field.value,
+                            )}
+                          />
+                        )}
+                      />
+                    </div>
+                  )}
+                </div>
+                <FilledButton
+                  onClick={
+                    googleUserData ? handleSignOut : handleRegisterOrLogIn
+                  }
+                  type="primary"
+                >
+                  {googleUserData
+                    ? t(profilePageTranslations.signOut)
+                    : t(profilePageTranslations.signInWithGoogle)}
+                </FilledButton>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -70,26 +70,36 @@ export const AllRecipesPage = () => {
   document.title = t(recipesTranslations.documentTitle);
 
   return (
-    <div className="mx-auto justify-center px-4">
-      <div className="flex flex-col items-center">
-        <img
-          className="h-52 rounded-lg object-cover brightness-75 contrast-75 filter xs:w-[calc(100%-50px)] sm:w-[calc(100%-100px)]"
-          src="https://static.vecteezy.com/system/resources/previews/024/396/481/large_2x/table-scene-with-a-selection-of-delicious-foods-top-view-over-a-dark-wood-banner-background-generate-ai-free-photo.jpg"
-          alt="table-with-food"
-        />
-        <RecipeSearchField onChange={onSearchInputValueChanged} />
-        <h1 className="my-4 font-caveat text-4xl font-bold tracking-wider">
-          {t(recipesTranslations.allRecipes).toUpperCase()}
-        </h1>
+    <div>
+      {/* Hero Section */}
+      <div className="relative mb-8">
+        <div className="relative h-64 overflow-hidden sm:h-72 md:h-80">
+          <img
+            className="h-full w-full object-cover"
+            src="https://static.vecteezy.com/system/resources/previews/024/396/481/large_2x/table-scene-with-a-selection-of-delicious-foods-top-view-over-a-dark-wood-banner-background-generate-ai-free-photo.jpg"
+            alt="table-with-food"
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-linear-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-50" />
+        </div>
+
+        {/* Hero Content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
+          <h1 className="font-caveat mb-4 text-5xl font-bold tracking-wider text-white drop-shadow-lg sm:text-6xl">
+            {t(recipesTranslations.allRecipes)}
+          </h1>
+          <RecipeSearchField onChange={onSearchInputValueChanged} />
+        </div>
       </div>
 
+      {/* FAB Button */}
       {(storedUserData?.isAdmin || location.hostname === "localhost") && (
         <>
           <button
-            className="fixed bottom-10 right-10 z-20 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brown-600 transition-all transition-colors focus-visible:base-outline hover:scale-105 hover:bg-brown-500 active:scale-95"
+            className="bg-primary-500 shadow-fab focus-visible:base-outline hover:bg-primary-600 fixed right-8 bottom-8 z-20 flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 active:scale-95"
             onClick={() => setIsCreatingRecipe(true)}
           >
-            <AddIcon className="h-8 w-8 fill-grey-150" />
+            <AddIcon className="h-8 w-8 fill-white" />
           </button>
           <CreateRecipeDialog
             isOpen={isCreatingRecipe}
@@ -98,18 +108,19 @@ export const AllRecipesPage = () => {
         </>
       )}
 
-      <div>
+      {/* Recipe Grid */}
+      <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         {isRecipesQueryError && (
-          <p className="text-center text-xl">
+          <p className="py-12 text-center text-xl text-neutral-600">
             {t(recipesTranslations.loadError)}
           </p>
         )}
         {isRecipesQuerySuccess && filteredRecipes.length === 0 && (
-          <p className="text-center text-xl">
+          <p className="py-12 text-center text-xl text-neutral-600">
             {t(recipesTranslations.noMatchingRecipes)}
           </p>
         )}
-        <div className="mx-1 flex flex-col gap-3 sm:grid sm:grid-cols-2 md:mx-12 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {isLoadingRecipes && (
             <>
               <RecipeItemSkeleton />

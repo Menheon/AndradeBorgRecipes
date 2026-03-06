@@ -147,24 +147,27 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
       isOpen={isOpen}
       onClose={closeDialog}
     >
-      <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2">
-        <div className="col-start-1 sm:col-end-2">
-          <h3 className="text-polyGreen text-md pb-0.5 pt-2 font-semibold">
-            {t(createRecipeTranslations.generalData.title)}
-          </h3>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field }) => (
-              <TextInputField
-                value={field.value}
-                onChange={field.onChange}
-                placeholder={t(
-                  createRecipeTranslations.generalData.writeRecipeTitle,
-                )}
-              />
-            )}
-          />
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {/* Left Column - Basic Info */}
+        <div className="space-y-4">
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+              {t(createRecipeTranslations.generalData.title)}
+            </label>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field }) => (
+                <TextInputField
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder={t(
+                    createRecipeTranslations.generalData.writeRecipeTitle,
+                  )}
+                />
+              )}
+            />
+          </div>
 
           <Controller
             control={control}
@@ -184,72 +187,79 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
             )}
           />
 
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">
-            {t(createRecipeTranslations.generalData.imageUrl)}
-          </h3>
-          <Controller
-            control={control}
-            name="imageUrl"
-            render={({ field }) => (
-              <TextInputField
-                value={field.value}
-                onChange={field.onChange}
-                placeholder={t(
-                  createRecipeTranslations.generalData.pasteImageUrl,
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+              {t(createRecipeTranslations.generalData.imageUrl)}
+            </label>
+            <Controller
+              control={control}
+              name="imageUrl"
+              render={({ field }) => (
+                <TextInputField
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder={t(
+                    createRecipeTranslations.generalData.pasteImageUrl,
+                  )}
+                />
+              )}
+            />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+              {t(createRecipeTranslations.tags.tagsTitle)}
+            </label>
+            {isTagsLoading ? (
+              <p className="text-sm text-neutral-500">
+                {t(createRecipeTranslations.tags.loadingTags)}
+              </p>
+            ) : (
+              <Controller
+                control={control}
+                name="tags"
+                render={({ field }) => (
+                  <>
+                    <AutocompleteMultiSelectField
+                      key={new Date().getTime()}
+                      existingOptions={existingTags ?? []}
+                      onOptionSelected={onNewTagAdded}
+                      addedOptions={field.value}
+                      getOptionId={(tag) => tag.id}
+                      createNewOption={(name, id) => ({ id, name })}
+                      getOptionValue={(tag) => tag.name}
+                      keyPrefix="tag-option-"
+                      createNewOptionLabel={
+                        createRecipeTranslations.tags.createNewTag
+                      }
+                      inputOptionLabel={
+                        createRecipeTranslations.tags.writeRecipeTags
+                      }
+                    />
+                    <ul className="mt-2 flex min-h-8 flex-wrap gap-2">
+                      {field.value.map((tag, tagIndex) => (
+                        <li key={`${tag.name}-${tagIndex}`}>
+                          <RemovableTag
+                            isRemovable
+                            onRemoved={() => handleTagRemoved(tag)}
+                          >
+                            {tag.name}
+                          </RemovableTag>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
                 )}
               />
             )}
-          />
-
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">
-            {t(createRecipeTranslations.tags.tagsTitle)}
-          </h3>
-          {isTagsLoading ? (
-            <p>{t(createRecipeTranslations.tags.loadingTags)}</p>
-          ) : (
-            <Controller
-              control={control}
-              name="tags"
-              render={({ field }) => (
-                <>
-                  <AutocompleteMultiSelectField
-                    key={new Date().getTime()}
-                    existingOptions={existingTags ?? []}
-                    onOptionSelected={onNewTagAdded}
-                    addedOptions={field.value}
-                    getOptionId={(tag) => tag.id}
-                    createNewOption={(name, id) => ({ id, name })}
-                    getOptionValue={(tag) => tag.name}
-                    keyPrefix="tag-option-"
-                    createNewOptionLabel={
-                      createRecipeTranslations.tags.createNewTag
-                    }
-                    inputOptionLabel={
-                      createRecipeTranslations.tags.writeRecipeTags
-                    }
-                  />
-                  <ul className="flex min-h-10 flex-wrap gap-1 p-1">
-                    {field.value.map((tag, tagIndex) => (
-                      <li key={`${tag.name}-${tagIndex}`}>
-                        <RemovableTag
-                          isRemovable
-                          onRemoved={() => handleTagRemoved(tag)}
-                        >
-                          {tag.name}
-                        </RemovableTag>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            />
-          )}
+          </div>
         </div>
 
-        <div className="col-start-1 sm:col-start-2 sm:col-end-3">
-          <h3 className="text-polyGreen text-md pb-0.5 pt-2 font-semibold">
+        {/* Right Column - Description */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-neutral-700">
             {t(createRecipeTranslations.generalData.description)}
-          </h3>
+          </label>
           <Controller
             control={control}
             name="description"
@@ -261,16 +271,17 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
                   createRecipeTranslations.generalData.writeDescription,
                 )}
                 columns={40}
-                rows={8}
+                rows={10}
               />
             )}
           />
         </div>
 
-        <div className="col-start-1 col-end-3">
-          <h3 className="text-md pb-0.5 pt-2 font-semibold">
+        {/* Full Width - Sections */}
+        <div className="col-span-1 sm:col-span-2">
+          <label className="mb-2 block text-sm font-medium text-neutral-700">
             {t(createRecipeTranslations.sections.sectionsTitle)}
-          </h3>
+          </label>
           <FormProvider {...methods}>
             <NewRecipeSections />
           </FormProvider>

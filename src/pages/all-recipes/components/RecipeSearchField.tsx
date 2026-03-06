@@ -16,15 +16,15 @@ export const RecipeSearchField = ({ onChange }: Props) => {
     [i18n.language],
   );
   return (
-    <div className="focus-within:base-outline z-10 -mt-3.75 flex items-center rounded-lg shadow-md">
+    <div className="focus-within:ring-primary-400 z-10 flex items-center overflow-hidden rounded-full bg-white/95 shadow-lg backdrop-blur-sm transition-all focus-within:ring-2 focus-within:ring-offset-2">
       <input
         type="search"
         placeholder={t(recipesTranslations.searchPlaceholder)}
-        className="border-brown-600 bg-grey-150 placeholder-brown-600 search-cancel:cursor-pointer search-cancel:p-0.5 search-cancel:brightness-25 search-cancel:contrast-75 search-cancel:hue-rotate-165 search-cancel:filter h-9 w-72 rounded-l-lg border-2 px-2 py-1 outline-hidden"
+        className="search-cancel:cursor-pointer h-12 w-64 bg-transparent px-5 text-neutral-800 placeholder-neutral-400 outline-none sm:w-80"
         onChange={(event) => onChange(event.target.value)}
       />
-      <div className="bg-brown-600 flex h-9 w-9 items-center justify-center rounded-r-lg">
-        <SearchIcon className="fill-grey-150 h-7 w-7" />
+      <div className="bg-primary-500 flex h-12 w-12 items-center justify-center">
+        <SearchIcon className="h-6 w-6 fill-white" />
       </div>
     </div>
   );

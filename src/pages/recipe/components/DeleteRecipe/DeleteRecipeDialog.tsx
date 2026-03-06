@@ -49,10 +49,13 @@ export const DeleteRecipeDialog = ({ isOpen, recipe, onClose }: Props) => {
       isPrimaryActionDisabled={false}
       onClose={onClose}
     >
-      <div className="py-2">
-        <p>
+      <div className="py-4">
+        <p className="text-neutral-700">
           {t(deleteRecipeTranslations.deleteRecipeDescriptionOn)}{" "}
-          <i>"{recipe.name}"</i>?
+          <span className="font-semibold text-neutral-900">
+            "{recipe.name}"
+          </span>
+          ?
         </p>
       </div>
     </BaseDialog>

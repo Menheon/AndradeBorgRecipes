@@ -17,11 +17,11 @@ export const TextButton = ({
   return (
     <button
       type="button"
-      className={` m-${size === "sm" ? 0 : 1} flex items-center gap-1 rounded-md px-${size === "sm" ? 2 : 4} py-${size === "sm" ? 0.5 : 2} hover:text-brown-500 focus-visible:ring-brown-600 font-semibold outline-hidden transition focus-visible:ring-2 focus-visible:ring-inset`}
+      className={`m-${size === "sm" ? 0 : 1} flex items-center gap-1.5 rounded-lg px-${size === "sm" ? 2 : 4} py-${size === "sm" ? 1 : 2} hover:text-primary-600 focus-visible:ring-primary-300 font-medium text-neutral-700 outline-hidden transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-inset`}
       onClick={onClicked}
     >
       {children && <span>{children}</span>}
-      {iconNode ?? <AddIcon className="fill-brown-600 h-7 w-7" />}
+      {iconNode ?? <AddIcon className="fill-primary-500 h-6 w-6" />}
     </button>
   );
 };

@@ -19,27 +19,32 @@ export const RecipeItem = ({ recipe }: Props) => {
 
   return (
     <button
-      className="border-brown-600 bg-cream-100 focus-visible:base-outline hover:bg-cream-200 flex h-115 cursor-pointer flex-col items-center rounded-xl border-2 shadow-lg transition hover:z-10 hover:scale-[102.5%] hover:shadow-xl active:scale-[98.75%] md:h-131.25 lg:h-140 xl:h-131.25"
+      className="group shadow-card focus-visible:base-outline hover:shadow-card-hover flex h-full min-h-[420px] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:z-10 hover:scale-[1.02] active:scale-[0.98] md:min-h-[460px]"
       onClick={onRecipeItemClicked}
     >
-      <div className="border-brown-600 bg-grey-500 h-56 w-full shrink rounded-t-lg border-b-2 md:h-64">
+      {/* Image Container */}
+      <div className="relative h-48 w-full overflow-hidden bg-neutral-200 md:h-56">
         <img
-          className="h-full w-full rounded-t-lg object-cover"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           src={recipe.imageUrl}
           alt={recipe.name}
           style={{
             viewTransitionName: `recipe-img-${recipe.id}`,
           }}
         />
+        {/* Gradient overlay on hover */}
+        <div className="absolute inset-0 bg-linear-to-t from-neutral-900/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
-      <h2 className="font-caveat flex-1 px-2 pt-2 text-center text-4xl font-bold tracking-wider">
-        {recipe.name}
-      </h2>
-      <div className="flex w-full flex-col px-4 pb-4 lg:px-6 lg:pb-4">
-        <p className="line-clamp-3 h-20 text-justify text-lg md:line-clamp-4 md:h-28">
+
+      {/* Content */}
+      <div className="flex flex-1 flex-col p-5">
+        <h2 className="font-caveat mb-2 text-3xl leading-tight font-bold tracking-wide text-neutral-800 md:text-4xl">
+          {recipe.name}
+        </h2>
+        <p className="mb-4 line-clamp-3 flex-1 text-left text-base leading-relaxed text-neutral-600">
           {recipe.description}
         </p>
-        <div className="mt-auto mb-0 flex gap-1 pt-2">
+        <div className="mt-auto flex flex-wrap gap-2">
           {recipe.tags.map((tag) => (
             <RemovableTag key={tag.id} isRemovable={false}>
               {tag.name}

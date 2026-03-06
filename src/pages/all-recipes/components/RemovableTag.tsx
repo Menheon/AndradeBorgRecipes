@@ -9,42 +9,15 @@ interface Props {
 
 export const RemovableTag = ({ children, onRemoved, isRemovable }: Props) => {
   return (
-    <div
-      className="
-        flex
-        items-center 
-        gap-2 
-        rounded-md 
-        bg-brown-300 
-        px-2 
-        py-1
-        text-grey-150
-        shadow-md"
-    >
-      <span className="font-semibold tracking-wide">{children}</span>
+    <div className="bg-sage-100 text-sage-700 hover:bg-sage-200 inline-flex items-center gap-1.5 rounded-full px-3 py-1 transition-colors">
+      <span className="text-sm font-medium tracking-wide">{children}</span>
       {isRemovable && onRemoved && (
         <button
           type="button"
-          className="
-            flex 
-            h-5 
-            w-5 
-            items-center 
-            rounded-full 
-            bg-brown-600 
-            p-0.5
-            focus-visible:base-outline"
+          className="bg-sage-300 focus-visible:base-outline hover:bg-sage-400 flex h-4 w-4 items-center justify-center rounded-full transition-colors"
           onClick={() => onRemoved()}
         >
-          <CloseIcon
-            className="
-              h-4
-              w-4 
-              cursor-pointer 
-              fill-brown-100
-              transition-colors 
-              hover:fill-brown-300"
-          />
+          <CloseIcon className="fill-sage-700 h-3 w-3" />
         </button>
       )}
     </div>

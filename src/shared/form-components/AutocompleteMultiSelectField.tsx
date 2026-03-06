@@ -123,17 +123,17 @@ export const AutocompleteMultiSelectField = <T,>({
           ref={refs.setFloating}
           style={floatingStyles}
           {...getFloatingProps()}
-          className="bg-brown-300 z-10 mb-2 max-h-80 overflow-y-auto rounded-md shadow-md shadow-black/50"
+          className="z-10 mb-2 max-h-80 overflow-y-auto rounded-lg border border-neutral-200 bg-white shadow-lg"
         >
           {filteredOptions.map((option) => (
             <li
               key={getOptionId(option)}
-              className="overflow-clip first:rounded-t-md last:rounded-b-md"
+              className="overflow-clip first:rounded-t-lg last:rounded-b-lg"
             >
               <button
                 id={keyPrefix + getOptionValue(option)}
                 onClick={() => handleOptionSelected(option)}
-                className="bg-brown-300 hover:bg-brown-100 hover:text-brown-600 focus-visible:outline-brown-100 w-full cursor-pointer rounded-md p-2 text-left text-white focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-solid"
+                className="hover:bg-primary-50 hover:text-primary-700 focus-visible:bg-primary-50 w-full cursor-pointer p-3 text-left text-neutral-700 transition-colors focus-visible:outline-hidden"
               >
                 {getOptionValue(option)}
               </button>
@@ -141,13 +141,14 @@ export const AutocompleteMultiSelectField = <T,>({
           ))}
 
           {!isCreateButtonDisabled() && (
-            <li className="overflow-clip rounded-b-md first:rounded-t-md">
+            <li className="overflow-clip border-t border-neutral-100 first:rounded-t-lg last:rounded-b-lg">
               <button
                 id={`${keyPrefix}create`}
                 onClick={handleOptionAdded}
-                className="bg-brown-300 hover:bg-brown-100 hover:text-brown-600 focus-visible:outline-brown-100 w-full cursor-pointer rounded-md p-2 text-left text-white focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-solid"
+                className="text-primary-600 hover:bg-primary-50 focus-visible:bg-primary-50 w-full cursor-pointer p-3 text-left transition-colors focus-visible:outline-hidden"
               >
-                {createNewOptionLabel} "<i>{inputValue}</i>"
+                {createNewOptionLabel} "
+                <span className="font-medium">{inputValue}</span>"
               </button>
             </li>
           )}

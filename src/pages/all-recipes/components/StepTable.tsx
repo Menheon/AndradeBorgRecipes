@@ -41,41 +41,26 @@ const StepTable = ({ sectionIndex }: Props) => {
 
   return (
     <>
-      <table className="w-full">
-        <thead>
-          {sections[sectionIndex].steps.length > 0 && (
-            <tr>
-              <td className="w-12 pl-3" />
-              <td className="pl-3" />
-            </tr>
-          )}
-        </thead>
-
-        <tbody>
-          {sections[sectionIndex].steps.map((step, stepIndex) => (
-            <tr key={`step-${stepIndex}`}>
-              <td className="p-0 pr-1">
-                <button
-                  type="button"
-                  className="bg-brown-300 focus-visible:ring-brown-100 mb-1 flex h-12 cursor-pointer items-center rounded-l p-2 transition-colors focus-visible:ring-3 focus-visible:outline-hidden focus-visible:ring-inset"
-                  onClick={() => removeStep(stepIndex)}
-                >
-                  <CloseIcon className="fill-brown-600 hover:fill-brown-500 h-7 w-7" />
-                </button>
-              </td>
-              <td className="p-0">
-                <div className="bg-brown-300 mb-1 flex h-12 items-center rounded-r px-1.5">
-                  <TextInputField
-                    value={step}
-                    onChange={(value) => updateStep(value, stepIndex)}
-                    placeholder={t(createRecipeTranslations.steps.writeStep)}
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="space-y-2">
+        {sections[sectionIndex].steps.map((step, stepIndex) => (
+          <div key={`step-${stepIndex}`} className="flex items-center gap-2">
+            <button
+              type="button"
+              className="focus-visible:ring-primary-300 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-neutral-200 transition-colors hover:bg-neutral-300 focus-visible:ring-2 focus-visible:outline-hidden"
+              onClick={() => removeStep(stepIndex)}
+            >
+              <CloseIcon className="h-5 w-5 fill-neutral-600 hover:fill-neutral-800" />
+            </button>
+            <div className="flex-1">
+              <TextInputField
+                value={step}
+                onChange={(value) => updateStep(value, stepIndex)}
+                placeholder={t(createRecipeTranslations.steps.writeStep)}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
       <TextButton onClicked={addStep}>
         {t(createRecipeTranslations.steps.addNewStep)}
       </TextButton>

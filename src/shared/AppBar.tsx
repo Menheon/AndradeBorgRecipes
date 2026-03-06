@@ -22,7 +22,7 @@ export const AppBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isUsingMobileMenu, setIsUsingMobileMenu] = useState(false);
+  const [isUsingMobileMenu, setIsUsingMobileMenu] = useState(true);
 
   const onHamburgerMenuClicked = () => {
     setIsUsingMobileMenu(true);
@@ -50,33 +50,38 @@ export const AppBar = () => {
   }
 
   return (
-    <nav className="bg-brown-100 fixed z-20 w-full shadow-md">
+    <nav className="fixed z-50 w-full border-b border-neutral-200 bg-white/95 shadow-sm backdrop-blur-md">
+      {/* Open Mobile menu */}
       <div
-        className={`bg-brown-200 fixed top-0 left-0 z-50 h-full w-full transform p-6 transition-all sm:hidden ${isUsingMobileMenu ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed inset-0 flex h-dvh w-full transform flex-col gap-8 bg-white transition-all duration-300 sm:hidden ${isUsingMobileMenu ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <button
-          type="button"
-          onClick={() => setIsUsingMobileMenu(false)}
-          className="focus-visible:base-outline absolute top-1 right-1 m-1 rounded-full transition"
-        >
-          <CloseIcon className="fill-brown-600 hover:fill-brown-500 h-8 w-8 cursor-pointer" />
-        </button>
-        <div className="flex h-full flex-col gap-2">
+        <div className="flex items-center justify-end px-4 py-3">
+          <button
+            type="button"
+            onClick={() => setIsUsingMobileMenu(false)}
+            className="rounded-lg p-2 transition hover:bg-neutral-100"
+          >
+            <CloseIcon className="h-7 w-7 cursor-pointer fill-neutral-700 hover:fill-neutral-900" />
+          </button>
+        </div>
+
+        <div className="flex h-full flex-col gap-2 px-4 pb-4">
           <button
             onClick={() => {
               setIsUsingMobileMenu(false);
               navigate(ALL_RECIPES_PATH);
             }}
-            className="text-brown-600 focus-visible:base-outline hover:text-brown-500 flex w-fit items-center gap-2 rounded-lg p-2 text-xl font-semibold tracking-wider transition-colors hover:scale-[102.5%]"
+            className="focus-visible:base-outline hover:text-primary-600 flex w-fit items-center gap-2 rounded-lg p-3 text-lg font-semibold tracking-wide text-neutral-700 transition-colors hover:bg-neutral-100"
           >
-            {t(appBarTranslations.recipes)} <SkilletIcon className="size-7" />
+            <SkilletIcon className="fill-primary-500 size-6" />
+            {t(appBarTranslations.recipes)}
           </button>
           <button
             onClick={() => {
               setIsUsingMobileMenu(false);
               navigate(INSPIRATION_PATH);
             }}
-            className="text-brown-600 focus-visible:base-outline hover:text-brown-500 hidden w-fit rounded-lg p-2 text-xl font-semibold tracking-wider transition-colors"
+            className="focus-visible:base-outline hover:text-primary-600 hidden w-fit rounded-lg p-3 text-lg font-semibold tracking-wide text-neutral-700 transition-colors hover:bg-neutral-100"
           >
             {t(appBarTranslations.inspiration)}
           </button>
@@ -85,12 +90,12 @@ export const AppBar = () => {
               setIsUsingMobileMenu(false);
               navigate(EMPTY_MY_FRIDGE_PATH);
             }}
-            className="text-brown-600 focus-visible:base-outline hover:text-brown-500 hidden w-fit rounded-lg p-2 text-xl font-semibold tracking-wider transition-colors"
+            className="focus-visible:base-outline hover:text-primary-600 hidden w-fit rounded-lg p-3 text-lg font-semibold tracking-wide text-neutral-700 transition-colors hover:bg-neutral-100"
           >
             {t(appBarTranslations.emptyMyFridge)}
           </button>
 
-          <div className="mt-auto mb-0">
+          <div className="mt-auto mb-0 border-t border-neutral-200 pt-4">
             <AppBarProfileStatus
               onNavigateToProfile={() => setIsUsingMobileMenu(false)}
             />
@@ -98,77 +103,46 @@ export const AppBar = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-5 px-5 py-3">
-        {isMinSmallScreen ? (
-          <>
-            <button
-              onClick={() => {
-                setIsUsingMobileMenu(false);
-                navigate(ALL_RECIPES_PATH);
-              }}
-              className="text-brown-600 focus-visible:base-outline hover:text-brown-500 flex items-center gap-1 rounded-lg px-2 text-lg font-bold tracking-wider transition-all hover:scale-[102.5%]"
-            >
-              {t(appBarTranslations.recipes)} <SkilletIcon className="size-7" />
-            </button>
-            <button
-              onClick={() => {
-                setIsUsingMobileMenu(false);
-                navigate(INSPIRATION_PATH);
-              }}
-              className="text-brown-600 hover:text-brown-500 hidden font-semibold tracking-wider transition-colors"
-            >
-              {t(appBarTranslations.inspiration)}
-            </button>
-            <button
-              onClick={() => {
-                setIsUsingMobileMenu(false);
-                navigate(EMPTY_MY_FRIDGE_PATH);
-              }}
-              className="text-brown-600 hover:text-brown-500 hidden font-semibold tracking-wider transition-colors"
-            >
-              {t(appBarTranslations.emptyMyFridge)}
-            </button>
-            {isMinLargeScreen && (
-              <div className="mr-0 ml-auto">
-                <AppBarProfileStatus
-                  onNavigateToProfile={() => setIsUsingMobileMenu(false)}
-                />
-              </div>
-            )}
-          </>
-        ) : (
-          <button
-            type="button"
-            onClick={onHamburgerMenuClicked}
-            className="focus-visible:base-outline rounded-lg"
-          >
-            <MenuIcon className="fill-brown-600 hover:fill-brown-500 h-8 w-8 transition-colors" />
-          </button>
-        )}
+      <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-3 sm:px-6 lg:px-8">
         {!isMinLargeScreen && (
-          <div className="mr-0 ml-auto flex items-center gap-2">
-            {isMinSmallScreen && (
-              <AppBarProfileStatus
-                onNavigateToProfile={() => setIsUsingMobileMenu(false)}
-              />
-            )}
-            <div className="bg-brown-100 p-1">
+          <div className="flex flex-1">
+            <Link
+              to={ALL_RECIPES_PATH}
+              className="rounded-lg p-1 transition-colors hover:bg-neutral-100"
+            >
               <Logo
-                className="text-brown-600 h-7 w-auto fill-current"
+                className="text-primary-600 h-8 w-auto fill-current"
                 onMouseDown={handleTouchStart}
                 onMouseUp={handleTouchEnd}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               />
-            </div>
+            </Link>
           </div>
         )}
+
+        {isMinSmallScreen ? (
+          <div className="mr-0 ml-auto">
+            <AppBarProfileStatus
+              onNavigateToProfile={() => setIsUsingMobileMenu(false)}
+            />
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={onHamburgerMenuClicked}
+            className="focus-visible:base-outline rounded-lg p-2 transition-colors hover:bg-neutral-100"
+          >
+            <MenuIcon className="h-7 w-7 fill-neutral-700 transition-colors hover:fill-neutral-900" />
+          </button>
+        )}
       </div>
+
       {isMinLargeScreen && (
-        <div className="border-brown-600 bg-brown-100 absolute top-3 right-0 left-0 z-10 mx-auto w-56 border-4 p-2 shadow-md">
+        <div className="absolute top-2 right-0 left-0 z-10 mx-auto w-48 rounded-xl border border-neutral-200 bg-white p-3 shadow-lg">
           <Link to={ALL_RECIPES_PATH}>
             <Logo
-              className="text-brown-600 -ml-1 w-full fill-current"
+              className="text-primary-600 hover:text-primary-500 -ml-0.5 w-full fill-current transition-colors"
               onMouseDown={handleTouchStart}
               onMouseUp={handleTouchEnd}
               onTouchStart={handleTouchStart}

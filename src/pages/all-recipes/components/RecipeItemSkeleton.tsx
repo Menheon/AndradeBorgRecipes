@@ -1,32 +1,38 @@
 export const RecipeItemSkeleton = () => {
   return (
-    <div className="flex h-[460px] flex-col items-center rounded-xl border-2 border-brown-600 bg-grey-200 shadow-lg  md:h-[525px] lg:h-[560px] xl:h-[525px]">
-      <div className="h-56  w-full animate-pulse rounded-t-lg border-b-2 border-brown-600 bg-grey-600 object-cover md:h-64" />
-      <div className="mt-3 flex w-full flex-1 animate-pulse gap-1 px-10">
-        <div className="h-8 w-7/12 rounded-full bg-grey-600" />
-        <div className="h-8 w-5/12 rounded-full bg-grey-600" />
-      </div>
-      <div className="w-full flex-1">
-        <div className="mt-8 flex w-full animate-pulse gap-2 px-4">
-          <div className="h-4 w-2/3 rounded-full bg-grey-600" />
-          <div className="h-4 w-1/3 rounded-full bg-grey-600" />
+    <div className="shadow-card flex min-h-[420px] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white md:min-h-[460px]">
+      {/* Image placeholder */}
+      <div className="h-48 w-full animate-pulse bg-neutral-200 md:h-56" />
+
+      {/* Content */}
+      <div className="flex flex-1 flex-col p-5">
+        {/* Title placeholder */}
+        <div className="mb-3 flex animate-pulse gap-2">
+          <div className="h-8 w-3/5 rounded-full bg-neutral-200" />
+          <div className="h-8 w-2/5 rounded-full bg-neutral-200" />
         </div>
-        <div className="mt-3 flex w-full animate-pulse gap-2 px-4">
-          <div className="h-4 w-3/12 rounded-full bg-grey-600" />
-          <div className="h-4 w-9/12 rounded-full bg-grey-600" />
+
+        {/* Description placeholder */}
+        <div className="mb-4 flex-1 space-y-2">
+          <div className="flex animate-pulse gap-2">
+            <div className="h-4 w-2/3 rounded-full bg-neutral-200" />
+            <div className="h-4 w-1/3 rounded-full bg-neutral-200" />
+          </div>
+          <div className="flex animate-pulse gap-2">
+            <div className="h-4 w-1/4 rounded-full bg-neutral-200" />
+            <div className="h-4 w-3/4 rounded-full bg-neutral-200" />
+          </div>
+          <div className="flex animate-pulse gap-2">
+            <div className="h-4 w-1/2 rounded-full bg-neutral-200" />
+            <div className="h-4 w-1/2 rounded-full bg-neutral-200" />
+          </div>
         </div>
-        <div className="mb-3 mt-2 flex w-full animate-pulse gap-2 px-4">
-          <div className="h-4 w-1/4 rounded-full bg-grey-600" />
-          <div className="h-4 w-3/4 rounded-full bg-grey-600" />
+
+        {/* Tags placeholder */}
+        <div className="mt-auto flex animate-pulse gap-2">
+          <div className="h-7 w-16 rounded-full bg-neutral-200" />
+          <div className="h-7 w-20 rounded-full bg-neutral-200" />
         </div>
-        <div className="mb-3 mt-2 hidden w-full animate-pulse gap-2 px-4 md:flex">
-          <div className="h-4 w-1/4 rounded-full bg-grey-600" />
-          <div className="h-4 w-3/4 rounded-full bg-grey-600" />
-        </div>
-      </div>
-      <div className="mb-4 flex w-full animate-pulse gap-1 px-4">
-        <div className="h-8 w-16 rounded-md bg-grey-600" />
-        <div className="h-8 w-16 rounded-md bg-grey-600" />
       </div>
     </div>
   );

@@ -45,23 +45,27 @@ export const BaseDialog = ({
 
   return (
     <dialog
-      className="shadow-3xl bg-grey-100 backdrop:bg-grey-900/50 w-full max-w-full min-w-fit justify-self-center rounded-xl backdrop:backdrop-blur-xs md:mx-10 md:my-8 md:w-2/3"
+      className="w-full max-w-full min-w-fit self-center justify-self-center overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl backdrop:bg-neutral-900/50 backdrop:backdrop-blur-sm md:mx-10 md:w-2/3"
       ref={dialogRef}
       onClose={onClose}
     >
-      <form method="dialog" className="p-6">
-        <div className="mb-1">
-          {/* TODO implement Typography component*/}
-          <h1 className="font-[system-ui] text-2xl font-bold">{title}</h1>
-          <div className="absolute top-1 right-1">
+      <form
+        method="dialog"
+        className="flex max-h-[calc(100vh-2rem)] flex-col gap-4 p-6"
+      >
+        <div className="border-b border-neutral-100">
+          <h1 className="font-caveat text-3xl font-bold tracking-wide text-neutral-800">
+            {title}
+          </h1>
+          <div className="absolute top-2 right-2">
             <IconButton icon="close" onClick={onClose} />
           </div>
-          <p>{description}</p>
+          {description && (
+            <p className="mt-1 text-sm text-neutral-500">{description}</p>
+          )}
         </div>
-        <div className="max-h-[calc(100dvh-200px)] overflow-y-auto">
-          {children}
-        </div>
-        <div className="flex justify-end gap-5 pt-3">
+        <div className="overflow-y-auto">{children}</div>
+        <div className="flex justify-end gap-3 border-t border-neutral-100 pt-4">
           <FilledButton onClick={() => onClose?.()} type="secondary">
             {t(generalTranslations.actions.cancel)}
           </FilledButton>
