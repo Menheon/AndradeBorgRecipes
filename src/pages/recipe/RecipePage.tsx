@@ -138,10 +138,10 @@ export const RecipePage = () => {
           <div className="mt-auto border-t border-neutral-200 bg-neutral-50 p-6">
             {recipe.sections.map((section) => (
               <div
-                className="xs:grid-cols-2 grid grid-cols-1 gap-6"
+                className="grid grid-cols-1 gap-6 sm:grid-cols-2"
                 key={section.title}
               >
-                <h3 className="font-caveat xs:col-span-2 col-span-1 text-center text-2xl font-bold text-neutral-800">
+                <h3 className="font-caveat col-span-full text-center text-2xl font-bold text-neutral-800">
                   {section.title}
                 </h3>
 
