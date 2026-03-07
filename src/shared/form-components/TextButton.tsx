@@ -19,7 +19,7 @@ export const TextButton = ({
     <button
       type="button"
       className={cn(
-        "hover:text-primary-600 focus-visible:ring-primary-300 font-medium text-neutral-700 outline-hidden transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-inset",
+        "hover:text-primary-600 focus-visible:ring-primary-300 dark:hover:text-primary-400 font-medium text-neutral-700 outline-hidden transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-inset dark:text-neutral-200 dark:hover:bg-neutral-700",
         {
           "m-0 flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm":
             size === "sm",

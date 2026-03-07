@@ -52,25 +52,25 @@ export const RecipePage = () => {
     <div className="px-4 py-8 sm:px-6 md:px-8 lg:px-32 xl:px-40 2xl:px-72">
       {isFetching && (
         <div className="absolute inset-0 flex h-dvh items-center justify-center">
-          <p className="font-caveat text-center text-5xl font-bold tracking-wide text-neutral-600">
+          <p className="font-caveat text-center text-5xl font-bold tracking-wide text-neutral-600 dark:text-neutral-400">
             {t(recipeTranslations.loadingRecipe)}
           </p>
         </div>
       )}
 
       {isError && !isFetching && (
-        <p className="py-12 text-center text-xl text-neutral-600">
+        <p className="py-12 text-center text-xl text-neutral-600 dark:text-neutral-400">
           {t(recipeTranslations.errorLoadingRecipe)}
         </p>
       )}
 
       {isSuccess && recipe && (
-        <div className="shadow-card relative flex min-h-187.5 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+        <div className="shadow-card relative flex min-h-187.5 flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-800">
           {/* Header */}
-          <div className="border-b border-neutral-100 bg-neutral-50 px-4 py-4 sm:px-6 sm:py-5">
+          <div className="border-b border-neutral-100 bg-neutral-50 px-4 py-4 sm:px-6 sm:py-5 dark:border-neutral-700 dark:bg-neutral-800/50">
             <div className="flex items-center justify-between gap-3">
               {/* Title - centered with flex-1 */}
-              <h1 className="font-caveat min-w-0 flex-1 text-3xl font-bold tracking-wide text-neutral-800 sm:text-4xl md:text-5xl">
+              <h1 className="font-caveat min-w-0 flex-1 text-3xl font-bold tracking-wide text-neutral-800 sm:text-4xl md:text-5xl dark:text-neutral-100">
                 {recipe.name}
               </h1>
 
@@ -132,7 +132,7 @@ export const RecipePage = () => {
               />
             )}
             <div className="flex flex-1 flex-col p-6">
-              <p className="text-lg leading-relaxed text-neutral-700">
+              <p className="text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
                 {recipe.description}
               </p>
               <div className="mt-auto flex flex-wrap gap-2 pt-4">
@@ -146,25 +146,25 @@ export const RecipePage = () => {
           </div>
 
           {/* Sections */}
-          <div className="mt-auto border-t border-neutral-200 bg-neutral-50 p-6">
+          <div className="mt-auto border-t border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-800/50">
             {recipe.sections.map((section) => (
               <div
                 className="grid grid-cols-1 gap-6 sm:grid-cols-2"
                 key={section.title}
               >
-                <h3 className="font-caveat col-span-full text-center text-2xl font-bold text-neutral-800">
+                <h3 className="font-caveat col-span-full text-center text-2xl font-bold text-neutral-800 dark:text-neutral-100">
                   {section.title}
                 </h3>
 
                 {/* Ingredients */}
-                <div className="shadow-card rounded-xl bg-white p-5">
-                  <h4 className="text-primary-600 mb-3 text-xs font-semibold tracking-wider uppercase">
+                <div className="shadow-card rounded-xl bg-white p-5 dark:bg-neutral-700">
+                  <h4 className="text-primary-600 dark:text-primary-400 mb-3 text-xs font-semibold tracking-wider uppercase">
                     {t(recipeTranslations.ingredients)}
                   </h4>
                   <ul className="space-y-2">
                     {section.ingredients.map((ingredientLine, i) => (
                       <li
-                        className="flex items-center gap-2 text-neutral-700"
+                        className="flex items-center gap-2 text-neutral-700 dark:text-neutral-200"
                         key={ingredientLine.id ?? i}
                       >
                         <span className="bg-primary-400 h-1.5 w-1.5 shrink-0 rounded-full" />
@@ -180,8 +180,8 @@ export const RecipePage = () => {
                 </div>
 
                 {/* Steps */}
-                <div className="shadow-card rounded-xl bg-white p-5">
-                  <h4 className="text-primary-600 mb-3 text-xs font-semibold tracking-wider uppercase">
+                <div className="shadow-card rounded-xl bg-white p-5 dark:bg-neutral-700">
+                  <h4 className="text-primary-600 dark:text-primary-400 mb-3 text-xs font-semibold tracking-wider uppercase">
                     {t(recipeTranslations.steps)}
                   </h4>
                   <div className="space-y-1">

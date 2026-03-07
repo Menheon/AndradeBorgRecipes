@@ -25,6 +25,7 @@ type Translations = {
         loadingRecipes: string;
         loadError: string;
         noMatchingRecipes: string;
+        noRecipes: string;
         searchPlaceholder: string;
         deleteRecipe: {
           deleteRecipeTitle: string;
@@ -120,6 +121,7 @@ export const translations: Translations = {
         loadingRecipes: "Indlæser opskrifter...",
         loadError: "Der opstod en fejl under indlæsningen af opskrifterne",
         noMatchingRecipes: "Hovsa! Ingen matchende opskrifter fundet...",
+        noRecipes: "Ingen opskrifter fundet.",
         searchPlaceholder: "Søg efter opskrifter...",
         deleteRecipe: {
           deleteRecipeTitle: "Slet opskrift",
@@ -214,6 +216,7 @@ export const translations: Translations = {
         loadingRecipes: "Loading recipes...",
         loadError: "Failed to load recipes",
         noMatchingRecipes: "Whoops! No recipes matching your search...",
+        noRecipes: "No recipes found.",
         searchPlaceholder: "Search for recipes...",
         deleteRecipe: {
           deleteRecipeTitle: "Delete Recipe",

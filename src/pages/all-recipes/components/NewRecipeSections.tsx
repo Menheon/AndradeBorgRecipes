@@ -63,19 +63,19 @@ export const NewRecipeSections = () => {
       {sections.map((section, index) => (
         <div
           key={section.id ?? index}
-          className="relative rounded-xl border border-neutral-200 bg-neutral-50 p-4 shadow-sm"
+          className="relative rounded-xl border border-neutral-200 bg-neutral-50 p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800"
         >
           <button
             type="button"
             onClick={() => removeSection(index)}
-            className="focus-visible:base-outline absolute top-2 right-2 rounded-full p-1 transition-colors hover:bg-neutral-200"
+            className="focus-visible:base-outline absolute top-2 right-2 rounded-full p-1 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-700"
           >
-            <CloseIcon className="h-5 w-5 fill-neutral-500 transition-colors hover:fill-neutral-700" />
+            <CloseIcon className="h-5 w-5 fill-neutral-500 transition-colors hover:fill-neutral-700 dark:fill-neutral-400 dark:hover:fill-neutral-200" />
           </button>
 
           <div className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+              <label className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-100">
                 {t(createRecipeSectionsTranslations.sectionTitle)}
               </label>
               <TextInputField
@@ -88,14 +88,14 @@ export const NewRecipeSections = () => {
             </div>
 
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+              <label className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-100">
                 {t(createRecipeSectionsTranslations.stepsTitle)}
               </label>
               <StepTable sectionIndex={index} />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+              <label className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-100">
                 {t(
                   createRecipeSectionsTranslations.ingredients.ingredientsTitle,
                 )}

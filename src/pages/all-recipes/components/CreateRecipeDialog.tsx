@@ -136,7 +136,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
         {/* Left Column - Basic Info */}
         <div className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-100">
               {t(createRecipeTranslations.generalData.title)}
             </label>
             <Controller
@@ -173,7 +173,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
           />
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-100">
               {t(createRecipeTranslations.generalData.imageUrl)}
             </label>
             <Controller
@@ -192,7 +192,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-100">
               {t(createRecipeTranslations.tags.tagsTitle)}
             </label>
             {isTagsLoading ? (
@@ -242,7 +242,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
 
         {/* Right Column - Description */}
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+          <label className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-100">
             {t(createRecipeTranslations.generalData.description)}
           </label>
           <Controller
@@ -264,7 +264,7 @@ export const CreateRecipeDialog = ({ isOpen, onClose }: Props) => {
 
         {/* Full Width - Sections */}
         <div className="col-span-1 sm:col-span-2">
-          <label className="mb-2 block text-sm font-medium text-neutral-700">
+          <label className="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-100">
             {t(createRecipeTranslations.sections.sectionsTitle)}
           </label>
           <FormProvider {...methods}>

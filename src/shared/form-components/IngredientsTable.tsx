@@ -115,10 +115,10 @@ export const IngredientsTable = ({ section }: Props) => {
             <div key={value.id ?? index} className="flex items-center gap-2">
               <button
                 type="button"
-                className="focus-visible:ring-primary-300 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-neutral-200 transition-colors hover:bg-neutral-300 focus-visible:ring-2 focus-visible:outline-hidden"
+                className="group focus-visible:ring-primary-300 flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-neutral-200 transition-colors hover:bg-neutral-300 focus-visible:ring-2 focus-visible:outline-hidden dark:border-neutral-600 dark:bg-neutral-700 dark:hover:bg-neutral-600"
                 onClick={() => removeIngredientLine(index)}
               >
-                <CloseIcon className="h-5 w-5 fill-neutral-600 hover:fill-neutral-800" />
+                <CloseIcon className="h-5 w-5 fill-neutral-600 group-hover:fill-neutral-800 dark:fill-neutral-400 dark:group-hover:fill-neutral-200" />
               </button>
 
               <div className="grid flex-1 grid-cols-3 gap-2">

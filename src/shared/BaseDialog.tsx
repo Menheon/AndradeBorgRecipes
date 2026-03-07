@@ -45,7 +45,7 @@ export const BaseDialog = ({
 
   return (
     <dialog
-      className="w-full max-w-full min-w-fit self-center justify-self-center overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl backdrop:bg-neutral-900/50 backdrop:backdrop-blur-sm md:mx-10 md:w-2/3"
+      className="w-full max-w-full min-w-fit self-center justify-self-center overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl backdrop:bg-neutral-900/50 backdrop:backdrop-blur-sm md:mx-10 md:w-2/3 dark:border-neutral-700 dark:bg-neutral-800"
       ref={dialogRef}
       onClose={onClose}
     >
@@ -53,19 +53,21 @@ export const BaseDialog = ({
         method="dialog"
         className="flex max-h-[calc(100vh-2rem)] flex-col gap-4 p-6"
       >
-        <div className="border-b border-neutral-100">
-          <h1 className="font-caveat text-3xl font-bold tracking-wide text-neutral-800">
+        <div className="border-b border-neutral-100 dark:border-neutral-700">
+          <h1 className="font-caveat text-3xl font-bold tracking-wide text-neutral-800 dark:text-neutral-100">
             {title}
           </h1>
           <div className="absolute top-2 right-2">
             <IconButton icon="close" onClick={onClose} />
           </div>
           {description && (
-            <p className="mt-1 text-sm text-neutral-500">{description}</p>
+            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+              {description}
+            </p>
           )}
         </div>
         <div className="overflow-y-auto">{children}</div>
-        <div className="flex justify-end gap-3 border-t border-neutral-100 pt-4">
+        <div className="flex justify-end gap-3 border-t border-neutral-100 pt-4 dark:border-neutral-700">
           <FilledButton onClick={() => onClose?.()} type="secondary">
             {t(generalTranslations.actions.cancel)}
           </FilledButton>

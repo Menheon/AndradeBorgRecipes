@@ -46,7 +46,7 @@ export const AppBarProfileStatus = ({ onNavigateToProfile }: Props) => {
               />
             </div>
           ) : (
-            <AccountIcon className="ml-0.5 size-7 fill-neutral-600" />
+            <AccountIcon className="ml-0.5 size-7 fill-neutral-600 dark:fill-neutral-400" />
           )
         }
       >

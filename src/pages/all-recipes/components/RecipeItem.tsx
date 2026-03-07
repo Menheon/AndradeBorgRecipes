@@ -17,9 +17,9 @@ export const RecipeItem = ({ recipe }: Props) => {
       to={generatePath(RECIPE_ITEM_PATH, { recipeId: recipe.id ?? "" })}
       tabIndex={-1}
     >
-      <button className="group shadow-card focus-visible:base-outline hover:shadow-card-hover flex h-full min-h-105 w-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:z-10 hover:scale-[1.02] active:scale-[0.98] md:min-h-115">
+      <button className="group shadow-card focus-visible:base-outline hover:shadow-card-hover flex h-full min-h-105 w-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-300 hover:z-10 hover:scale-[1.02] active:scale-[0.98] md:min-h-115 dark:border-neutral-700 dark:bg-neutral-800">
         {/* Image Container */}
-        <div className="relative h-48 w-full overflow-hidden bg-neutral-200 md:h-56">
+        <div className="relative h-48 w-full overflow-hidden bg-neutral-200 md:h-56 dark:bg-neutral-700">
           <img
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             src={recipe.imageUrl}
@@ -31,10 +31,10 @@ export const RecipeItem = ({ recipe }: Props) => {
 
         {/* Content */}
         <div className="flex flex-1 flex-col p-5">
-          <h2 className="font-caveat mb-2 text-3xl leading-tight font-bold tracking-wide text-neutral-800 md:text-4xl">
+          <h2 className="font-caveat mb-2 text-3xl leading-tight font-bold tracking-wide text-neutral-800 md:text-4xl dark:text-neutral-100">
             {recipe.name}
           </h2>
-          <p className="mb-4 line-clamp-3 flex-1 text-left text-base leading-relaxed text-neutral-600">
+          <p className="mb-4 line-clamp-3 flex-1 text-left text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
             {recipe.description}
           </p>
           <div className="mt-auto flex flex-wrap gap-2">

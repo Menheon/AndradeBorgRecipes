@@ -15,6 +15,7 @@ export const AllRecipesPage = () => {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isCreatingRecipe, setIsCreatingRecipe] = useState(false);
   const { storedUserData } = useAuth();
+  const [isUsingSearch, setIsUsingSearch] = useState(false);
 
   const {
     data: recipes,
@@ -38,8 +39,10 @@ export const AllRecipesPage = () => {
 
   const onSearchInputValueChanged = (newValue: string) => {
     if (newValue === "") {
+      setIsUsingSearch(false);
       return setFilteredRecipes(allRecipes);
     }
+    setIsUsingSearch(true);
     const searchValue = newValue.toLowerCase();
 
     const newFilteredRecipes = allRecipes
@@ -74,8 +77,7 @@ export const AllRecipesPage = () => {
             src="https://static.vecteezy.com/system/resources/previews/024/396/481/large_2x/table-scene-with-a-selection-of-delicious-foods-top-view-over-a-dark-wood-banner-background-generate-ai-free-photo.jpg"
             alt="table-with-food"
           />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-linear-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-50" />
+          <div className="absolute inset-0 bg-linear-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-50 dark:to-neutral-900" />
         </div>
 
         {/* Hero Content */}
@@ -106,15 +108,24 @@ export const AllRecipesPage = () => {
       {/* Recipe Grid */}
       <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         {isRecipesQueryError && (
-          <p className="py-12 text-center text-xl text-neutral-600">
+          <p className="py-12 text-center text-xl text-neutral-600 dark:text-neutral-400">
             {t(recipesTranslations.loadError)}
           </p>
         )}
-        {isRecipesQuerySuccess && filteredRecipes.length === 0 && (
-          <p className="py-12 text-center text-xl text-neutral-600">
-            {t(recipesTranslations.noMatchingRecipes)}
-          </p>
-        )}
+        {isRecipesQuerySuccess &&
+          isUsingSearch &&
+          filteredRecipes.length === 0 && (
+            <p className="py-12 text-center text-xl text-neutral-600 dark:text-neutral-400">
+              {t(recipesTranslations.noMatchingRecipes)}
+            </p>
+          )}
+        {isRecipesQuerySuccess &&
+          !isUsingSearch &&
+          filteredRecipes.length === 0 && (
+            <p className="py-12 text-center text-xl text-neutral-600 dark:text-neutral-400">
+              {t(recipesTranslations.noRecipes)}
+            </p>
+          )}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {isLoadingRecipes && (
             <>

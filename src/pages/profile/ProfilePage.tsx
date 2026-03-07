@@ -76,9 +76,9 @@ export const ProfilePage = () => {
   return (
     <div className="px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
-        <div className="shadow-card overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+        <div className="shadow-card overflow-hidden rounded-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-800">
           {/* Header */}
-          <div className="relative border-b border-neutral-100 bg-neutral-50 px-6 py-6">
+          <div className="relative border-b border-neutral-100 bg-neutral-50 px-6 py-6 dark:border-neutral-700 dark:bg-neutral-800/50">
             <div className="absolute top-1/2 left-4 -translate-y-1/2">
               <IconButton
                 icon="chevron-left"
@@ -86,7 +86,7 @@ export const ProfilePage = () => {
                 size="lg"
               />
             </div>
-            <h1 className="font-caveat text-center text-4xl font-bold tracking-wide text-neutral-800">
+            <h1 className="font-caveat text-center text-4xl font-bold tracking-wide text-neutral-800 dark:text-neutral-100">
               {t(profilePageTranslations.myProfile)}
             </h1>
           </div>
@@ -94,7 +94,7 @@ export const ProfilePage = () => {
           {/* Content */}
           <div className="flex flex-col items-center p-6">
             {isLoadingSignIn && (
-              <p className="py-8 text-center text-lg text-neutral-500">
+              <p className="py-8 text-center text-lg text-neutral-500 dark:text-neutral-400">
                 {t(profilePageTranslations.loadingProfileData)}
               </p>
             )}
@@ -108,17 +108,17 @@ export const ProfilePage = () => {
             {!isLoadingSignIn && (
               <>
                 <div className="mb-6 flex flex-col items-center text-center">
-                  <p className="text-xl font-medium text-neutral-700">
+                  <p className="text-xl font-medium text-neutral-700 dark:text-neutral-200">
                     {welcomeMessage}
                   </p>
                   {!googleUserData && (
-                    <p className="mt-3 text-base text-neutral-500">
+                    <p className="mt-3 text-base text-neutral-500 dark:text-neutral-400">
                       {t(profilePageTranslations.notLoggedIn)}
                     </p>
                   )}
                   {googleUserData && storedUserData && (
                     <div className="mt-6 w-full max-w-xs">
-                      <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase">
+                      <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
                         {t(profilePageTranslations.preferredLanguage.title)}
                       </h2>
                       <Controller
