@@ -3,6 +3,7 @@ import { RouteObject, useRoutes } from "react-router-dom";
 import { AllRecipesPage } from "@/pages/all-recipes/AllRecipesPage";
 import { RecipePage } from "@/pages/recipe/RecipePage";
 import { ProfilePage } from "@/pages/profile/ProfilePage";
+import { NotFoundPage } from "@/pages/not-found/NotFoundPage";
 
 export const ROOT_PATH = "/";
 export const RECIPE_ITEM_PATH = "/recipes/:recipeId";
@@ -31,6 +32,10 @@ export const routes: RouteObject[] = [
   {
     path: PROFILE,
     element: <ProfilePage />,
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ];
 

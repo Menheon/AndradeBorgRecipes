@@ -2,7 +2,7 @@ import { cn } from "./helpers/cn";
 
 interface Props {
   children: string;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   type: "primary" | "secondary";
 }
